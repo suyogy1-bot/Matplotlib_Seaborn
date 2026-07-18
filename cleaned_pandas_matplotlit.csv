@@ -1,0 +1,468 @@
+,Movie_ID,Title,Genre,Release_Year,Rating,Duration,Director,Country,Language,Budget,Revenue,Platform,Age_Rating,Added_Date,Status
+0,1,Dangal,Action,2018,5.5,154,Director 4,AUSTRALIA,hindi,188.0,171246.0,Netflix,PG-13,2020-02-10,Released
+1,2,Avengers,Thriller,2018,5.2,97,Director 19, INDIA ,hindi,312.0,935698.0,Amazon Prime,U,2025-10-19,Released
+2,3,Bahubali,Sci-Fi,2018,7.4,148,Director 28,AUSTRALIA,french,252.0,354813.0,Amazon Prime,U/A,2022-03-10,Upcoming
+3,4,Dangal,Comedy,2018,5.8,123,Director 10, USA ,french,188.0,882571.0,Disney+ Hotstar,A,2024-06-23,Upcoming
+4,5,Avengers,Comedy,2020,8.3,87,Director 20, USA ,spanish,197.0,,JioHotstar,A,2020-06-10,Upcoming
+5,6,Inception,Sci-Fi,2021,9.3,90,Director 11, USA ,french,90.0,984563.0,Disney+ Hotstar,PG-13,2023-12-11,Released
+6,7,3 Idiots,Romance,2019,7.516470588235293,155,Director 12,JAPAN,spanish,188.0,478624.0,Disney+ Hotstar,U/A,2024-09-23,Released
+7,8,Joker,Romance,2024,7.0,130,Director 7, USA ,hindi,117.0,,Amazon Prime,PG-13,2022-06-02,Released
+9,10,Leo,Comedy,2023,6.3,168,Director 11,AUSTRALIA,english,290.0,806556.0,Netflix,A,2025-02-21,Upcoming
+10,11,Kalki,Sci-Fi,2022,7.5,161,Director 15,CANADA,,225.0,332204.0,JioHotstar,A,2020-01-24,Upcoming
+11,12,Leo,Horror,2021,8.5,124,Director 24,USA,hindi,260.0,309494.0,Netflix,PG-13,2025-06-21,Released
+12,13,Jawan,Sci-Fi,2021,7.1,161,Director 22,USA,,222.0,861969.0,Netflix,U/A,2020-06-03,Released
+13,14,Avengers,Drama,2022,9.8,164,Director 23,UK,english,30.0,,Netflix,U/A,2021-04-14,Released
+14,15,Pushpa,Sci-Fi,2020,7.1,96,Director 4,AUSTRALIA,french,284.0,999513.0,Amazon Prime,U/A,2020-09-17,Upcoming
+15,16,Interstellar,Drama,2019,8.0,95,Director 4,AUSTRALIA,hindi,304.0,895108.0,Netflix,U/A,2020-07-05,Released
+16,17,Kalki,Comedy,2021,9.8,157,Director 33,CANADA,hindi,280.0,589519.0,Amazon Prime,A,2023-04-18,Released
+17,18,Moana,Comedy,2023,5.4,165,Director 20,USA,,349.0,246259.0,Amazon Prime,PG-13,2020-08-12,Upcoming
+18,19,Leo,Sci-Fi,2019,9.9,131,Director 22, INDIA ,hindi,67.0,119346.0,JioHotstar,PG-13,2023-01-23,Upcoming
+19,20,Kalki,Comedy,2018,8.9,93,Director 6,JAPAN,spanish,188.0,376773.0,Amazon Prime,PG-13,2022-11-28,Upcoming
+20,21,3 Idiots,Animation,2023,6.4,168,Director 12, INDIA ,english,28.0,920266.0,Netflix,U/A,2020-03-05,Upcoming
+21,22,Avatar,Romance,2022,7.6,110,Director 8,UK,spanish,188.0,419643.0,Disney+ Hotstar,U/A,2024-10-08,Released
+22,23,Pushpa,Romance,2018,7.516470588235293,173,Director 33,AUSTRALIA,hindi,145.0,208674.0,JioHotstar,PG-13,2024-07-18,Upcoming
+23,24,Frozen,Romance,2019,6.7,86,Director 9,INDIA,english,150.0,156086.0,JioHotstar,A,2025-04-20,Upcoming
+24,25,Inception,Animation,2018,9.7,150,Director 21,CANADA,english,178.0,287001.0,Disney+ Hotstar,PG-13,2022-03-08,Released
+25,26,Rrr,Romance,2024,7.0,85,Director 26,INDIA,spanish,139.0,641873.0,Amazon Prime,PG-13,2025-06-25,Upcoming
+26,27,3 Idiots,Drama,2018,8.5,145,Director 28,AUSTRALIA,hindi,278.0,932823.0,Netflix,U/A,2020-03-01,Released
+27,28,Bahubali,Animation,2022,7.516470588235293,82,Director 35,CANADA,french,253.0,866954.0,Netflix,U,2023-12-24,Upcoming
+28,29,Titanic,Sci-Fi,2019,9.8,143,Director 25,USA,french,167.0,731647.0,Amazon Prime,U,2022-03-20,Upcoming
+29,30,Kgf,Animation,2018,9.8,92,Director 14, USA ,spanish,166.0,577785.0,Netflix,U/A,2023-10-02,Released
+30,31,Kgf,Animation,2020,9.5,106,Director 5,USA,hindi,154.0,235617.0,Disney+ Hotstar,U,2021-06-23,Upcoming
+31,32,Leo,Animation,2023,6.5,98,Director 27,AUSTRALIA,french,189.0,,Disney+ Hotstar,PG-13,2025-04-04,Released
+32,33,Kgf,Thriller,2024,6.8,134,Director 18,INDIA,spanish,166.0,252255.0,Disney+ Hotstar,PG-13,2021-06-17,Upcoming
+33,34,Moana,Romance,2021,9.6,150,Director 14,USA,english,230.0,870141.0,Disney+ Hotstar,PG-13,2021-02-09,Released
+34,35,Leo,Romance,2023,8.2,131,Director 16,JAPAN,french,221.0,758165.0,Netflix,U/A,2024-08-17,Released
+35,36,Joker,Animation,2021,5.9,91,Director 12,AUSTRALIA,english,142.0,928583.0,Amazon Prime,U,2023-07-24,Upcoming
+36,37,Kalki,Action,2021,9.7,96,Director 33,AUSTRALIA,hindi,130.0,354393.0,JioHotstar,PG-13,2020-05-14,Released
+37,38,Inception,Animation,2022,5.4,147,Director 30, USA ,hindi,134.0,634995.0,Netflix,PG-13,2020-03-09,Released
+38,39,3 Idiots,Romance,2023,5.6,112,Director 34, INDIA ,hindi,70.0,,Amazon Prime,PG-13,2024-09-04,Released
+39,40,Avatar,Romance,2020,9.3,140,Director 34,CANADA,english,230.0,414056.0,Netflix,U/A,2025-11-16,Upcoming
+40,41,Titanic,Horror,2019,8.4,171,Director 27,AUSTRALIA,hindi,23.0,856865.0,Netflix,U/A,2022-04-16,Released
+41,42,Rrr,Romance,2018,7.4,103,Director 15, USA ,french,48.0,249944.0,JioHotstar,U,2024-07-01,Released
+43,44,Bahubali,Comedy,2018,7.516470588235293,90,Director 23, INDIA ,english,126.0,887841.0,Disney+ Hotstar,PG-13,2025-03-01,Upcoming
+44,45,Frozen,Sci-Fi,2020,9.4,83,Director 27,CANADA,,227.0,,Netflix,PG-13,2022-03-01,Released
+45,46,Titanic,Romance,2020,8.0,113,Director 21,JAPAN,spanish,188.0,924649.0,Netflix,U,2020-04-27,Upcoming
+46,47,Joker,Romance,2021,5.7,143,Director 12,INDIA,,175.0,891154.0,Amazon Prime,A,2023-06-28,Upcoming
+48,49,Joker,Animation,2022,6.2,148,Director 8,JAPAN,spanish,157.0,855266.0,Amazon Prime,PG-13,2021-08-03,Released
+49,50,3 Idiots,Sci-Fi,2020,7.516470588235293,112,Director 16,AUSTRALIA,english,71.0,137104.0,Netflix,PG-13,2023-04-27,Upcoming
+50,51,Inception,Action,2019,9.1,104,Director 5,AUSTRALIA,english,249.0,893796.0,Netflix,U,2025-10-21,Upcoming
+52,53,The Batman,Thriller,2023,8.1,91,Director 11, INDIA ,hindi,165.0,527976.0,Netflix,A,2022-10-24,Upcoming
+54,55,Coco,Horror,2023,5.7,116,Director 11,AUSTRALIA,hindi,75.0,871824.0,Amazon Prime,A,2023-05-01,Upcoming
+55,56,Inception,Comedy,2023,9.0,100,Director 15, INDIA ,english,262.0,323042.0,JioHotstar,U/A,2020-06-13,Released
+56,57,Rrr,Sci-Fi,2018,9.1,166,Director 3,AUSTRALIA,english,253.0,742796.0,Disney+ Hotstar,PG-13,2021-10-10,Upcoming
+57,58,Coco,Animation,2019,7.516470588235293,159,Director 32, USA ,hindi,336.0,569856.0,Amazon Prime,PG-13,2020-02-13,Released
+58,59,Bahubali,Animation,2022,5.2,161,Director 9,USA,hindi,281.0,,JioHotstar,U/A,2024-01-02,Released
+59,60,Frozen,Romance,2024,5.8,180,Director 15,USA,,149.0,728281.0,JioHotstar,U/A,2023-09-09,Released
+60,61,Avengers,Horror,2020,7.516470588235293,103,Director 26,UK,hindi,187.0,272811.0,Disney+ Hotstar,U,2020-09-25,Upcoming
+61,62,Joker,Comedy,2020,8.1,130,Director 24,JAPAN,french,315.0,438782.0,Netflix,PG-13,2024-08-03,Released
+62,63,Kgf,Romance,2024,8.3,120,Director 1,INDIA,hindi,335.0,527524.0,Disney+ Hotstar,U,2021-05-08,Released
+64,65,Joker,Romance,2024,9.0,81,Director 4,AUSTRALIA,spanish,316.0,630751.0,JioHotstar,U/A,2020-06-01,Released
+66,67,Inception,Animation,2023,6.8,135,Director 30,USA,hindi,109.0,207267.0,Amazon Prime,U,2025-04-06,Upcoming
+67,68,Inception,Thriller,2023,7.6,113,Director 19,CANADA,english,27.0,341861.0,Amazon Prime,U/A,2021-06-24,Upcoming
+68,69,Dangal,Romance,2023,9.1,148,Director 31, USA ,,23.0,547978.0,Amazon Prime,A,2023-04-26,Released
+69,70,Avengers,Action,2018,9.6,124,Director 10,INDIA,english,188.0,749043.0,Netflix,U,2022-03-10,Released
+70,71,The Batman,Thriller,2018,6.0,84,Director 3,USA,,343.0,202135.0,Netflix,U/A,2022-10-06,Upcoming
+72,73,Bahubali,Sci-Fi,2019,9.1,153,Director 19,UK,french,188.0,880768.0,Netflix,U,2020-12-08,Upcoming
+73,74,Interstellar,Action,2020,5.8,107,Director 15, USA ,hindi,345.0,602806.0,Netflix,A,2023-12-02,Upcoming
+74,75,Titanic,Horror,2019,7.1,149,Director 33,UK,french,342.0,571129.0,Netflix,A,2024-06-19,Released
+75,76,Joker,Drama,2021,8.8,154,Director 15,UK,spanish,141.0,373308.0,Amazon Prime,U/A,2022-08-12,Upcoming
+76,77,Interstellar,Romance,2023,5.8,164,Director 7,CANADA,french,95.0,850304.0,JioHotstar,A,2025-07-02,Released
+77,78,Pushpa,Action,2018,8.9,168,Director 15,AUSTRALIA,hindi,31.0,718755.0,JioHotstar,U,2023-04-24,Upcoming
+78,79,Rrr,Romance,2023,6.1,103,Director 8, USA ,french,341.0,529248.0,JioHotstar,U/A,2023-09-07,Upcoming
+79,80,Avatar,Romance,2023,5.9,163,Director 21,INDIA,french,74.0,,Amazon Prime,U/A,2024-04-23,Upcoming
+80,81,Jawan,Sci-Fi,2023,5.1,127,Director 34,AUSTRALIA,french,253.0,800188.0,JioHotstar,U,2022-10-24,Released
+81,82,Pushpa,Action,2018,7.1,169,Director 23,JAPAN,english,225.0,639994.0,Amazon Prime,PG-13,2021-04-15,Released
+82,83,Titanic,Animation,2023,6.1,98,Director 23, INDIA ,french,300.0,898853.0,JioHotstar,A,2022-04-26,Upcoming
+83,84,Pushpa,Animation,2018,8.9,125,Director 16,JAPAN,spanish,239.0,187675.0,Disney+ Hotstar,U/A,2020-10-07,Released
+84,85,Avengers,Drama,2022,8.1,81,Director 1,CANADA,english,148.0,692146.0,Amazon Prime,U/A,2022-08-25,Released
+85,86,Frozen,Drama,2022,8.0,180,Director 6,AUSTRALIA,,172.0,809218.0,Netflix,PG-13,2024-02-22,Released
+86,87,Pushpa,Animation,2021,7.4,98,Director 32,CANADA,french,326.0,106164.0,Disney+ Hotstar,PG-13,2023-10-23,Upcoming
+87,88,Joker,Romance,2018,6.8,162,Director 2,INDIA,english,188.0,438828.0,Netflix,PG-13,2020-03-16,Released
+88,89,Moana,Romance,2020,8.8,150,Director 14,JAPAN,french,148.0,946296.0,Disney+ Hotstar,A,2023-08-27,Upcoming
+89,90,Kalki,Horror,2019,8.9,122,Director 13,AUSTRALIA,hindi,320.0,189803.0,Netflix,PG-13,2023-09-24,Released
+90,91,Coco,Sci-Fi,2024,8.0,164,Director 4,AUSTRALIA,english,335.0,789713.0,Netflix,U/A,2025-02-11,Upcoming
+91,92,Interstellar,Action,2021,9.5,163,Director 1,AUSTRALIA,,178.0,364883.0,Disney+ Hotstar,U/A,2022-01-14,Released
+92,93,Moana,Action,2021,5.2,95,Director 27, INDIA ,french,188.0,708606.0,Amazon Prime,PG-13,2024-07-25,Released
+93,94,Titanic,Drama,2023,7.516470588235293,80,Director 1,USA,,82.0,118282.0,Amazon Prime,PG-13,2021-12-24,Released
+94,95,Bahubali,Drama,2023,6.4,151,Director 32, USA ,hindi,150.0,153734.0,Netflix,U,2025-02-01,Released
+95,96,Coco,Drama,2024,8.0,120,Director 24, USA ,french,94.0,219371.0,Amazon Prime,PG-13,2023-07-16,Upcoming
+96,97,Avengers,Sci-Fi,2023,9.1,122,Director 1,UK,english,319.0,352385.0,JioHotstar,PG-13,2023-04-20,Upcoming
+97,98,Avatar,Drama,2022,8.7,180,Director 3,JAPAN,,312.0,971816.0,JioHotstar,A,2024-02-18,Upcoming
+98,99,Coco,Sci-Fi,2020,8.3,139,Director 14,JAPAN,english,217.0,189549.0,Disney+ Hotstar,U,2024-08-07,Upcoming
+99,100,Kalki,Sci-Fi,2019,5.5,169,Director 19,AUSTRALIA,english,226.0,977152.0,Amazon Prime,U,2020-06-16,Upcoming
+100,101,Joker,Sci-Fi,2018,7.5,82,Director 7,INDIA,hindi,309.0,680218.0,Disney+ Hotstar,A,2023-02-14,Released
+101,102,Pushpa,Drama,2021,5.2,151,Director 24, USA ,french,52.0,755406.0,Netflix,U,2024-09-06,Released
+102,103,Titanic,Thriller,2019,5.8,110,Director 15,UK,english,200.0,,Netflix,U,2025-09-09,Upcoming
+103,104,Inception,Action,2019,6.5,155,Director 29,USA,french,151.0,483492.0,JioHotstar,U/A,2021-04-15,Released
+104,105,Joker,Action,2019,6.1,159,Director 24,UK,,69.0,494862.0,Netflix,U,2022-06-15,Released
+105,106,Leo,Horror,2019,5.9,137,Director 10, USA ,,234.0,259026.0,Disney+ Hotstar,A,2022-11-03,Upcoming
+106,107,Jawan,Comedy,2019,5.3,180,Director 14,AUSTRALIA,french,81.0,306993.0,Disney+ Hotstar,PG-13,2021-09-04,Released
+107,108,Coco,Action,2024,6.4,161,Director 2, USA ,,281.0,101808.0,Disney+ Hotstar,U/A,2020-12-07,Upcoming
+108,109,Frozen,Drama,2022,8.5,105,Director 6,USA,english,160.0,240627.0,Amazon Prime,A,2020-07-01,Upcoming
+109,110,Inception,Romance,2024,9.6,91,Director 1, INDIA ,,156.0,676851.0,Disney+ Hotstar,U,2022-06-12,Released
+110,111,Bahubali,Action,2018,8.5,121,Director 25,INDIA,spanish,273.0,126543.0,Amazon Prime,U,2021-08-02,Released
+111,112,Interstellar,Action,2018,8.4,104,Director 17,INDIA,,315.0,344719.0,JioHotstar,U,2025-12-02,Released
+112,113,Inception,Sci-Fi,2022,5.5,95,Director 26,UK,english,136.0,686473.0,JioHotstar,U/A,2025-01-27,Upcoming
+113,114,Moana,Action,2021,5.3,126,Director 22, INDIA ,hindi,243.0,677823.0,Disney+ Hotstar,PG-13,2020-09-28,Upcoming
+114,115,Kalki,Horror,2019,8.2,81,Director 24,USA,english,186.0,616685.0,Netflix,U/A,2023-05-07,Upcoming
+115,116,Inception,Action,2018,8.0,166,Director 18,AUSTRALIA,,338.0,224532.0,Netflix,PG-13,2022-08-01,Released
+116,117,Kgf,Action,2022,9.5,114,Director 6, USA ,english,95.0,623134.0,Disney+ Hotstar,PG-13,2022-05-19,Released
+117,118,Titanic,Animation,2022,6.1,129,Director 13,AUSTRALIA,hindi,300.0,589480.0,Disney+ Hotstar,U,2021-08-06,Released
+118,119,Kalki,Thriller,2018,5.8,110,Director 21,AUSTRALIA,spanish,165.0,321302.0,Netflix,U,2020-06-09,Upcoming
+119,120,Joker,Animation,2020,5.5,108,Director 10, INDIA ,spanish,91.0,731625.0,Disney+ Hotstar,U,2023-12-24,Upcoming
+120,121,3 Idiots,Thriller,2024,5.6,130,Director 10, INDIA ,,338.0,488872.0,JioHotstar,PG-13,2022-10-12,Upcoming
+121,122,Bahubali,Thriller,2023,8.9,143,Director 25, USA ,spanish,175.0,546589.0,JioHotstar,U/A,2022-03-06,Released
+122,123,Dangal,Action,2018,7.516470588235293,152,Director 32,JAPAN,english,295.0,547529.0,JioHotstar,PG-13,2020-06-15,Upcoming
+123,124,Joker,Action,2019,6.8,131,Director 10,CANADA,french,245.0,701351.0,Netflix,U/A,2022-12-06,Released
+124,125,Kgf,Romance,2023,9.6,145,Director 27,UK,english,281.0,292422.0,Amazon Prime,U,2024-10-21,Released
+125,126,Bahubali,Action,2023,8.9,119,Director 1,JAPAN,french,320.0,,Netflix,U/A,2024-06-08,Upcoming
+126,127,The Batman,Sci-Fi,2021,5.7,146,Director 33,USA,english,107.0,602842.0,JioHotstar,PG-13,2025-01-26,Released
+127,128,Avengers,Horror,2020,6.3,92,Director 5,AUSTRALIA,hindi,217.0,,Amazon Prime,PG-13,2023-01-19,Released
+128,129,Drishyam,Drama,2022,6.5,138,Director 20, INDIA ,english,273.0,169248.0,JioHotstar,U/A,2023-05-14,Upcoming
+129,130,Avatar,Drama,2019,5.9,117,Director 26,AUSTRALIA,spanish,293.0,443412.0,Netflix,U,2024-06-14,Released
+130,131,Coco,Sci-Fi,2021,7.516470588235293,165,Director 2,AUSTRALIA,,86.0,376557.0,Amazon Prime,PG-13,2021-04-15,Upcoming
+131,132,Bahubali,Romance,2022,9.7,144,Director 14,CANADA,,87.0,367610.0,JioHotstar,A,2023-04-18,Released
+132,133,3 Idiots,Action,2018,6.3,178,Director 25,INDIA,hindi,94.0,499727.0,Netflix,U/A,2022-04-25,Released
+134,135,Bahubali,Animation,2019,7.0,160,Director 7,UK,spanish,331.0,829693.0,Netflix,PG-13,2021-02-10,Upcoming
+135,136,Frozen,Action,2022,8.1,102,Director 15, USA ,hindi,242.0,689357.0,Netflix,U,2022-11-27,Released
+136,137,Avengers,Sci-Fi,2023,8.9,106,Director 23,USA,french,221.0,730848.0,Amazon Prime,A,2022-02-17,Upcoming
+137,138,Joker,Romance,2023,5.3,169,Director 14, INDIA ,hindi,85.0,293044.0,Disney+ Hotstar,U/A,2025-03-18,Released
+138,139,The Batman,Drama,2020,5.5,161,Director 20,UK,hindi,269.0,343722.0,Amazon Prime,U,2023-12-17,Released
+139,140,Bahubali,Drama,2022,6.6,95,Director 28,UK,hindi,326.0,959784.0,JioHotstar,U/A,2022-04-12,Released
+140,141,Bahubali,Romance,2020,8.4,137,Director 8,UK,spanish,311.0,272570.0,Netflix,U,2023-01-08,Released
+141,142,Dangal,Comedy,2023,7.1,104,Director 35,AUSTRALIA,english,66.0,742628.0,Disney+ Hotstar,U/A,2025-03-03,Released
+142,143,Avatar,Romance,2020,8.1,167,Director 11,USA,,178.0,434388.0,Amazon Prime,A,2022-11-04,Released
+143,144,The Batman,Romance,2019,7.516470588235293,93,Director 26,INDIA,hindi,275.0,406617.0,Netflix,U/A,2021-04-23,Released
+144,145,Joker,Action,2024,5.9,172,Director 24,INDIA,english,281.0,390073.0,Netflix,PG-13,2023-11-02,Released
+145,146,Interstellar,Romance,2018,7.8,124,Director 13, USA ,english,284.0,647930.0,Amazon Prime,PG-13,2020-10-20,Released
+146,147,Dangal,Sci-Fi,2021,7.4,162,Director 9,JAPAN,,344.0,,Amazon Prime,U/A,2023-12-22,Released
+147,148,3 Idiots,Sci-Fi,2021,6.2,136,Director 26,JAPAN,english,123.0,214226.0,Disney+ Hotstar,U,2025-07-09,Upcoming
+148,149,Leo,Action,2022,8.6,155,Director 6, INDIA ,hindi,188.0,984515.0,Netflix,U,2023-11-15,Released
+149,150,Frozen,Drama,2020,5.3,110,Director 4,AUSTRALIA,english,188.0,318470.0,Disney+ Hotstar,U,2023-03-23,Released
+150,151,Drishyam,Comedy,2023,5.8,175,Director 22,INDIA,,142.0,854537.0,Disney+ Hotstar,PG-13,2022-02-10,Released
+151,152,Bahubali,Comedy,2018,8.3,112,Director 23,CANADA,hindi,317.0,910021.0,JioHotstar,U,2021-03-05,Released
+152,153,The Batman,Romance,2021,7.9,112,Director 35,JAPAN,french,188.0,254498.0,JioHotstar,U,2020-01-26,Released
+153,154,Drishyam,Thriller,2024,5.8,137,Director 26,CANADA,,284.0,,Disney+ Hotstar,U/A,2024-10-03,Released
+154,155,Frozen,Animation,2020,6.9,125,Director 21,INDIA,spanish,190.0,354470.0,Netflix,U/A,2021-11-24,Upcoming
+155,156,Coco,Romance,2020,7.6,97,Director 3,AUSTRALIA,,122.0,748585.0,Netflix,A,2021-05-26,Released
+156,157,Titanic,Horror,2022,6.2,150,Director 26,AUSTRALIA,english,185.0,901493.0,Disney+ Hotstar,U/A,2022-04-26,Released
+157,158,3 Idiots,Romance,2021,6.9,178,Director 20,UK,english,188.0,415258.0,Disney+ Hotstar,U,2020-07-10,Released
+158,159,Kgf,Horror,2024,8.5,88,Director 32,AUSTRALIA,hindi,151.0,876168.0,Disney+ Hotstar,U/A,2021-01-23,Released
+159,160,Coco,Romance,2024,5.5,110,Director 4,UK,english,188.0,,Disney+ Hotstar,U/A,2022-01-04,Released
+160,161,Dangal,Horror,2024,8.2,131,Director 22,UK,english,43.0,727342.0,JioHotstar,PG-13,2020-09-08,Released
+161,162,Dangal,Action,2021,8.5,122,Director 11,USA,english,93.0,960092.0,Disney+ Hotstar,A,2024-06-14,Released
+162,163,Drishyam,Sci-Fi,2020,7.3,84,Director 20,AUSTRALIA,hindi,162.0,642963.0,Disney+ Hotstar,U/A,2024-09-01,Upcoming
+163,164,Jawan,Horror,2019,6.1,176,Director 6,INDIA,english,50.0,309568.0,Amazon Prime,A,2025-06-20,Released
+164,165,Interstellar,Drama,2022,7.516470588235293,179,Director 16, USA ,,345.0,919398.0,JioHotstar,U/A,2020-11-01,Released
+165,166,Titanic,Romance,2024,6.1,128,Director 27, INDIA ,hindi,134.0,,Netflix,A,2021-07-23,Released
+166,167,Bahubali,Romance,2020,9.9,107,Director 11, USA ,,156.0,239842.0,Disney+ Hotstar,A,2020-03-06,Upcoming
+167,168,Rrr,Sci-Fi,2021,5.3,180,Director 14,AUSTRALIA,english,244.0,984143.0,Disney+ Hotstar,U,2021-02-26,Released
+168,169,3 Idiots,Horror,2018,7.3,130,Director 6, INDIA ,spanish,223.0,133599.0,Amazon Prime,U/A,2025-11-26,Released
+169,170,Inception,Sci-Fi,2021,8.6,86,Director 21,USA,english,269.0,638438.0,Netflix,U/A,2024-08-11,Released
+170,171,The Batman,Horror,2024,9.5,124,Director 14,CANADA,hindi,188.0,115270.0,Disney+ Hotstar,U,2024-02-04,Released
+171,172,Moana,Romance,2018,5.2,138,Director 35,JAPAN,english,230.0,995763.0,Disney+ Hotstar,PG-13,2024-06-14,Upcoming
+172,173,Coco,Thriller,2021,9.4,161,Director 1,CANADA,english,150.0,847386.0,Amazon Prime,U/A,2020-02-22,Released
+173,174,Inception,Romance,2023,8.3,138,Director 1, USA ,hindi,260.0,706559.0,JioHotstar,U/A,2025-11-27,Upcoming
+174,175,Bahubali,Action,2020,8.3,121,Director 5,AUSTRALIA,hindi,333.0,368930.0,JioHotstar,A,2023-10-17,Released
+176,177,Moana,Comedy,2020,8.9,146,Director 20, USA ,hindi,222.0,556711.0,Netflix,PG-13,2025-08-21,Released
+177,178,Kalki,Horror,2021,6.2,127,Director 34,AUSTRALIA,,29.0,100584.0,Disney+ Hotstar,U,2022-03-19,Upcoming
+178,179,Dangal,Animation,2018,7.4,91,Director 13,UK,french,168.0,480942.0,Netflix,PG-13,2020-06-13,Upcoming
+179,180,Moana,Romance,2020,9.2,96,Director 13,AUSTRALIA,english,188.0,181774.0,JioHotstar,PG-13,2023-09-13,Upcoming
+180,181,Avatar,Animation,2023,7.0,140,Director 12,USA,french,89.0,944009.0,Amazon Prime,U/A,2020-09-13,Upcoming
+181,182,The Batman,Animation,2018,9.2,153,Director 1,USA,french,130.0,156843.0,Amazon Prime,A,2024-01-16,Upcoming
+182,183,Avengers,Action,2024,6.6,104,Director 34,INDIA,hindi,160.0,188320.0,JioHotstar,A,2024-05-22,Upcoming
+183,184,Kalki,Romance,2020,6.9,135,Director 35,JAPAN,spanish,46.0,767382.0,JioHotstar,PG-13,2021-10-23,Upcoming
+184,185,Dangal,Action,2023,7.516470588235293,120,Director 1,AUSTRALIA,english,309.0,136280.0,Amazon Prime,PG-13,2025-10-04,Released
+185,186,Avengers,Animation,2019,5.3,135,Director 8,INDIA,hindi,56.0,609184.0,Netflix,U/A,2025-04-16,Upcoming
+186,187,Frozen,Sci-Fi,2022,5.5,180,Director 6,INDIA,french,151.0,553702.0,JioHotstar,U/A,2025-01-28,Released
+187,188,Inception,Sci-Fi,2024,6.6,151,Director 10,JAPAN,spanish,129.0,918681.0,Amazon Prime,PG-13,2023-02-06,Released
+188,189,Kgf,Comedy,2019,8.6,135,Director 22, INDIA ,english,188.0,773945.0,Amazon Prime,U,2022-10-08,Released
+189,190,Leo,Sci-Fi,2021,6.5,154,Director 35,USA,hindi,158.0,883865.0,Amazon Prime,A,2024-02-10,Released
+190,191,Avatar,Romance,2020,7.516470588235293,122,Director 23, USA ,french,206.0,906851.0,Disney+ Hotstar,U,2023-09-24,Released
+191,192,The Batman,Thriller,2021,7.516470588235293,85,Director 33,USA,french,87.0,957361.0,Netflix,A,2025-11-24,Released
+192,193,Bahubali,Horror,2018,9.3,141,Director 20,UK,spanish,142.0,608276.0,Netflix,A,2021-04-15,Released
+193,194,Kalki,Romance,2021,9.8,110,Director 35,AUSTRALIA,hindi,27.0,154500.0,Amazon Prime,U/A,2021-03-03,Upcoming
+194,195,Avatar,Comedy,2020,5.6,164,Director 14,CANADA,hindi,282.0,163841.0,Amazon Prime,U,2020-06-20,Released
+195,196,Frozen,Romance,2020,8.7,155,Director 12,INDIA,spanish,230.0,133090.0,Amazon Prime,U/A,2025-09-24,Released
+196,197,3 Idiots,Sci-Fi,2019,8.4,170,Director 5,INDIA,,39.0,897337.0,Netflix,U,2020-07-11,Upcoming
+197,198,Moana,Horror,2022,9.7,166,Director 32,UK,spanish,175.0,862477.0,Amazon Prime,PG-13,2024-11-13,Upcoming
+198,199,Avengers,Comedy,2018,8.9,112,Director 15,CANADA,hindi,307.0,604588.0,Netflix,PG-13,2025-07-22,Upcoming
+199,200,Coco,Romance,2023,6.7,156,Director 28,JAPAN,english,329.0,,Netflix,PG-13,2024-07-14,Upcoming
+200,201,Joker,Comedy,2020,7.3,84,Director 19,AUSTRALIA,english,115.0,552417.0,Amazon Prime,U,2025-07-11,Released
+201,202,Coco,Romance,2020,6.8,108,Director 23, INDIA ,spanish,279.0,721193.0,Amazon Prime,PG-13,2020-01-17,Released
+202,203,Jawan,Romance,2020,8.3,150,Director 33, INDIA ,hindi,149.0,177526.0,Disney+ Hotstar,PG-13,2022-09-05,Upcoming
+203,204,Coco,Action,2023,6.8,82,Director 4,USA,english,179.0,255746.0,JioHotstar,U,2021-11-08,Released
+204,205,Pushpa,Sci-Fi,2022,7.516470588235293,130,Director 12,JAPAN,hindi,169.0,126430.0,JioHotstar,U,2025-11-26,Upcoming
+205,206,Leo,Romance,2020,7.8,86,Director 35,AUSTRALIA,hindi,51.0,856533.0,Amazon Prime,A,2022-02-10,Upcoming
+206,207,Bahubali,Romance,2021,6.6,136,Director 26,USA,hindi,221.0,912986.0,JioHotstar,A,2024-04-04,Upcoming
+207,208,Kalki,Horror,2018,8.7,140,Director 27,USA,spanish,222.0,395871.0,Netflix,A,2020-01-15,Upcoming
+208,209,Bahubali,Sci-Fi,2018,5.5,157,Director 27,USA,spanish,110.0,749760.0,Netflix,PG-13,2022-12-13,Upcoming
+209,210,Coco,Drama,2023,7.6,146,Director 27,JAPAN,hindi,53.0,168514.0,Netflix,U/A,2023-07-19,Released
+210,211,Avengers,Romance,2024,5.6,108,Director 16,AUSTRALIA,english,37.0,940952.0,JioHotstar,A,2025-05-11,Upcoming
+211,212,Drishyam,Sci-Fi,2022,6.3,107,Director 15,JAPAN,english,311.0,921080.0,Disney+ Hotstar,U,2020-09-23,Released
+212,213,Dangal,Drama,2021,5.3,137,Director 3,INDIA,english,76.0,401644.0,Disney+ Hotstar,A,2021-10-17,Released
+213,214,The Batman,Sci-Fi,2022,6.1,102,Director 2,AUSTRALIA,spanish,52.0,380741.0,Netflix,U,2024-07-13,Upcoming
+214,215,Rrr,Action,2024,7.6,164,Director 17,USA,hindi,88.0,799901.0,JioHotstar,U/A,2021-11-10,Released
+215,216,Coco,Comedy,2023,5.1,179,Director 13,CANADA,,306.0,958996.0,Disney+ Hotstar,U,2024-12-24,Released
+216,217,Titanic,Romance,2023,7.6,151,Director 23,UK,english,201.0,145757.0,Amazon Prime,A,2025-01-14,Upcoming
+217,218,Jawan,Horror,2024,7.4,90,Director 22,AUSTRALIA,french,85.0,640576.0,Disney+ Hotstar,PG-13,2022-07-06,Released
+218,219,Frozen,Action,2021,8.6,100,Director 28,UK,hindi,188.0,699544.0,JioHotstar,U,2023-01-02,Released
+219,220,Frozen,Comedy,2024,8.1,139,Director 32,CANADA,english,201.0,206100.0,Amazon Prime,U/A,2024-08-15,Upcoming
+220,221,Titanic,Animation,2019,8.3,171,Director 16, USA ,hindi,330.0,609613.0,JioHotstar,U,2021-04-23,Released
+221,222,Coco,Sci-Fi,2023,8.2,111,Director 7,CANADA,,188.0,511246.0,Amazon Prime,U,2024-11-18,Upcoming
+223,224,Kalki,Action,2018,8.2,158,Director 19, USA ,french,306.0,124191.0,JioHotstar,U/A,2025-04-12,Released
+224,225,Moana,Comedy,2022,8.3,91,Director 16,USA,english,174.0,402151.0,JioHotstar,A,2020-04-25,Released
+226,227,3 Idiots,Action,2019,6.4,112,Director 9,JAPAN,,198.0,,JioHotstar,U,2021-06-08,Upcoming
+227,228,Drishyam,Horror,2020,5.1,148,Director 2,AUSTRALIA,hindi,202.0,436001.0,Amazon Prime,A,2024-02-26,Released
+229,230,Avatar,Comedy,2019,8.0,101,Director 19, INDIA ,hindi,34.0,987214.0,Disney+ Hotstar,U/A,2024-02-21,Released
+230,231,Coco,Comedy,2022,7.516470588235293,126,Director 5,UK,english,272.0,622704.0,Disney+ Hotstar,PG-13,2022-06-02,Upcoming
+231,232,Coco,Animation,2023,9.2,138,Director 22,AUSTRALIA,,218.0,331109.0,Amazon Prime,A,2022-06-22,Released
+233,234,Titanic,Drama,2020,8.5,97,Director 24,JAPAN,spanish,287.0,993254.0,Amazon Prime,A,2020-07-25,Released
+234,235,Frozen,Horror,2019,7.3,80,Director 4,USA,hindi,209.0,130483.0,JioHotstar,PG-13,2023-04-02,Upcoming
+235,236,Titanic,Drama,2019,5.3,104,Director 5,JAPAN,spanish,142.0,668058.0,Netflix,U/A,2021-12-16,Upcoming
+237,238,Jawan,Horror,2018,9.8,141,Director 17,UK,english,188.0,627924.0,Netflix,PG-13,2020-12-22,Released
+238,239,Leo,Horror,2019,9.3,121,Director 3,AUSTRALIA,hindi,113.0,116612.0,JioHotstar,U,2020-04-15,Upcoming
+239,240,Joker,Romance,2023,6.0,88,Director 26,INDIA,hindi,204.0,338067.0,JioHotstar,A,2023-12-17,Released
+240,241,Drishyam,Animation,2019,8.8,114,Director 15,AUSTRALIA,english,195.0,825023.0,Disney+ Hotstar,U/A,2021-08-01,Upcoming
+241,242,Drishyam,Thriller,2019,7.8,115,Director 27,UK,hindi,89.0,871058.0,Amazon Prime,U/A,2020-03-14,Upcoming
+242,243,Moana,Sci-Fi,2024,8.6,171,Director 27,USA,english,73.0,396072.0,Disney+ Hotstar,U/A,2023-03-28,Released
+243,244,Kalki,Romance,2023,7.9,137,Director 16, USA ,hindi,209.0,671197.0,JioHotstar,U,2024-05-19,Upcoming
+244,245,Interstellar,Romance,2019,9.7,112,Director 5,INDIA,english,128.0,918942.0,Netflix,PG-13,2025-06-16,Released
+245,246,Joker,Sci-Fi,2021,9.8,149,Director 27, INDIA ,hindi,139.0,825368.0,JioHotstar,PG-13,2021-06-25,Released
+246,247,Frozen,Action,2019,8.0,162,Director 5, USA ,english,190.0,464353.0,JioHotstar,A,2025-06-08,Released
+247,248,Interstellar,Romance,2024,7.7,106,Director 16,CANADA,spanish,174.0,267841.0,Netflix,PG-13,2024-11-28,Released
+248,249,Frozen,Thriller,2023,5.1,80,Director 12,USA,hindi,108.0,371922.0,Amazon Prime,U,2020-01-02,Released
+249,250,Frozen,Action,2020,7.0,141,Director 17,AUSTRALIA,english,155.0,193064.0,Netflix,A,2022-05-12,Upcoming
+250,251,Kalki,Action,2024,7.516470588235293,99,Director 28, INDIA ,spanish,137.0,173821.0,JioHotstar,U,2021-03-10,Released
+251,252,Joker,Sci-Fi,2022,8.3,152,Director 28,UK,english,318.0,960649.0,JioHotstar,U/A,2024-05-25,Upcoming
+252,253,Kalki,Action,2019,6.1,117,Director 14, USA ,english,114.0,418678.0,Disney+ Hotstar,U/A,2021-06-01,Upcoming
+253,254,Dangal,Romance,2021,8.5,87,Director 21,USA,spanish,188.0,254179.0,Amazon Prime,PG-13,2022-01-04,Released
+254,255,Kalki,Romance,2023,6.5,89,Director 7,USA,english,267.0,,Amazon Prime,PG-13,2025-11-08,Upcoming
+255,256,Bahubali,Horror,2022,7.516470588235293,178,Director 30,USA,hindi,88.0,,Amazon Prime,U,2024-11-15,Released
+256,257,Kgf,Romance,2024,7.5,98,Director 26,USA,hindi,46.0,,Amazon Prime,U,2022-02-23,Released
+257,258,The Batman,Sci-Fi,2019,9.0,170,Director 22,AUSTRALIA,english,254.0,219093.0,Disney+ Hotstar,PG-13,2021-04-16,Upcoming
+258,259,Joker,Drama,2023,9.7,93,Director 33,AUSTRALIA,,150.0,933712.0,Amazon Prime,A,2025-11-03,Upcoming
+259,260,Frozen,Action,2024,6.7,180,Director 17,INDIA,english,187.0,425838.0,Disney+ Hotstar,A,2024-10-06,Upcoming
+260,261,Coco,Sci-Fi,2018,7.0,161,Director 16,INDIA,hindi,97.0,359516.0,Disney+ Hotstar,PG-13,2021-05-14,Released
+261,262,The Batman,Action,2020,5.8,120,Director 9,AUSTRALIA,hindi,300.0,447481.0,JioHotstar,U/A,2022-06-24,Released
+262,263,Titanic,Action,2024,7.516470588235293,127,Director 5,USA,french,121.0,755411.0,Disney+ Hotstar,PG-13,2025-05-13,Upcoming
+263,264,Dangal,Romance,2023,7.8,93,Director 34,USA,french,26.0,781232.0,Amazon Prime,U/A,2022-12-09,Released
+265,266,Interstellar,Thriller,2019,9.9,145,Director 12, USA ,english,25.0,246619.0,JioHotstar,U/A,2025-06-01,Released
+266,267,Avengers,Sci-Fi,2022,7.516470588235293,144,Director 14,AUSTRALIA,french,306.0,256646.0,JioHotstar,U,2024-03-14,Upcoming
+267,268,Drishyam,Action,2023,5.5,80,Director 22,UK,hindi,295.0,629841.0,Amazon Prime,U/A,2021-03-20,Released
+268,269,Joker,Romance,2024,9.5,86,Director 32,INDIA,french,55.0,672693.0,JioHotstar,U/A,2021-11-08,Released
+269,270,The Batman,Sci-Fi,2019,9.3,125,Director 28,JAPAN,spanish,131.0,245197.0,Disney+ Hotstar,U,2021-05-17,Upcoming
+270,271,Leo,Sci-Fi,2021,6.4,146,Director 13, USA ,english,276.0,175360.0,JioHotstar,U,2022-02-13,Upcoming
+271,272,Dangal,Thriller,2023,9.2,153,Director 1,INDIA,,264.0,745729.0,JioHotstar,PG-13,2021-05-20,Released
+272,273,3 Idiots,Thriller,2024,7.8,108,Director 22,UK,english,113.0,239919.0,Netflix,A,2023-08-26,Upcoming
+273,274,Pushpa,Horror,2022,9.6,161,Director 31,USA,spanish,332.0,904877.0,Disney+ Hotstar,U,2020-12-07,Upcoming
+275,276,Jawan,Comedy,2019,9.5,91,Director 10, INDIA ,,274.0,495432.0,Netflix,U/A,2022-03-20,Released
+277,278,Moana,Action,2023,5.9,103,Director 10,AUSTRALIA,hindi,50.0,737697.0,Netflix,PG-13,2020-10-18,Upcoming
+278,279,Joker,Horror,2023,9.6,86,Director 34,UK,french,216.0,761004.0,Netflix,A,2025-12-14,Released
+279,280,Avengers,Horror,2021,9.6,158,Director 11,AUSTRALIA,french,128.0,907629.0,Netflix,A,2024-11-11,Upcoming
+280,281,Drishyam,Action,2021,9.2,90,Director 32,INDIA,hindi,62.0,401600.0,JioHotstar,U,2021-03-10,Released
+281,282,Coco,Thriller,2021,9.0,90,Director 29,AUSTRALIA,english,188.0,406219.0,Netflix,A,2021-09-06,Upcoming
+282,283,Avengers,Romance,2021,6.6,167,Director 31,USA,english,94.0,402054.0,Amazon Prime,A,2021-07-21,Upcoming
+284,285,Kalki,Sci-Fi,2021,6.1,113,Director 4,CANADA,hindi,333.0,889064.0,JioHotstar,PG-13,2023-07-02,Upcoming
+285,286,Dangal,Sci-Fi,2023,9.0,105,Director 17,UK,english,303.0,271936.0,Amazon Prime,PG-13,2022-08-16,Upcoming
+286,287,Jawan,Sci-Fi,2020,9.3,127,Director 25,USA,hindi,164.0,494591.0,Amazon Prime,A,2022-01-25,Released
+287,288,Joker,Romance,2020,9.6,167,Director 24, USA ,hindi,109.0,719194.0,Disney+ Hotstar,A,2025-04-23,Released
+289,290,Dangal,Action,2021,8.5,148,Director 12,INDIA,english,111.0,329104.0,Amazon Prime,U,2025-09-10,Upcoming
+290,291,Coco,Comedy,2022,9.8,94,Director 18,AUSTRALIA,hindi,31.0,155437.0,JioHotstar,U/A,2022-12-12,Released
+291,292,Bahubali,Action,2019,5.7,94,Director 8,UK,spanish,314.0,608422.0,JioHotstar,U,2021-01-24,Upcoming
+292,293,3 Idiots,Sci-Fi,2024,8.8,141,Director 25, INDIA ,spanish,41.0,786854.0,Netflix,PG-13,2020-04-17,Released
+294,295,Kalki,Action,2021,9.2,162,Director 11,INDIA,spanish,191.0,,Amazon Prime,PG-13,2025-06-04,Released
+295,296,Moana,Sci-Fi,2021,7.516470588235293,108,Director 26,USA,hindi,294.0,473343.0,Amazon Prime,A,2022-11-22,Released
+296,297,Inception,Thriller,2018,5.3,149,Director 13,JAPAN,hindi,277.0,359198.0,Netflix,PG-13,2022-08-19,Released
+297,298,Avengers,Drama,2018,5.6,167,Director 2,UK,english,43.0,909820.0,Netflix,U,2021-06-26,Released
+298,299,Rrr,Horror,2019,6.8,171,Director 18,UK,french,21.0,656743.0,JioHotstar,U/A,2025-03-21,Upcoming
+299,300,Jawan,Romance,2019,7.516470588235293,85,Director 23,USA,,322.0,866804.0,JioHotstar,U/A,2021-10-09,Upcoming
+300,301,Dangal,Action,2022,8.0,164,Director 33,UK,english,188.0,712189.0,Netflix,A,2025-09-02,Upcoming
+301,302,Bahubali,Action,2022,6.4,131,Director 3,JAPAN,french,129.0,982366.0,Disney+ Hotstar,PG-13,2022-12-02,Released
+302,303,Rrr,Romance,2020,8.4,114,Director 4,AUSTRALIA,spanish,243.0,637911.0,Disney+ Hotstar,U/A,2023-11-06,Released
+303,304,Interstellar,Romance,2021,7.516470588235293,96,Director 22, INDIA ,,167.0,421157.0,Amazon Prime,U/A,2020-12-05,Released
+305,306,Avatar,Horror,2020,5.2,171,Director 13,CANADA,english,313.0,400100.0,Amazon Prime,U/A,2024-08-08,Upcoming
+307,308,Rrr,Romance,2018,7.7,118,Director 18, USA ,,259.0,155679.0,JioHotstar,PG-13,2024-08-10,Released
+308,309,Drishyam,Thriller,2019,5.5,113,Director 29,USA,spanish,128.0,169095.0,Netflix,U/A,2023-12-01,Upcoming
+309,310,Kalki,Horror,2022,8.5,92,Director 33,AUSTRALIA,french,168.0,314225.0,JioHotstar,A,2024-06-28,Upcoming
+310,311,Kgf,Horror,2024,8.2,148,Director 21,UK,spanish,78.0,527023.0,Disney+ Hotstar,U/A,2021-01-13,Released
+311,312,The Batman,Sci-Fi,2019,7.2,127,Director 4,INDIA,french,184.0,791043.0,JioHotstar,PG-13,2024-04-26,Released
+312,313,Titanic,Romance,2024,5.7,158,Director 11,AUSTRALIA,,301.0,833494.0,Netflix,U/A,2022-09-05,Released
+313,314,The Batman,Sci-Fi,2024,7.2,120,Director 9,AUSTRALIA,french,104.0,768957.0,Netflix,U,2020-10-20,Released
+314,315,Pushpa,Action,2018,7.516470588235293,109,Director 29,USA,,252.0,983186.0,Amazon Prime,A,2024-06-21,Released
+315,316,3 Idiots,Comedy,2018,5.6,100,Director 19,JAPAN,spanish,64.0,550617.0,Disney+ Hotstar,U,2025-01-26,Upcoming
+316,317,Rrr,Romance,2022,7.9,98,Director 25,AUSTRALIA,french,253.0,325287.0,Disney+ Hotstar,U/A,2022-05-12,Upcoming
+317,318,Inception,Horror,2021,7.5,83,Director 23, INDIA ,hindi,274.0,773955.0,JioHotstar,U/A,2023-03-17,Released
+318,319,Leo,Sci-Fi,2023,6.7,92,Director 17,JAPAN,spanish,266.0,707592.0,Amazon Prime,A,2022-01-14,Upcoming
+319,320,3 Idiots,Romance,2019,5.8,166,Director 7, INDIA ,,243.0,203159.0,JioHotstar,U/A,2022-03-17,Released
+320,321,Moana,Drama,2023,5.9,140,Director 35,CANADA,french,268.0,117952.0,Amazon Prime,PG-13,2024-02-11,Released
+321,322,The Batman,Romance,2023,6.1,153,Director 12,AUSTRALIA,spanish,53.0,261707.0,Disney+ Hotstar,U/A,2025-09-09,Released
+322,323,Inception,Action,2019,5.4,112,Director 6,JAPAN,french,20.0,572228.0,Disney+ Hotstar,U/A,2023-12-26,Released
+323,324,Rrr,Comedy,2021,8.8,108,Director 14,AUSTRALIA,english,218.0,646401.0,Amazon Prime,A,2024-02-14,Upcoming
+324,325,Moana,Animation,2020,7.0,132,Director 14,INDIA,english,314.0,670520.0,Netflix,U,2023-06-22,Released
+325,326,Avatar,Drama,2024,9.0,118,Director 28,CANADA,hindi,21.0,122391.0,JioHotstar,A,2021-10-17,Upcoming
+326,327,Titanic,Romance,2018,6.5,149,Director 11,USA,english,54.0,406025.0,Disney+ Hotstar,U/A,2025-07-20,Upcoming
+327,328,Jawan,Animation,2021,7.1,109,Director 25,CANADA,spanish,213.0,873569.0,Disney+ Hotstar,U,2025-01-19,Upcoming
+328,329,Pushpa,Animation,2021,6.4,99,Director 34,UK,french,159.0,343125.0,Netflix,PG-13,2024-03-01,Upcoming
+329,330,Kgf,Comedy,2018,5.5,118,Director 33,INDIA,,84.0,190016.0,Netflix,U/A,2025-04-17,Released
+330,331,Titanic,Comedy,2019,9.7,136,Director 17,CANADA,spanish,44.0,199556.0,JioHotstar,A,2020-01-20,Released
+332,333,Jawan,Sci-Fi,2020,7.5,144,Director 19,JAPAN,spanish,282.0,712913.0,Amazon Prime,PG-13,2024-05-15,Released
+333,334,3 Idiots,Action,2018,7.516470588235293,170,Director 12,AUSTRALIA,spanish,119.0,278730.0,Netflix,A,2021-02-22,Upcoming
+334,335,Kalki,Sci-Fi,2021,7.1,127,Director 19, INDIA ,hindi,283.0,499972.0,Amazon Prime,A,2020-08-18,Released
+335,336,Rrr,Action,2019,9.3,114,Director 30, USA ,spanish,208.0,962188.0,Amazon Prime,U/A,2024-03-03,Released
+336,337,Leo,Drama,2019,6.1,122,Director 19,JAPAN,english,222.0,545225.0,JioHotstar,PG-13,2025-01-08,Upcoming
+337,338,Avatar,Thriller,2020,7.9,139,Director 27,AUSTRALIA,english,166.0,159381.0,Netflix,U,2020-10-25,Upcoming
+338,339,The Batman,Action,2021,7.0,104,Director 6,AUSTRALIA,english,119.0,680699.0,Disney+ Hotstar,U,2024-06-17,Released
+339,340,Inception,Romance,2020,9.6,179,Director 34, USA ,french,310.0,212705.0,Amazon Prime,U,2025-08-12,Released
+340,341,Frozen,Horror,2019,9.9,137,Director 31,INDIA,hindi,49.0,177068.0,JioHotstar,U,2025-01-08,Upcoming
+341,342,Kalki,Drama,2024,7.516470588235293,132,Director 16,AUSTRALIA,spanish,232.0,761903.0,Netflix,A,2023-02-10,Released
+342,343,Rrr,Comedy,2024,7.516470588235293,134,Director 32, USA ,spanish,319.0,423012.0,JioHotstar,A,2020-10-14,Upcoming
+343,344,The Batman,Comedy,2021,7.4,135,Director 33,INDIA,english,260.0,967776.0,Disney+ Hotstar,U,2025-07-20,Upcoming
+344,345,Avatar,Sci-Fi,2020,6.9,117,Director 4,AUSTRALIA,spanish,310.0,679818.0,Netflix,PG-13,2025-09-15,Released
+345,346,Drishyam,Action,2018,9.6,81,Director 10,AUSTRALIA,hindi,50.0,350031.0,Amazon Prime,A,2023-08-12,Released
+346,347,Kalki,Sci-Fi,2022,8.9,92,Director 16, USA ,english,197.0,559179.0,Disney+ Hotstar,A,2022-01-09,Upcoming
+347,348,Inception,Action,2021,8.3,175,Director 5,AUSTRALIA,spanish,188.0,410554.0,Netflix,U,2024-08-28,Released
+348,349,Leo,Sci-Fi,2019,6.1,80,Director 4,JAPAN,english,113.0,748534.0,Disney+ Hotstar,U/A,2025-06-06,Upcoming
+349,350,3 Idiots,Romance,2024,7.7,97,Director 24,UK,hindi,30.0,224206.0,Disney+ Hotstar,U,2020-10-06,Upcoming
+350,351,Joker,Animation,2018,7.0,103,Director 11,CANADA,english,23.0,783410.0,Netflix,U/A,2025-08-08,Released
+351,352,Moana,Thriller,2020,7.9,135,Director 23, USA ,english,85.0,168299.0,JioHotstar,A,2020-10-12,Released
+352,353,Moana,Romance,2024,6.9,91,Director 8, USA ,english,238.0,364404.0,Netflix,U/A,2025-12-17,Released
+353,354,Kalki,Animation,2021,9.7,123,Director 25,USA,english,63.0,775159.0,Disney+ Hotstar,PG-13,2022-03-17,Upcoming
+354,355,Joker,Sci-Fi,2021,8.0,102,Director 17,AUSTRALIA,,188.0,917025.0,Disney+ Hotstar,PG-13,2023-12-04,Released
+355,356,Joker,Romance,2023,8.1,108,Director 20, INDIA ,hindi,315.0,802967.0,JioHotstar,PG-13,2020-12-07,Released
+356,357,Titanic,Animation,2024,7.0,124,Director 27,UK,hindi,322.0,536337.0,Disney+ Hotstar,PG-13,2025-11-08,Upcoming
+357,358,Inception,Sci-Fi,2023,7.516470588235293,100,Director 4,AUSTRALIA,spanish,130.0,899305.0,JioHotstar,PG-13,2020-02-18,Released
+358,359,Interstellar,Thriller,2019,9.0,118,Director 24,USA,hindi,239.0,144080.0,JioHotstar,A,2023-02-12,Upcoming
+359,360,Bahubali,Drama,2021,9.0,138,Director 23,UK,english,221.0,166195.0,Disney+ Hotstar,A,2024-05-22,Released
+360,361,Jawan,Sci-Fi,2024,5.0,168,Director 28,AUSTRALIA,spanish,313.0,405213.0,Disney+ Hotstar,PG-13,2025-06-19,Upcoming
+361,362,Titanic,Action,2022,6.9,178,Director 21, USA ,hindi,301.0,314501.0,Netflix,PG-13,2022-04-25,Upcoming
+362,363,Avatar,Drama,2023,8.9,159,Director 14,JAPAN,english,114.0,302318.0,JioHotstar,A,2022-01-02,Upcoming
+363,364,Frozen,Romance,2018,7.9,92,Director 20,JAPAN,,158.0,565960.0,Disney+ Hotstar,A,2025-09-11,Released
+364,365,Rrr,Sci-Fi,2024,9.4,83,Director 20,JAPAN,english,159.0,474119.0,Disney+ Hotstar,A,2021-04-09,Upcoming
+365,366,Pushpa,Animation,2020,7.5,172,Director 3,AUSTRALIA,french,154.0,586510.0,Disney+ Hotstar,U/A,2024-08-05,Released
+366,367,Rrr,Action,2019,6.2,148,Director 32,AUSTRALIA,,49.0,741236.0,JioHotstar,PG-13,2025-07-01,Upcoming
+367,368,Inception,Animation,2019,9.4,160,Director 7,AUSTRALIA,english,212.0,322596.0,Disney+ Hotstar,PG-13,2022-03-08,Upcoming
+368,369,Frozen,Animation,2021,7.7,95,Director 30,CANADA,english,192.0,204195.0,Disney+ Hotstar,A,2023-02-22,Released
+370,371,Titanic,Action,2022,7.6,142,Director 29,JAPAN,spanish,230.0,377540.0,Netflix,A,2021-05-08,Released
+371,372,Rrr,Romance,2023,5.6,132,Director 24,INDIA,french,49.0,206510.0,Netflix,PG-13,2023-03-23,Upcoming
+372,373,Interstellar,Drama,2022,7.1,114,Director 6,CANADA,english,206.0,971523.0,Amazon Prime,U/A,2020-05-01,Upcoming
+373,374,Rrr,Thriller,2019,7.516470588235293,141,Director 31,CANADA,,344.0,668697.0,JioHotstar,PG-13,2022-06-01,Released
+374,375,Dangal,Sci-Fi,2021,8.5,175,Director 22,AUSTRALIA,,316.0,800663.0,Netflix,A,2023-01-19,Upcoming
+376,377,Coco,Comedy,2020,7.516470588235293,152,Director 1,UK,,188.0,991476.0,Disney+ Hotstar,U,2021-08-11,Upcoming
+377,378,Pushpa,Animation,2021,6.1,126,Director 8,AUSTRALIA,english,255.0,161434.0,Amazon Prime,U,2025-08-24,Upcoming
+378,379,Drishyam,Action,2021,7.5,171,Director 8,CANADA,french,313.0,192450.0,Amazon Prime,A,2022-02-24,Released
+379,380,Jawan,Drama,2023,9.1,137,Director 8,AUSTRALIA,english,176.0,252922.0,Disney+ Hotstar,A,2022-11-19,Upcoming
+380,381,3 Idiots,Sci-Fi,2022,5.9,96,Director 14,AUSTRALIA,hindi,176.0,586405.0,Amazon Prime,A,2025-02-07,Upcoming
+381,382,Interstellar,Romance,2019,6.3,97,Director 9,AUSTRALIA,hindi,282.0,311140.0,Amazon Prime,A,2022-09-22,Released
+382,383,Moana,Comedy,2019,6.5,143,Director 21,CANADA,spanish,197.0,813807.0,Netflix,U,2020-01-19,Released
+383,384,Avengers,Romance,2022,5.9,142,Director 35,AUSTRALIA,french,188.0,362868.0,Netflix,PG-13,2024-06-21,Upcoming
+384,385,Jawan,Sci-Fi,2023,6.6,115,Director 18,USA,hindi,42.0,491358.0,Amazon Prime,PG-13,2021-11-05,Released
+385,386,Kalki,Comedy,2022,6.2,145,Director 33, USA ,hindi,234.0,579169.0,Netflix,A,2020-02-27,Upcoming
+387,388,Joker,Thriller,2019,7.7,131,Director 24,USA,english,253.0,196783.0,Netflix,A,2021-02-20,Upcoming
+388,389,Dangal,Comedy,2018,9.6,133,Director 17,AUSTRALIA,english,160.0,480355.0,Disney+ Hotstar,U/A,2023-08-27,Released
+389,390,Dangal,Comedy,2023,5.3,171,Director 34, INDIA ,hindi,303.0,471460.0,Disney+ Hotstar,U/A,2025-03-05,Released
+390,391,Frozen,Action,2024,6.4,149,Director 12, INDIA ,english,88.0,205696.0,Amazon Prime,PG-13,2025-10-21,Released
+392,393,Dangal,Animation,2024,7.516470588235293,135,Director 9, USA ,hindi,290.0,766007.0,JioHotstar,U/A,2023-01-06,Upcoming
+393,394,Bahubali,Animation,2018,7.3,91,Director 26,AUSTRALIA,hindi,249.0,555930.0,JioHotstar,A,2024-10-17,Upcoming
+394,395,Leo,Sci-Fi,2024,7.0,145,Director 23,UK,english,126.0,326246.0,Amazon Prime,A,2022-01-07,Upcoming
+396,397,Interstellar,Sci-Fi,2022,5.0,125,Director 23, INDIA ,english,193.0,834337.0,Disney+ Hotstar,U/A,2024-06-01,Released
+397,398,Joker,Sci-Fi,2022,6.8,132,Director 35,JAPAN,spanish,33.0,,Disney+ Hotstar,A,2024-03-10,Upcoming
+398,399,Avengers,Action,2020,9.6,112,Director 2,AUSTRALIA,english,141.0,641668.0,JioHotstar,U,2020-06-20,Upcoming
+399,400,Bahubali,Animation,2021,9.8,171,Director 35,JAPAN,english,262.0,963256.0,JioHotstar,U/A,2024-03-01,Released
+400,401,3 Idiots,Horror,2019,9.1,117,Director 28,CANADA,english,298.0,361453.0,Amazon Prime,U,2024-01-25,Upcoming
+402,403,Coco,Thriller,2024,7.6,166,Director 7, USA ,english,73.0,,Amazon Prime,A,2020-03-28,Upcoming
+403,404,Leo,Drama,2022,7.4,139,Director 19,AUSTRALIA,english,305.0,481228.0,Amazon Prime,U/A,2023-12-15,Upcoming
+404,405,Moana,Drama,2019,9.1,122,Director 5,USA,spanish,112.0,745990.0,JioHotstar,U,2024-02-13,Released
+405,406,Kalki,Action,2023,8.7,124,Director 27,AUSTRALIA,hindi,337.0,369206.0,Netflix,U/A,2024-11-12,Released
+406,407,Inception,Comedy,2018,6.9,147,Director 27, USA ,spanish,28.0,853637.0,JioHotstar,U/A,2021-01-19,Upcoming
+407,408,Dangal,Action,2021,7.516470588235293,123,Director 23,INDIA,english,57.0,934804.0,Netflix,PG-13,2025-02-28,Upcoming
+408,409,Titanic,Action,2021,9.1,160,Director 34,CANADA,french,81.0,722001.0,JioHotstar,U/A,2025-11-17,Released
+409,410,Titanic,Drama,2020,6.9,87,Director 23, INDIA ,hindi,274.0,411532.0,Netflix,U/A,2021-11-07,Upcoming
+410,411,Rrr,Thriller,2022,9.6,129,Director 5,USA,english,297.0,149884.0,Netflix,U,2025-07-01,Released
+411,412,Drishyam,Thriller,2021,6.7,162,Director 22, USA ,hindi,280.0,976309.0,Amazon Prime,U/A,2024-05-16,Upcoming
+412,413,Avatar,Drama,2018,6.1,164,Director 9,INDIA,hindi,23.0,474391.0,Amazon Prime,PG-13,2025-01-05,Released
+413,414,Dangal,Horror,2020,7.5,119,Director 32,INDIA,hindi,261.0,310852.0,JioHotstar,U/A,2023-04-09,Released
+414,415,Avatar,Romance,2019,8.0,128,Director 34,USA,hindi,188.0,985865.0,Disney+ Hotstar,U,2021-02-25,Upcoming
+415,416,Bahubali,Thriller,2020,6.3,153,Director 8, INDIA ,hindi,230.0,915542.0,Amazon Prime,U/A,2021-05-05,Released
+416,417,Kalki,Sci-Fi,2021,5.8,110,Director 12,UK,french,188.0,426671.0,Netflix,U/A,2024-03-10,Released
+417,418,Avatar,Sci-Fi,2024,8.8,110,Director 27,AUSTRALIA,spanish,222.0,673553.0,Amazon Prime,U,2021-10-04,Released
+418,419,Avengers,Thriller,2024,8.6,89,Director 32, INDIA ,french,174.0,547819.0,Disney+ Hotstar,PG-13,2023-01-23,Upcoming
+419,420,Bahubali,Drama,2022,6.5,142,Director 31,USA,english,244.0,456489.0,Disney+ Hotstar,A,2021-10-13,Upcoming
+420,421,Avatar,Horror,2020,8.8,121,Director 27, USA ,english,22.0,311927.0,Disney+ Hotstar,U/A,2023-06-13,Released
+421,422,Avengers,Action,2023,9.1,110,Director 22,INDIA,hindi,293.0,678068.0,Disney+ Hotstar,A,2023-11-14,Upcoming
+422,423,Coco,Romance,2022,6.1,114,Director 12, USA ,hindi,79.0,580814.0,Netflix,PG-13,2025-12-17,Upcoming
+423,424,Titanic,Horror,2021,7.3,141,Director 24,JAPAN,,274.0,950167.0,Amazon Prime,PG-13,2021-10-28,Released
+424,425,Leo,Thriller,2020,8.6,110,Director 33,JAPAN,,169.0,151256.0,Amazon Prime,U/A,2024-03-21,Upcoming
+425,426,3 Idiots,Action,2020,9.1,86,Director 21, USA ,english,150.0,362798.0,Netflix,U/A,2021-08-09,Upcoming
+426,427,Interstellar,Action,2021,5.9,115,Director 26,INDIA,,68.0,,Netflix,PG-13,2025-06-04,Released
+427,428,Rrr,Romance,2018,9.7,146,Director 23,USA,hindi,284.0,620100.0,JioHotstar,PG-13,2020-06-27,Upcoming
+428,429,Titanic,Action,2019,8.1,86,Director 22,AUSTRALIA,english,262.0,349613.0,JioHotstar,U,2025-07-04,Released
+429,430,Avatar,Action,2018,7.516470588235293,102,Director 17,JAPAN,hindi,77.0,444918.0,Amazon Prime,U,2021-06-10,Upcoming
+430,431,Kalki,Sci-Fi,2019,5.4,93,Director 19,JAPAN,hindi,299.0,587986.0,Netflix,U/A,2023-03-10,Released
+431,432,Bahubali,Thriller,2022,5.9,154,Director 21, USA ,english,30.0,367321.0,JioHotstar,PG-13,2022-02-21,Released
+432,433,Pushpa,Sci-Fi,2021,7.4,125,Director 22,JAPAN,hindi,210.0,172600.0,Netflix,U,2022-11-28,Upcoming
+433,434,Drishyam,Drama,2021,8.9,167,Director 30,USA,english,151.0,409655.0,JioHotstar,PG-13,2023-12-18,Upcoming
+434,435,Avatar,Animation,2018,7.4,80,Director 21,AUSTRALIA,hindi,29.0,587366.0,Amazon Prime,U/A,2020-03-07,Upcoming
+435,436,Coco,Action,2018,7.516470588235293,137,Director 34,INDIA,english,196.0,191558.0,Amazon Prime,U/A,2020-11-23,Upcoming
+436,437,Joker,Romance,2019,7.8,125,Director 1,USA,english,336.0,207622.0,Disney+ Hotstar,U/A,2021-06-25,Upcoming
+437,438,Inception,Sci-Fi,2019,5.4,154,Director 35, INDIA ,spanish,61.0,277806.0,Amazon Prime,PG-13,2022-06-18,Upcoming
+438,439,Rrr,Thriller,2020,6.1,100,Director 19, USA ,spanish,54.0,589994.0,Netflix,A,2022-11-25,Released
+439,440,Titanic,Horror,2018,9.7,134,Director 31,CANADA,english,57.0,231678.0,Disney+ Hotstar,A,2024-02-28,Upcoming
+440,441,Leo,Romance,2018,6.9,112,Director 33,USA,hindi,270.0,389449.0,Netflix,U/A,2025-12-20,Upcoming
+441,442,Kgf,Sci-Fi,2020,7.516470588235293,127,Director 24,AUSTRALIA,english,312.0,601445.0,JioHotstar,U,2020-02-06,Released
+443,444,Joker,Romance,2024,5.3,156,Director 16,USA,hindi,350.0,535317.0,Disney+ Hotstar,A,2021-06-18,Released
+444,445,The Batman,Comedy,2021,7.516470588235293,172,Director 24,AUSTRALIA,french,27.0,750212.0,Netflix,A,2025-09-18,Released
+445,446,3 Idiots,Drama,2020,7.7,160,Director 12,AUSTRALIA,english,122.0,651060.0,Netflix,U,2025-06-15,Released
+446,447,Avengers,Thriller,2020,7.6,160,Director 29,AUSTRALIA,french,303.0,638707.0,JioHotstar,U/A,2024-07-03,Released
+447,448,Coco,Drama,2024,5.2,163,Director 10,JAPAN,english,257.0,528334.0,JioHotstar,A,2021-02-09,Released
+448,449,The Batman,Horror,2018,9.1,103,Director 20, INDIA ,hindi,293.0,785503.0,JioHotstar,A,2023-10-04,Upcoming
+449,450,Drishyam,Comedy,2020,5.7,103,Director 12,AUSTRALIA,hindi,139.0,954187.0,JioHotstar,U/A,2025-11-23,Upcoming
+450,451,Titanic,Thriller,2024,8.2,136,Director 6,AUSTRALIA,french,211.0,175090.0,JioHotstar,U,2022-06-28,Upcoming
+451,452,Kalki,Drama,2018,7.5,127,Director 30,UK,,86.0,483894.0,Disney+ Hotstar,A,2023-06-20,Released
+452,453,Moana,Animation,2020,6.4,134,Director 19,JAPAN,english,127.0,259568.0,Disney+ Hotstar,U,2023-03-03,Released
+453,454,Coco,Action,2019,5.7,145,Director 6,AUSTRALIA,french,283.0,500720.0,Netflix,PG-13,2024-09-23,Released
+454,455,Coco,Horror,2018,5.9,164,Director 25,INDIA,english,296.0,,Amazon Prime,U,2021-01-13,Released
+455,456,Drishyam,Thriller,2022,7.0,142,Director 3,CANADA,,62.0,515812.0,Netflix,PG-13,2025-08-01,Upcoming
+456,457,Interstellar,Comedy,2023,7.8,139,Director 3, INDIA ,spanish,320.0,714244.0,Disney+ Hotstar,PG-13,2021-02-02,Upcoming
+457,458,Kalki,Sci-Fi,2024,9.6,117,Director 28,AUSTRALIA,english,36.0,346475.0,Netflix,U/A,2024-03-01,Released
+458,459,Titanic,Romance,2021,5.1,126,Director 33,USA,english,115.0,806728.0,Netflix,PG-13,2024-02-21,Upcoming
+459,460,Bahubali,Action,2022,8.4,156,Director 12,AUSTRALIA,hindi,123.0,978480.0,Amazon Prime,U/A,2024-11-10,Released
+460,461,Joker,Animation,2021,7.516470588235293,131,Director 15, USA ,french,205.0,867505.0,Netflix,U/A,2024-12-05,Upcoming
+461,462,Interstellar,Sci-Fi,2020,9.2,146,Director 10,INDIA,hindi,281.0,780313.0,Amazon Prime,PG-13,2024-04-18,Released
+462,463,Jawan,Sci-Fi,2018,7.2,150,Director 12,AUSTRALIA,hindi,63.0,929154.0,Netflix,PG-13,2023-02-05,Released
+463,464,Kalki,Thriller,2020,7.6,165,Director 10,UK,french,102.0,,Disney+ Hotstar,U,2021-03-26,Released
+464,465,Inception,Sci-Fi,2024,8.4,107,Director 23,AUSTRALIA,english,86.0,856114.0,JioHotstar,U,2020-06-08,Released
+465,466,Avengers,Sci-Fi,2020,8.5,122,Director 2,AUSTRALIA,english,313.0,470089.0,Disney+ Hotstar,A,2025-06-17,Released
+466,467,Coco,Romance,2019,9.0,82,Director 10,AUSTRALIA,spanish,188.0,,JioHotstar,U,2022-03-17,Upcoming
+467,468,Leo,Sci-Fi,2020,5.0,114,Director 18,AUSTRALIA,,188.0,746857.0,Netflix,PG-13,2022-11-16,Upcoming
+468,469,Titanic,Drama,2020,5.5,131,Director 2,USA,,147.0,,Amazon Prime,PG-13,2024-06-13,Released
+469,470,Kalki,Animation,2022,6.1,113,Director 32,UK,,161.0,622653.0,Amazon Prime,U,2023-05-15,Released
+470,471,Bahubali,Romance,2021,5.2,156,Director 27,UK,spanish,242.0,561680.0,Disney+ Hotstar,U,2020-04-02,Upcoming
+471,472,Moana,Sci-Fi,2022,8.3,104,Director 21,AUSTRALIA,english,41.0,694250.0,Disney+ Hotstar,U/A,2025-05-06,Upcoming
+472,473,Avengers,Animation,2018,7.516470588235293,85,Director 8, USA ,hindi,85.0,859813.0,Disney+ Hotstar,U,2023-09-20,Upcoming
+473,474,Kgf,Thriller,2024,8.2,177,Director 8,UK,hindi,321.0,970875.0,Netflix,A,2025-06-20,Upcoming
+474,475,Titanic,Sci-Fi,2022,6.6,96,Director 35, USA ,spanish,114.0,652869.0,Netflix,U/A,2022-05-12,Released
+475,476,The Batman,Romance,2021,7.516470588235293,111,Director 14,AUSTRALIA,english,262.0,880158.0,Netflix,A,2020-03-03,Released
+477,478,Leo,Sci-Fi,2021,8.1,168,Director 12,INDIA,spanish,283.0,710504.0,Disney+ Hotstar,A,2021-07-09,Upcoming
+478,479,Avatar,Drama,2019,8.4,170,Director 4, USA ,english,254.0,628008.0,Netflix,PG-13,2022-04-12,Upcoming
+479,480,Dangal,Romance,2021,8.6,127,Director 35,AUSTRALIA,spanish,342.0,951384.0,Netflix,A,2023-03-23,Upcoming
+480,481,Joker,Thriller,2021,8.8,102,Director 24,UK,english,188.0,281681.0,JioHotstar,PG-13,2025-05-12,Upcoming
+481,482,Rrr,Horror,2020,7.516470588235293,106,Director 19,JAPAN,hindi,94.0,,Netflix,U/A,2022-02-02,Upcoming
+482,483,3 Idiots,Sci-Fi,2023,9.8,100,Director 12,CANADA,hindi,188.0,841083.0,Amazon Prime,U/A,2020-03-28,Released
+483,484,Kgf,Romance,2019,8.0,118,Director 7,INDIA,english,192.0,138101.0,Amazon Prime,U/A,2025-05-13,Released
+484,485,Jawan,Action,2022,6.3,177,Director 35,INDIA,hindi,262.0,811463.0,Netflix,U/A,2022-10-27,Released
+485,486,Moana,Action,2021,7.4,84,Director 13,AUSTRALIA,french,191.0,130226.0,Disney+ Hotstar,U/A,2021-08-22,Released
+486,487,Titanic,Thriller,2021,9.7,157,Director 32,USA,spanish,35.0,514866.0,Disney+ Hotstar,U/A,2024-09-25,Released
+487,488,3 Idiots,Sci-Fi,2018,8.8,178,Director 17, USA ,,225.0,191305.0,Netflix,U,2024-06-21,Released
+488,489,Kgf,Comedy,2022,9.4,161,Director 35,AUSTRALIA,english,94.0,994428.0,Amazon Prime,A,2023-03-18,Upcoming
+490,491,Bahubali,Sci-Fi,2019,7.516470588235293,155,Director 2, INDIA ,english,283.0,358723.0,Netflix,PG-13,2023-09-12,Upcoming
+491,492,Kalki,Thriller,2018,5.6,93,Director 26,AUSTRALIA,english,223.0,490059.0,Amazon Prime,U/A,2020-04-20,Released
+492,493,Interstellar,Comedy,2018,9.8,92,Director 23,USA,english,34.0,,Disney+ Hotstar,A,2020-05-01,Released
+493,494,Kalki,Thriller,2019,6.7,107,Director 17,UK,,245.0,578638.0,Netflix,U/A,2022-03-10,Released
+494,495,Leo,Sci-Fi,2023,9.4,171,Director 29, USA ,hindi,188.0,310848.0,Netflix,PG-13,2022-06-21,Upcoming
+495,496,The Batman,Action,2020,7.6,98,Director 34,AUSTRALIA,hindi,268.0,872943.0,JioHotstar,A,2024-01-23,Released
+496,497,3 Idiots,Comedy,2019,9.6,171,Director 9, INDIA ,spanish,188.0,333605.0,Amazon Prime,U/A,2020-06-21,Released
+497,498,Leo,Horror,2021,6.6,123,Director 12,CANADA,,205.0,963916.0,Netflix,PG-13,2025-08-01,Upcoming
+498,499,Jawan,Thriller,2022,5.5,176,Director 23,AUSTRALIA,english,41.0,379488.0,Disney+ Hotstar,U/A,2022-05-05,Upcoming
+499,500,Drishyam,Sci-Fi,2018,9.2,93,Director 13,CANADA,,267.0,285124.0,JioHotstar,U/A,2024-12-14,Released

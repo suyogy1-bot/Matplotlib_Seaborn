@@ -1,0 +1,2207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Visualization Notes — Matplotlib &amp; Seaborn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --paper:#faf8f3;
+  --paper-alt:#f2efe6;
+  --ink:#1e2130;
+  --muted:#5b5f73;
+  --line:#e1ddd0;
+  --card:#ffffff;
+
+  /* seaborn "deep"/default palette — used as the site's literal signature */
+  --blue:#4C72B0;
+  --orange:#DD8452;
+  --green:#55A868;
+  --red:#C44E52;
+  --purple:#8172B2;
+  --brown:#937860;
+  --pink:#DA8BC3;
+  --gray:#8C8C8C;
+  --yellow:#CCB974;
+  --cyan:#64B5CD;
+
+  --radius:14px;
+  --shadow:0 4px 22px rgba(30,33,48,0.07);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:34px 34px;
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:'Space Grotesk', 'Segoe UI', sans-serif;
+  line-height:1.6;
+}
+h1,h2,h3,h4{ font-family:'Fraunces', Georgia, serif; margin:0 0 .4em 0; letter-spacing:-.01em;}
+code, pre, .mono{ font-family:'IBM Plex Mono', monospace; }
+a{color:var(--blue);}
+::selection{ background: var(--yellow); color:var(--ink); }
+
+/* ============ LAYOUT ============ */
+.wrap{ display:flex; max-width:1320px; margin:0 auto; align-items:flex-start; }
+.toc{
+  width:280px; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+  padding:28px 18px 40px 28px; border-right:1px solid var(--line);
+  background:rgba(250,248,243,0.9); backdrop-filter:blur(4px);
+}
+.toc h4{ font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin-bottom:10px;}
+.toc-group{ margin-bottom:20px; }
+.toc-group-label{ font-size:.68rem; text-transform:uppercase; letter-spacing:.1em; font-weight:600; color:var(--gray); margin:14px 0 6px 2px; }
+.toc a{
+  display:flex; gap:8px; align-items:center; text-decoration:none; color:var(--ink);
+  font-size:.86rem; padding:6px 8px; border-radius:8px; margin-bottom:2px; transition:background .15s, transform .15s;
+}
+.toc a:hover{ background:var(--paper-alt); transform:translateX(2px); }
+.toc .dot{ width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.toc-toggle{ display:none; }
+main{ flex:1; min-width:0; padding:0 0 80px 0; }
+
+/* ============ HERO ============ */
+.hero{
+  padding:64px 56px 40px 56px; position:relative; overflow:hidden;
+  border-bottom:1px solid var(--line);
+}
+.hero-eyebrow{
+  display:inline-flex; align-items:center; gap:8px; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--muted); background:var(--paper-alt); padding:6px 14px; border-radius:100px; margin-bottom:22px;
+  border:1px solid var(--line);
+}
+.hero h1{ font-size:clamp(2.1rem, 4vw, 3.4rem); max-width:820px; }
+.hero h1 em{ font-style:italic; color:var(--blue); }
+.hero p.lead{ max-width:640px; color:var(--muted); font-size:1.08rem; margin-top:14px; }
+.hero-chart{ position:absolute; right:40px; top:40px; width:340px; opacity:.95; }
+@media (max-width:1100px){ .hero-chart{ display:none; } }
+
+.palette-note{
+  display:flex; align-items:center; gap:10px; margin-top:26px; font-size:.82rem; color:var(--muted); flex-wrap:wrap;
+}
+.swatch{ width:16px; height:16px; border-radius:4px; display:inline-block; }
+
+/* ============ SECTION HEADERS ============ */
+.part-header{
+  margin:56px 56px 18px 56px; padding-top:10px; scroll-margin-top:20px;
+}
+.part-header .tag{ font-size:.75rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.part-header h2{ font-size:2rem; }
+.part-header .rule{ height:3px; width:60px; border-radius:3px; margin-top:10px; }
+.part-intro{ margin:0 56px 20px 56px; color:var(--muted); max-width:760px; }
+
+/* ============ TOPIC CARDS ============ */
+.topics{ margin:0 56px; display:flex; flex-direction:column; gap:18px; }
+details.topic{
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; scroll-margin-top:20px;
+}
+details.topic > summary{
+  list-style:none; cursor:pointer; padding:20px 24px; display:flex; align-items:center; gap:16px;
+  font-family:'Fraunces', serif; font-size:1.18rem; font-weight:600; user-select:none;
+}
+details.topic > summary::-webkit-details-marker{ display:none; }
+.summary-icon{
+  width:38px; height:38px; border-radius:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono'; font-weight:600; font-size:.85rem; color:#fff;
+}
+.summary-chevron{ margin-left:auto; transition:transform .25s; color:var(--muted); font-size:1.1rem; }
+details[open] > summary .summary-chevron{ transform:rotate(90deg); }
+.topic-body{ padding:2px 26px 28px 26px; border-top:1px solid var(--line); }
+.topic-body h4.subhead{ font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); margin:22px 0 8px 0; }
+.topic-body h4.subhead:first-child{ margin-top:20px; }
+.topic-body p{ margin:6px 0; }
+.topic-body ul{ margin:6px 0; padding-left:22px; }
+
+/* ============ INFO BOXES ============ */
+.box{ border-radius:10px; padding:14px 18px; margin:14px 0; font-size:.94rem; border-left:4px solid; }
+.box .box-label{ font-weight:700; font-size:.78rem; text-transform:uppercase; letter-spacing:.08em; margin-bottom:4px; display:block; }
+.box.tip{ background:#eef5ee; border-color:var(--green); }
+.box.tip .box-label{ color:var(--green); }
+.box.note{ background:#eef1f8; border-color:var(--blue); }
+.box.note .box-label{ color:var(--blue); }
+.box.warning{ background:#fbeeee; border-color:var(--red); }
+.box.warning .box-label{ color:var(--red); }
+.box.best{ background:#f3eef8; border-color:var(--purple); }
+.box.best .box-label{ color:var(--purple); }
+
+/* ============ CODE ============ */
+.codewrap{ background:#1e2130; border-radius:10px; margin:14px 0; overflow:hidden; }
+.codehead{ display:flex; justify-content:space-between; align-items:center; padding:8px 14px; background:#161825; font-size:.72rem; color:#9aa0b4; letter-spacing:.05em; text-transform:uppercase; }
+.copybtn{ background:transparent; border:1px solid #3a3f57; color:#c7cbe0; border-radius:6px; padding:3px 9px; font-size:.68rem; cursor:pointer; font-family:'IBM Plex Mono'; }
+.copybtn:hover{ background:#2a2e44; }
+pre.code{ margin:0; padding:16px 18px; overflow-x:auto; font-size:.86rem; color:#e6e8f2; }
+.kw{color:#e78fb3;} .str{color:#c3e88d;} .com{color:#6c7396; font-style:italic;} .fn{color:#82aaff;} .num{color:#f78c6c;} .op{color:#89ddff;}
+
+/* line-by-line walkthrough */
+.walk{ margin:14px 0; }
+.walk-line{ display:flex; gap:12px; padding:6px 0; border-bottom:1px dashed var(--line); font-size:.9rem; }
+.walk-code{ font-family:'IBM Plex Mono'; background:var(--paper-alt); padding:2px 8px; border-radius:6px; white-space:nowrap; flex-shrink:0; font-size:.82rem; }
+.walk-desc{ color:var(--muted); }
+
+/* ============ TABLE ============ */
+table.cmp{ width:100%; border-collapse:collapse; margin:14px 0; font-size:.9rem; }
+table.cmp th, table.cmp td{ padding:9px 12px; border:1px solid var(--line); text-align:left; }
+table.cmp th{ background:var(--paper-alt); font-family:'Fraunces'; }
+
+/* ============ QUIZ ============ */
+.quiz{ background:var(--paper-alt); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:18px 0; }
+.quiz .qtitle{ font-weight:600; font-family:'Fraunces'; margin-bottom:10px; display:flex; gap:8px; align-items:center; }
+.quiz .qtitle:before{ content:"?"; width:24px; height:24px; border-radius:50%; background:var(--yellow); color:#1e2130; display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:700; }
+.qopt{ display:block; width:100%; text-align:left; background:#fff; border:1px solid var(--line); border-radius:8px; padding:9px 14px; margin:6px 0; cursor:pointer; font-family:inherit; font-size:.9rem; transition:.15s; }
+.qopt:hover{ border-color:var(--blue); }
+.qopt.correct{ background:#eaf5ea; border-color:var(--green); font-weight:600; }
+.qopt.wrong{ background:#fbecec; border-color:var(--red); }
+.qfeedback{ margin-top:8px; font-size:.85rem; color:var(--muted); min-height:1.2em; }
+
+/* ============ DIAGRAM WRAPPER ============ */
+.diagram{ display:flex; justify-content:center; margin:16px 0; background:var(--paper-alt); border-radius:10px; padding:18px; }
+.diagram svg{ max-width:100%; height:auto; }
+.diagram-caption{ text-align:center; font-size:.8rem; color:var(--muted); margin-top:-6px; }
+
+/* ============ WHEN TO USE CARD ============ */
+.usecard{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:14px 0; }
+@media(max-width:640px){ .usecard{ grid-template-columns:1fr; } }
+.usecard .u{ padding:12px 14px; border-radius:10px; font-size:.88rem; }
+.usecard .use{ background:#eef5ee; border:1px solid var(--green); }
+.usecard .avoid{ background:#fbeeee; border:1px solid var(--red); }
+.usecard b{ display:block; margin-bottom:4px; }
+
+/* ============ TAKEAWAY ============ */
+.takeaway{ display:flex; gap:12px; align-items:flex-start; background:linear-gradient(135deg, #1e2130, #2c2f45); color:#f2efe6; padding:16px 20px; border-radius:10px; margin-top:18px; }
+.takeaway .icon{ font-size:1.3rem; }
+.takeaway b{ font-family:'Fraunces'; }
+
+/* ============ MISC ============ */
+.badge-mini{ font-size:.66rem; padding:2px 8px; border-radius:100px; background:var(--paper-alt); color:var(--muted); border:1px solid var(--line); margin-left:6px; }
+footer{ text-align:center; padding:50px 20px; color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); margin-top:40px; }
+.mobile-toc-btn{ display:none; }
+
+@media (max-width:900px){
+  .wrap{ flex-direction:column; }
+  .toc{ position:fixed; z-index:50; left:0; top:0; width:82%; max-width:320px; transform:translateX(-105%); transition:transform .25s; box-shadow:12px 0 30px rgba(0,0,0,.15); }
+  .toc.open{ transform:translateX(0); }
+  .mobile-toc-btn{ display:flex; position:fixed; bottom:20px; right:20px; z-index:40; width:52px; height:52px; border-radius:50%;
+    background:var(--ink); color:#fff; align-items:center; justify-content:center; font-size:1.3rem; border:none; box-shadow:0 6px 20px rgba(0,0,0,.25); cursor:pointer;}
+  .hero, .part-header, .part-intro, .topics{ margin-left:20px; margin-right:20px; padding-left:0; padding-right:0;}
+  .hero{ padding:44px 20px 30px 20px; }
+}
+
+/* ============ PROGRESS BAR ============ */
+.progress-rail{ position:fixed; top:0; left:0; width:100%; height:4px; background:var(--line); z-index:80; }
+.progress-fill{ height:100%; width:0%; background:linear-gradient(90deg, var(--blue), var(--green)); transition:width .35s ease; }
+
+/* ============ TOC ENHANCEMENTS ============ */
+.toc-topbar{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.toc-progress-badge{ font-family:'IBM Plex Mono', monospace; font-size:.72rem; font-weight:600; color:var(--green); background:var(--paper-alt); border:1px solid var(--line); border-radius:100px; padding:2px 9px; transition:.2s; }
+.toc-progress-badge.complete{ color:#fff; background:var(--green); border-color:var(--green); }
+.toc-search-wrap{ margin-bottom:8px; }
+.toc-search{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:.82rem; background:#fff; color:var(--ink); }
+.toc-search:focus{ outline:none; border-color:var(--blue); }
+.toc-actions{ display:flex; gap:6px; margin-bottom:16px; }
+.toc-action-btn{ flex:1; font-family:inherit; font-size:.72rem; padding:6px 4px; border:1px solid var(--line); background:#fff; border-radius:7px; cursor:pointer; color:var(--muted); transition:.15s; }
+.toc-action-btn:hover{ border-color:var(--blue); color:var(--blue); }
+.toc a.toc-hidden{ display:none; }
+.toc-group.toc-group-hidden{ display:none; }
+.toc a.active{ background:var(--paper-alt); font-weight:600; }
+.toc a.active .dot{ box-shadow:0 0 0 3px rgba(76,114,176,.25); }
+.toc a .dot.done{ position:relative; background:var(--green) !important; }
+.toc a .dot.done::after{ content:"✓"; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:6px; color:#fff; line-height:8px; }
+
+/* ============ MARK-COMPLETE TOGGLE ============ */
+summary{ position:relative; }
+.done-toggle{ display:inline-flex; align-items:center; gap:5px; margin-left:auto; font-size:.72rem; font-weight:500; color:var(--muted); cursor:pointer; padding:3px 9px 3px 7px; border-radius:100px; border:1px solid var(--line); background:var(--paper-alt); flex-shrink:0; }
+.done-toggle:hover{ border-color:var(--green); color:var(--green); }
+.done-toggle input{ accent-color:var(--green); width:13px; height:13px; cursor:pointer; }
+details.topic.is-done > summary{ background:linear-gradient(90deg, rgba(85,168,104,.08), transparent 60%); }
+details.topic.is-done .done-toggle{ background:#eaf5ea; border-color:var(--green); color:var(--green); }
+summary{ display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+.summary-chevron{ margin-left:4px; }
+
+/* ============ BACK TO TOP ============ */
+.back-to-top{ display:none; position:fixed; bottom:20px; right:20px; z-index:41; width:46px; height:46px; border-radius:50%; background:var(--ink); color:#fff; border:none; font-size:1.2rem; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,.25); align-items:center; justify-content:center; }
+.back-to-top.show{ display:flex; }
+@media(max-width:900px){ .back-to-top{ right:82px; } }
+
+/* ============ QUIZ TRACKER ============ */
+.quiz-tracker{ position:fixed; bottom:20px; left:20px; z-index:41; background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow); border-radius:100px; padding:9px 16px 9px 12px; font-size:.8rem; font-weight:600; display:flex; align-items:center; gap:7px; transition:.2s; }
+.quiz-tracker.hidden{ opacity:0; transform:translateY(10px); pointer-events:none; }
+.quiz-tracker.all-correct{ background:var(--green); color:#fff; border-color:var(--green); }
+.qt-icon{ font-size:1rem; }
+@media(max-width:900px){ .quiz-tracker{ left:auto; right:82px; bottom:80px; } }
+
+/* ============ CELEBRATION ============ */
+.confetti-piece{ position:fixed; top:-20px; z-index:200; border-radius:2px; pointer-events:none; animation:confetti-fall linear forwards; }
+@keyframes confetti-fall{ to{ transform:translateY(105vh) rotate(540deg); opacity:0.4; } }
+.celebrate-toast{ position:fixed; top:24px; left:50%; transform:translateX(-50%) translateY(-140%); z-index:201; background:linear-gradient(135deg, #1e2130, #2c2f45); color:#f2efe6; padding:14px 26px; border-radius:100px; font-family:'Fraunces'; font-weight:600; box-shadow:0 10px 30px rgba(0,0,0,.25); transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+.celebrate-toast.show{ transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ============ PROGRESS BAR ============ -->
+<div class="progress-rail">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<button class="mobile-toc-btn" onclick="document.querySelector('.toc').classList.toggle('open')">☰</button>
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
+
+<div class="quiz-tracker" id="quizTracker">
+  <span class="qt-icon">🧠</span><span id="quizTrackerText">Quizzes: 0/0</span>
+</div>
+
+<div class="wrap">
+  <!-- ============ TOC ============ -->
+  <nav class="toc">
+    <div class="toc-topbar">
+      <h4 style="margin:0;">Contents</h4>
+      <span class="toc-progress-badge" id="tocProgressBadge">0%</span>
+    </div>
+
+    <div class="toc-search-wrap">
+      <input type="text" id="tocSearch" class="toc-search" placeholder="Filter topics…" oninput="filterToc(this.value)">
+    </div>
+
+    <div class="toc-actions">
+      <button class="toc-action-btn" onclick="setAllDetails(true)">Expand all</button>
+      <button class="toc-action-btn" onclick="setAllDetails(false)">Collapse all</button>
+    </div>
+
+    <a href="#top" style="font-weight:600; margin-bottom:14px;">↑ Overview</a>
+
+    <div class="toc-group">
+      <div class="toc-group-label">Part 1 · Matplotlib</div>
+      <a href="#mpl-intro" id="toc-mpl-intro" data-toc-link><span class="dot" style="background:var(--blue)"></span>1. What is Matplotlib?</a>
+      <a href="#mpl-basic" id="toc-mpl-basic" data-toc-link><span class="dot" style="background:var(--blue)"></span>2. Your First Line Plot</a>
+      <a href="#mpl-canvas" id="toc-mpl-canvas" data-toc-link><span class="dot" style="background:var(--blue)"></span>3. The Canvas</a>
+      <a href="#mpl-subplot" id="toc-mpl-subplot" data-toc-link><span class="dot" style="background:var(--blue)"></span>4. subplot() Grids</a>
+      <a href="#mpl-oo" id="toc-mpl-oo" data-toc-link><span class="dot" style="background:var(--blue)"></span>5. Object-Oriented Interface</a>
+      <a href="#mpl-multiaxes" id="toc-mpl-multiaxes" data-toc-link><span class="dot" style="background:var(--blue)"></span>6. Multiple / Inset Axes</a>
+      <a href="#mpl-figsize" id="toc-mpl-figsize" data-toc-link><span class="dot" style="background:var(--blue)"></span>7. Figure Size, Aspect &amp; DPI</a>
+      <a href="#mpl-legend" id="toc-mpl-legend" data-toc-link><span class="dot" style="background:var(--blue)"></span>8. Legends, Labels &amp; Titles</a>
+      <a href="#mpl-styles" id="toc-mpl-styles" data-toc-link><span class="dot" style="background:var(--blue)"></span>9. Line Styles, Colors &amp; Markers</a>
+      <a href="#mpl-limits" id="toc-mpl-limits" data-toc-link><span class="dot" style="background:var(--blue)"></span>10. Axis Limits</a>
+      <a href="#mpl-special" id="toc-mpl-special" data-toc-link><span class="dot" style="background:var(--blue)"></span>11. Scatter, Histogram, Boxplot</a>
+    </div>
+
+    <div class="toc-group">
+      <div class="toc-group-label">Part 2 · Seaborn</div>
+      <a href="#sns-intro" id="toc-sns-intro" data-toc-link><span class="dot" style="background:var(--cyan)"></span>12. What is Seaborn?</a>
+      <a href="#sns-scatter" id="toc-sns-scatter" data-toc-link><span class="dot" style="background:var(--cyan)"></span>13. scatterplot()</a>
+      <a href="#sns-line" id="toc-sns-line" data-toc-link><span class="dot" style="background:var(--cyan)"></span>14. lineplot()</a>
+      <a href="#sns-style" id="toc-sns-style" data-toc-link><span class="dot" style="background:var(--cyan)"></span>15. Styling &amp; Palettes</a>
+      <a href="#sns-barcount" id="toc-sns-barcount" data-toc-link><span class="dot" style="background:var(--orange)"></span>16. barplot() vs countplot()</a>
+      <a href="#sns-boxviolin" id="toc-sns-boxviolin" data-toc-link><span class="dot" style="background:var(--orange)"></span>17. boxplot() &amp; violinplot()</a>
+      <a href="#sns-stripswarm" id="toc-sns-stripswarm" data-toc-link><span class="dot" style="background:var(--orange)"></span>18. stripplot() &amp; swarmplot()</a>
+      <a href="#sns-hist" id="toc-sns-hist" data-toc-link><span class="dot" style="background:var(--green)"></span>19. histplot()</a>
+      <a href="#sns-kde" id="toc-sns-kde" data-toc-link><span class="dot" style="background:var(--green)"></span>20. kdeplot()</a>
+      <a href="#sns-distplot" id="toc-sns-distplot" data-toc-link><span class="dot" style="background:var(--green)"></span>21. distplot() (legacy)</a>
+      <a href="#sns-rug" id="toc-sns-rug" data-toc-link><span class="dot" style="background:var(--green)"></span>22. rugplot()</a>
+      <a href="#sns-hue" id="toc-sns-hue" data-toc-link><span class="dot" style="background:var(--green)"></span>23. Distributions with hue</a>
+      <a href="#sns-reg" id="toc-sns-reg" data-toc-link><span class="dot" style="background:var(--red)"></span>24. regplot() &amp; lmplot()</a>
+      <a href="#sns-joint" id="toc-sns-joint" data-toc-link><span class="dot" style="background:var(--red)"></span>25. jointplot()</a>
+      <a href="#sns-pair" id="toc-sns-pair" data-toc-link><span class="dot" style="background:var(--red)"></span>26. pairplot()</a>
+      <a href="#sns-heat" id="toc-sns-heat" data-toc-link><span class="dot" style="background:var(--brown)"></span>27. heatmap()</a>
+      <a href="#sns-cluster" id="toc-sns-cluster" data-toc-link><span class="dot" style="background:var(--brown)"></span>28. clustermap()</a>
+      <a href="#sns-theme" id="toc-sns-theme" data-toc-link><span class="dot" style="background:var(--brown)"></span>29. Themes &amp; Styling</a>
+    </div>
+  </nav>
+
+  <!-- ============ MAIN ============ -->
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero-chart">
+        <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="0" width="300" height="220" rx="14" fill="#ffffff" opacity="0.6"/>
+          <!-- mini bar chart -->
+          <g>
+            <rect x="20" y="140" width="18" height="50" fill="#DD8452"><animate attributeName="height" from="0" to="50" dur="0.9s" fill="freeze"/><animate attributeName="y" from="190" to="140" dur="0.9s" fill="freeze"/></rect>
+            <rect x="44" y="110" width="18" height="80" fill="#4C72B0"><animate attributeName="height" from="0" to="80" dur="0.9s" begin="0.1s" fill="freeze"/><animate attributeName="y" from="190" to="110" dur="0.9s" begin="0.1s" fill="freeze"/></rect>
+            <rect x="68" y="160" width="18" height="30" fill="#55A868"><animate attributeName="height" from="0" to="30" dur="0.9s" begin="0.2s" fill="freeze"/><animate attributeName="y" from="190" to="160" dur="0.9s" begin="0.2s" fill="freeze"/></rect>
+            <rect x="92" y="95" width="18" height="95" fill="#C44E52"><animate attributeName="height" from="0" to="95" dur="0.9s" begin="0.3s" fill="freeze"/><animate attributeName="y" from="190" to="95" dur="0.9s" begin="0.3s" fill="freeze"/></rect>
+          </g>
+          <!-- mini scatter -->
+          <g fill="#8172B2">
+            <circle cx="150" cy="60" r="4"/><circle cx="165" cy="80" r="4"/><circle cx="180" cy="50" r="4"/>
+            <circle cx="195" cy="70" r="4"/><circle cx="210" cy="40" r="4"/><circle cx="225" cy="65" r="4"/>
+            <circle cx="240" cy="45" r="4"/><circle cx="255" cy="58" r="4"/>
+          </g>
+          <!-- mini line -->
+          <polyline points="140,190 160,175 180,182 200,160 220,168 240,140 260,150 275,120" fill="none" stroke="#64B5CD" stroke-width="3" stroke-linecap="round">
+            <animate attributeName="stroke-dasharray" from="0,400" to="400,0" dur="1.4s" fill="freeze"/>
+          </polyline>
+          <!-- kde curve -->
+          <path d="M20 60 Q 60 10 100 60 T 180 60" fill="none" stroke="#CCB974" stroke-width="2.5" opacity="0.9"/>
+        </svg>
+      </div>
+      <div class="hero-eyebrow">● self-learning course notes</div>
+      <h1>Data Visualization,<br><em>from a blank canvas</em><br>to real insight.</h1>
+      <p class="lead">A friendly, no-assumptions walkthrough of <b>Matplotlib</b> and <b>Seaborn</b> — the two libraries every Python data person learns first. Every topic below explains itself like you've never plotted anything in your life: what it is, why it exists, how the syntax works, what the code does line by line, the mistakes beginners actually make, and the one-line takeaway to remember.</p>
+      <div class="palette-note">
+        <span>🎨 Fun fact: the accent colors used throughout this page are Seaborn's own default color palette —</span>
+        <span class="swatch" style="background:#4C72B0"></span><span class="swatch" style="background:#DD8452"></span>
+        <span class="swatch" style="background:#55A868"></span><span class="swatch" style="background:#C44E52"></span>
+        <span class="swatch" style="background:#8172B2"></span><span class="swatch" style="background:#937860"></span>
+        <span class="swatch" style="background:#64B5CD"></span>
+      </div>
+    </section>
+
+    <!-- =========================================================== -->
+    <!-- PART 1 : MATPLOTLIB                                          -->
+    <!-- =========================================================== -->
+    <div class="part-header" id="part1">
+      <div class="tag">Part 1</div>
+      <h2>Matplotlib — the foundation</h2>
+      <div class="rule" style="background:var(--blue)"></div>
+    </div>
+    <p class="part-intro">Matplotlib is the low-level, do-anything plotting library that almost every other Python visualization tool (including Seaborn) is built on top of. It gives you total control — which also means you write a bit more code. Master this first and everything after it will feel easy.</p>
+
+    <div class="topics">
+
+      <!-- 1. INTRO -->
+      <details class="topic" id="mpl-intro" open>
+        <summary><span class="summary-icon" style="background:var(--blue)">01</span>What is Matplotlib?<span class="badge-mini">concept</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-intro" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Matplotlib is a Python library for drawing charts and graphs. Think of it as a digital pen and graph paper: you tell it exactly where to draw lines, bars, or dots, and it draws them for you. It's called "Matplotlib" because it was inspired by MATLAB's plotting style.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <ul>
+            <li>To <b>see</b> your data — patterns are much easier to spot in a picture than in a spreadsheet.</li>
+            <li>To create clean, publication-quality figures for reports and papers.</li>
+            <li>Because it's the <b>foundation</b> other libraries (Seaborn, Pandas' <code>.plot()</code>) are built on — learning it first makes everything else make sense.</li>
+          </ul>
+
+          <h4 class="subhead">The anatomy of a Matplotlib figure</h4>
+          <p>Before writing any code, you need to know the four building blocks:</p>
+          <div class="diagram">
+            <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="500" height="280" rx="10" fill="#fff" stroke="#4C72B0" stroke-width="2"/>
+              <text x="24" y="34" font-family="IBM Plex Mono" font-size="13" fill="#4C72B0" font-weight="600">FIGURE (the whole page)</text>
+              <rect x="40" y="55" width="440" height="210" rx="8" fill="#f6f4ec" stroke="#DD8452" stroke-width="2"/>
+              <text x="54" y="78" font-family="IBM Plex Mono" font-size="12.5" fill="#DD8452" font-weight="600">AXES (the plotting area)</text>
+              <!-- fake plot -->
+              <polyline points="80,230 130,190 180,210 230,150 280,180 330,120 380,160" fill="none" stroke="#55A868" stroke-width="3"/>
+              <circle cx="80" cy="230" r="4" fill="#55A868"/><circle cx="130" cy="190" r="4" fill="#55A868"/>
+              <circle cx="180" cy="210" r="4" fill="#55A868"/><circle cx="230" cy="150" r="4" fill="#55A868"/>
+              <circle cx="280" cy="180" r="4" fill="#55A868"/><circle cx="330" cy="120" r="4" fill="#55A868"/>
+              <circle cx="380" cy="160" r="4" fill="#55A868"/>
+              <!-- axis lines -->
+              <line x1="70" y1="240" x2="440" y2="240" stroke="#1e2130" stroke-width="1.5"/>
+              <line x1="70" y1="100" x2="70" y2="240" stroke="#1e2130" stroke-width="1.5"/>
+              <text x="230" y="256" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#5b5f73">X AXIS (ticks &amp; scale)</text>
+              <text x="45" y="170" text-anchor="middle" font-family="IBM Plex Mono" font-size="10.5" fill="#5b5f73" transform="rotate(-90 45 170)">Y AXIS</text>
+              <text x="255" y="70" text-anchor="middle" font-family="Fraunces" font-size="13" fill="#1e2130">Title, legend, labels = "plot elements"</text>
+            </svg>
+          </div>
+          <div class="diagram-caption">One Figure can hold one or many Axes. Each Axes has its own X/Y Axis (scale + ticks) and plot elements.</div>
+
+          <ol style="padding-left:20px;">
+            <li><b>Figure</b> → the whole window/page that contains everything.</li>
+            <li><b>Axes</b> → the actual rectangle where your data gets drawn (confusingly, this is singular "an Axes", not related to "axis").</li>
+            <li><b>Axis</b> → the x and y number lines — their scale, ticks, and limits.</li>
+            <li><b>Plot elements</b> → titles, labels, legends, lines, bars, markers.</li>
+          </ol>
+
+          <div class="box note"><span class="box-label">Important note</span>People mix up "Axes" (the plot area) and "Axis" (the x/y number line) constantly — even experienced coders. Axes = the container. Axis = the ruler on its edge.</div>
+
+          <h4 class="subhead">Typical workflow</h4>
+          <div class="codewrap">
+            <div class="codehead"><span>python</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code">import matplotlib.pyplot as plt</pre>
+          </div>
+          <p>That one line is how every Matplotlib session starts. <code>plt</code> is just a nickname (alias) for the module so you don't have to type <code>matplotlib.pyplot</code> every time.</p>
+
+          <h4 class="subhead">Common beginner mistakes</h4>
+          <ul>
+            <li>Forgetting the import line and getting a <code>NameError: name 'plt' is not defined</code>.</li>
+            <li>Typing <code>import matplotlib</code> alone and then trying to call <code>plt.plot()</code> — you specifically need the <code>.pyplot</code> submodule.</li>
+          </ul>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Matplotlib = Figure (the page) + Axes (the plotting area) + Axis (the rulers) + plot elements. Everything you'll learn is just different ways of creating and arranging these pieces.</div></div>
+        </div>
+      </details>
+
+      <!-- 2. BASIC LINE PLOT -->
+      <details class="topic" id="mpl-basic">
+        <summary><span class="summary-icon" style="background:var(--blue)">02</span>Your First Line Plot<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-basic" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>The simplest thing Matplotlib can do is connect a set of points with a line — a <b>line plot</b>. You give it two lists of numbers (x-values and y-values), and it draws a line through them.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Line plots are the go-to choice for showing a <b>trend</b> — how something changes over time or over an ordered sequence (sales by month, temperature by day, stock price over the year).</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>plt.plot(x, y)</code> — pass an x-list and a y-list of the same length; Matplotlib pairs them up point by point and draws lines between them.</p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — basic line plot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+# Two simple arrays
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 25, 30, 40]
+
+# Create a basic line plot
+plt.plot(x, y)
+
+# Add labels and title
+plt.xlabel("X values")
+plt.ylabel("Y values")
+plt.title("Basic Line Plot with Two Arrays")
+
+# Show the plot
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">import matplotlib.pyplot as plt</span><span class="walk-desc">loads the plotting toolbox and gives it the short name <code>plt</code>.</span></div>
+            <div class="walk-line"><span class="walk-code">x = [1,2,3,4,5]</span><span class="walk-desc">the horizontal positions of each point.</span></div>
+            <div class="walk-line"><span class="walk-code">y = [10,20,25,30,40]</span><span class="walk-desc">the matching heights — point 1 is (1,10), point 2 is (2,20), and so on.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.plot(x, y)</span><span class="walk-desc">draws the line connecting those 5 points, in memory (not on screen yet).</span></div>
+            <div class="walk-line"><span class="walk-code">plt.xlabel/ylabel</span><span class="walk-desc">names the axes so the reader knows what the numbers mean.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.title(...)</span><span class="walk-desc">gives the whole chart a heading.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.show()</span><span class="walk-desc">actually renders/opens the finished chart. Nothing appears on screen until this line runs.</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Forgetting <code>plt.show()</code> in a plain <code>.py</code> script — the chart is built but never displayed. (In Jupyter notebooks, plots often auto-display anyway, but it's still good habit to include it.)</div>
+          <div class="box warning"><span class="box-label">Common mistake</span><code>x</code> and <code>y</code> must be the <b>same length</b>. A mismatched list length raises a <code>ValueError</code>.</div>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>What happens if you remove <code>plt.show()</code> from a standalone Python script?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'Not quite — the code runs fine, nothing crashes.')">Python throws an error and the script crashes</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Right! plt.show() is what actually renders the figure — without it, nothing visible happens in a script.')">The script runs, but no chart window appears</button>
+            <button class="qopt" onclick="checkAnswer(this,false,'It does not save automatically — that needs plt.savefig().')">The chart is automatically saved as a file</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>plt.plot(x, y)</code> draws the line, and <code>plt.show()</code> is what makes it appear. Always label your axes and title — an unlabeled chart tells no story.</div></div>
+        </div>
+      </details>
+
+      <!-- 3. CANVAS -->
+      <details class="topic" id="mpl-canvas">
+        <summary><span class="summary-icon" style="background:var(--blue)">03</span>The Canvas<span class="badge-mini">concept</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-canvas" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>A <b>canvas</b> is the blank sheet of paper your plots get drawn on. It's not a special Matplotlib term you'll see in the docs often, but it's the easiest way to think about <code>plt.figure()</code> — before you draw anything, you set up the blank page first, then draw one or several plots on top of it.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>You create a canvas whenever you want to control the <b>size</b> of the output, or when you want to put <b>multiple lines/plots together</b> on the same page instead of Matplotlib guessing a default size for you.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>plt.figure(figsize=(width, height))</code> — width and height are in inches. You create the canvas <i>before</i> calling <code>plt.plot()</code>.</p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — one canvas, two lines</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+# Create one canvas and draw multiple plots on it
+x = [1, 2, 3, 4, 5]
+y1 = [1, 4, 9, 16, 25]
+y2 = [1, 2, 3, 4, 5]
+
+plt.figure(figsize=(6,4))   # <-- create the canvas
+
+plt.plot(x, y1, label="Squares", color="blue")
+plt.plot(x, y2, label="Line", color="red")
+
+plt.title("Multiple Plots on the Same Canvas")
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend()
+plt.grid(True)
+
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">plt.figure(figsize=(6,4))</span><span class="walk-desc">opens a blank canvas 6 inches wide, 4 inches tall.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.plot(x, y1, label=..., color=...)</span><span class="walk-desc">draws the first line in blue and remembers its name ("Squares") for later.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.plot(x, y2, ...)</span><span class="walk-desc">draws a <b>second</b> line on the <i>same</i> canvas, in red — Matplotlib doesn't erase what came before.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.legend()</span><span class="walk-desc">shows a small box mapping each color to its <code>label</code>.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.grid(True)</span><span class="walk-desc">adds light gridlines to make reading values easier.</span></div>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>Because <code>plt.plot()</code> keeps drawing on the same "current" canvas until you call <code>plt.show()</code> or start a new <code>plt.figure()</code>, you can layer as many plots as you like on top of each other.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Calling <code>plt.figure()</code> a second time by accident starts a brand-new blank canvas — any plot commands after that will NOT land on your first chart.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Think "canvas first, then draw." <code>plt.figure()</code> sets up the blank page and its size; everything you plot afterward lands on that same page until you open a new one.</div></div>
+        </div>
+      </details>
+
+      <!-- 4. SUBPLOT -->
+      <details class="topic" id="mpl-subplot">
+        <summary><span class="summary-icon" style="background:var(--blue)">04</span>Subplots with plt.subplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-subplot" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p><code>plt.subplot()</code> splits one figure into a <b>grid</b> of smaller plotting areas, so you can show several charts side by side instead of one giant chart.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Great for comparisons — e.g., showing "before vs after," or three different chart types describing the same data, without opening three separate windows.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>plt.subplot(nrows, ncols, index)</code></p>
+          <ul>
+            <li><code>nrows</code> — how many rows the grid has</li>
+            <li><code>ncols</code> — how many columns the grid has</li>
+            <li><code>index</code> — which cell to draw in next, counted left→right, top→bottom, <b>starting at 1</b> (not 0!)</li>
+          </ul>
+
+          <div class="diagram">
+            <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="240" height="200" fill="none" stroke="#1e2130" stroke-width="2" rx="8"/>
+              <line x1="130" y1="10" x2="130" y2="210" stroke="#1e2130" stroke-width="2"/>
+              <line x1="10" y1="110" x2="250" y2="110" stroke="#1e2130" stroke-width="2"/>
+              <rect x="15" y="15" width="110" height="90" fill="#4C72B0" opacity="0.85" rx="4"/>
+              <text x="70" y="65" text-anchor="middle" fill="#fff" font-family="IBM Plex Mono" font-size="14">1</text>
+              <rect x="135" y="15" width="110" height="90" fill="#DD8452" opacity="0.35" rx="4"/>
+              <text x="190" y="65" text-anchor="middle" fill="#5b5f73" font-family="IBM Plex Mono" font-size="14">2</text>
+              <rect x="15" y="115" width="110" height="90" fill="#55A868" opacity="0.35" rx="4"/>
+              <text x="70" y="165" text-anchor="middle" fill="#5b5f73" font-family="IBM Plex Mono" font-size="14">3</text>
+              <rect x="135" y="115" width="110" height="90" fill="#C44E52" opacity="0.85" rx="4"/>
+              <text x="190" y="165" text-anchor="middle" fill="#fff" font-family="IBM Plex Mono" font-size="14">4</text>
+            </svg>
+          </div>
+          <div class="diagram-caption">A 2×2 grid — cells are numbered 1→4, left to right then top to bottom. Our code below fills cells 1 and 4.</div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — 2×2 grid</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y1 = [2, 4, 6, 8, 10]
+y2 = [1, 4, 9, 16, 25]
+
+# First plot in position 1 of a 2x2 grid
+plt.subplot(2, 2, 1)
+plt.plot(x, y1, 'r--')
+plt.title("Plot 1")
+
+# Second plot in position 4 of a 2x2 grid
+plt.subplot(2, 2, 4)
+plt.plot(x, y2, 'g*')
+plt.title("Plot 2")
+
+plt.tight_layout()
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">plt.subplot(2,2,1)</span><span class="walk-desc">"the next plot goes in a 2×2 grid, cell #1 (top-left)."</span></div>
+            <div class="walk-line"><span class="walk-code">plt.plot(x, y1, 'r--')</span><span class="walk-desc">the shorthand string <code>'r--'</code> means red, dashed line.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.subplot(2,2,4)</span><span class="walk-desc">now switch to cell #4 (bottom-right) of the same 2×2 grid.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.plot(x, y2, 'g*')</span><span class="walk-desc"><code>'g*'</code> means green stars as markers, with no connecting line.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.tight_layout()</span><span class="walk-desc">automatically adds spacing so titles/labels don't overlap between subplots.</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Forgetting that indexing starts at <b>1</b>, not 0 — <code>plt.subplot(2,2,0)</code> will raise an error.</div>
+          <div class="box tip"><span class="box-label">Tip</span>Always finish a multi-subplot figure with <code>plt.tight_layout()</code> — it's the single easiest fix for "my titles are overlapping" complaints.</div>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>In a 3×1 grid, which call draws in the very last (bottom) cell?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'That is the top cell.')">plt.subplot(3,1,0)</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Correct — 3 rows, 1 column, and cell 3 is the last one.')">plt.subplot(3,1,3)</button>
+            <button class="qopt" onclick="checkAnswer(this,false,'This would error — there is no column 4 in a 1-column grid.')">plt.subplot(1,3,4)</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>plt.subplot(rows, cols, index)</code> — index starts at 1 and moves left→right, top→bottom. Perfect for quick side-by-side comparisons.</div></div>
+        </div>
+      </details>
+
+      <!-- 5. OO INTERFACE -->
+      <details class="topic" id="mpl-oo">
+        <summary><span class="summary-icon" style="background:var(--blue)">05</span>Object-Oriented Interface<span class="badge-mini">concept</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-oo" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>So far we've been telling <code>plt</code> what to do directly ("plt, draw a line"). The <b>Object-Oriented (OO) style</b> instead creates actual named objects for the Figure and the Axes, and you call methods directly on them (<code>ax.plot(...)</code> instead of <code>plt.plot(...)</code>).</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>The <code>plt</code> shortcuts always act on "whatever the current figure/axes is" — which gets confusing once you have several plots. The OO style gives you a direct handle on exactly the Figure and Axes you want, which is why it's preferred for anything more complex than a single quick plot.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ol>
+            <li>Create a <b>Figure</b> (the canvas): <code>fig = plt.figure(figsize=(6,4))</code></li>
+            <li>Add <b>Axes</b> to it: <code>ax = fig.add_axes([left, bottom, width, height])</code> — all four numbers are fractions from 0 to 1 of the figure's size.</li>
+            <li>Plot and customize using <code>ax.</code> methods instead of <code>plt.</code> methods.</li>
+          </ol>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — OO style plot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+# Sample data
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+
+# Step 1: Create a Figure (canvas)
+fig = plt.figure(figsize=(6,4))
+
+# Step 2: Add Axes (x0, y0, width, height) in 0-1 range
+ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+
+# Step 3: Plot data on the Axes
+ax.plot(x, y, color="purple", marker="o", linestyle="-")
+
+# Step 4: Customize
+ax.set_title("Object-Oriented Plot")
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.grid(True)
+
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">fig = plt.figure(figsize=(6,4))</span><span class="walk-desc">creates the blank canvas and saves a reference to it in the variable <code>fig</code>.</span></div>
+            <div class="walk-line"><span class="walk-code">ax = fig.add_axes([0.1,0.1,0.8,0.8])</span><span class="walk-desc">adds one plotting rectangle starting 10% from the left, 10% from the bottom, taking up 80% of the width and height.</span></div>
+            <div class="walk-line"><span class="walk-code">ax.plot(x, y, ...)</span><span class="walk-desc">draws directly onto <b>that specific</b> Axes object — no ambiguity about "which plot is current."</span></div>
+            <div class="walk-line"><span class="walk-code">ax.set_title / set_xlabel / set_ylabel</span><span class="walk-desc">note the <code>set_</code> prefix — this is the OO-style naming convention (vs. <code>plt.title()</code> in the quick style).</span></div>
+          </div>
+
+          <div class="box note"><span class="box-label">Note</span>Quick style (<code>plt.plot</code>) and OO style (<code>ax.plot</code>) do the same underlying thing. Quick style is faster to type for one simple plot; OO style is clearer and safer once things get more complex.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Mixing up <code>plt.xlabel()</code> (quick style) with <code>ax.xlabel()</code> — the OO method is actually named <code>ax.set_xlabel()</code>, not <code>ax.xlabel()</code>.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>plt.___()</code> = quick and implicit. <code>fig</code> + <code>ax.set____()</code> = explicit and safe for anything with multiple plots. Learn to read both — most real-world code mixes them.</div></div>
+        </div>
+      </details>
+
+      <!-- 6. MULTIPLE AXES -->
+      <details class="topic" id="mpl-multiaxes">
+        <summary><span class="summary-icon" style="background:var(--blue)">06</span>Multiple / Inset Axes<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-multiaxes" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Because <code>fig.add_axes()</code> just needs four position numbers, you can add a <b>second, smaller</b> Axes anywhere on the same Figure — even floating on top of the first one, like a zoomed-in inset.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Useful for showing a "zoomed-in" detail of part of your chart, or two related but differently-scaled plots that should live on the same page.</p>
+
+          <div class="diagram">
+            <svg viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+              <rect x="10" y="10" width="280" height="200" fill="#fff" stroke="#4C72B0" stroke-width="2" rx="6"/>
+              <polyline points="30,180 80,120 130,150 180,80 230,110 270,50" fill="none" stroke="#55A868" stroke-width="3"/>
+              <rect x="150" y="30" width="110" height="80" fill="#f6f4ec" stroke="#DD8452" stroke-width="2" rx="4"/>
+              <polyline points="160,95 180,70 200,85 220,55 245,75" fill="none" stroke="#C44E52" stroke-width="2"/>
+              <text x="205" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#DD8452">inset axes2</text>
+              <text x="60" y="205" font-family="IBM Plex Mono" font-size="10" fill="#4C72B0">axes1 (main, big)</text>
+            </svg>
+          </div>
+          <div class="diagram-caption">Two Axes on one Figure — a big main plot and a small inset plot placed on top of it.</div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — two axes, one figure</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">fig = plt.figure()
+axes1 = fig.add_axes([0.1,0.1,0.8,0.8])
+plt.title("hello")
+axes2 = fig.add_axes([0.2,0.5,0.3,0.3])
+plt.title("world")
+axes1.plot(x,y)
+axes2.plot(y,x)</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">axes1 = fig.add_axes([0.1,0.1,0.8,0.8])</span><span class="walk-desc">the big main plot, covering most of the figure.</span></div>
+            <div class="walk-line"><span class="walk-code">axes2 = fig.add_axes([0.2,0.5,0.3,0.3])</span><span class="walk-desc">a small plot starting 20% from the left, 50% up from the bottom, only 30% wide and tall — it sits on top of axes1 like an inset.</span></div>
+            <div class="walk-line"><span class="walk-code">axes1.plot(x,y)</span> / <span class="walk-code">axes2.plot(y,x)</span><span class="walk-desc">each Axes gets its own independent plot — notice axes2 even plots (y,x), the reverse of axes1.</span></div>
+          </div>
+
+          <div class="box best"><span class="box-label">Best practice</span>Give each Axes object a clear variable name (<code>axes1</code>, <code>axes2</code>, or better — <code>ax_main</code>, <code>ax_inset</code>) so it's obvious later which plot you're customizing.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Calling <code>plt.title("hello")</code> right after creating <code>axes1</code> actually sets the title of whichever Axes is "current" at that moment — it's clearer and safer to use <code>axes1.set_title("hello")</code> directly.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> One Figure can hold as many Axes as you want, placed anywhere using fractional coordinates — this is how "zoomed-in inset" charts are built.</div></div>
+        </div>
+      </details>
+
+      <!-- 7. FIGSIZE DPI -->
+      <details class="topic" id="mpl-figsize">
+        <summary><span class="summary-icon" style="background:var(--blue)">07</span>Figure Size, Aspect Ratio &amp; DPI<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-figsize" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <ul>
+            <li><b>Figure size</b> — the physical width × height of the canvas, measured in inches.</li>
+            <li><b>Aspect ratio</b> — the relationship between that width and height (a 6×4 figure is wider than tall).</li>
+            <li><b>DPI</b> (Dots Per Inch) — how many pixels are packed into each inch. Higher DPI = sharper, more detailed image (and a bigger file).</li>
+          </ul>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>You control these so your chart looks right wherever it ends up — readable on a slide, crisp in a printed report, or appropriately sized inside a dashboard.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>plt.figure(figsize=(width, height), dpi=value)</code></p>
+
+          <div class="diagram">
+            <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
+              <rect x="20" y="20" width="120" height="80" fill="none" stroke="#4C72B0" stroke-width="2"/>
+              <text x="80" y="115" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#4C72B0">figsize=(8,4), dpi=100</text>
+              <text x="80" y="130" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5b5f73">→ 800×400 px</text>
+              <rect x="190" y="10" width="120" height="100" fill="none" stroke="#C44E52" stroke-width="2"/>
+              <text x="250" y="125" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#C44E52">figsize=(8,4), dpi=200</text>
+              <text x="250" y="140" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5b5f73">→ 1600×800 px</text>
+            </svg>
+          </div>
+          <div class="diagram-caption">Same physical size (8×4 inches), but doubling DPI doubles the pixel resolution — sharper on screen, bigger file.</div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — custom size &amp; DPI</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+
+# Create a figure with custom size & DPI
+plt.figure(figsize=(8, 4), dpi=120)   # width=8in, height=4in, 120 pixels/inch
+
+plt.plot(x, y, color="teal", marker="o")
+plt.title("Custom Figure Size & DPI")
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.grid(True)
+
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">figsize=(8,4)</span><span class="walk-desc">the canvas is 8 inches wide and 4 inches tall — a 2:1 aspect ratio.</span></div>
+            <div class="walk-line"><span class="walk-code">dpi=120</span><span class="walk-desc">each inch contains 120 pixels, so the final image is 960×480 pixels.</span></div>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>For sharing on the web, 100–150 DPI is plenty. For printing, aim for 300 DPI.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Setting a huge DPI "just to be safe" — this bloats file size and can make Jupyter notebooks slow, without any visible benefit on a normal screen.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>figsize</code> controls physical dimensions, <code>dpi</code> controls sharpness/resolution. Together they decide the final pixel dimensions of your chart.</div></div>
+        </div>
+      </details>
+
+      <!-- 8. LEGENDS LABELS TITLE -->
+      <details class="topic" id="mpl-legend">
+        <summary><span class="summary-icon" style="background:var(--blue)">08</span>Legends, Labels &amp; Titles<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-legend" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>These are the "words" of a chart — without them, even a perfect chart is meaningless. A <b>title</b> says what the chart is about, <b>axis labels</b> say what each axis measures, and a <b>legend</b> tells you which color/line belongs to which category.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>A chart with unlabeled axes forces the reader to guess. Good labeling is what turns "a pretty picture" into "a piece of communication."</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li><code>plt.title("...")</code></li>
+            <li><code>plt.xlabel("...")</code> / <code>plt.ylabel("...")</code></li>
+            <li><code>plt.legend(loc="upper left")</code> — <code>loc</code> controls where the legend box sits.</li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — legend, labels, title</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+# Sample data
+x = [1, 2, 3, 4, 5]
+y1 = [1, 4, 9, 16, 25]
+y2 = [1, 2, 3, 4, 5]
+
+plt.figure(figsize=(7,4))
+
+# Plot first line
+plt.plot(x, y1, color="blue", marker="o", label="Squares")
+
+# Plot second line
+plt.plot(x, y2, color="red", marker="s", label="Line")
+
+# Add labels and title
+plt.xlabel("X-axis")
+plt.ylabel("Y-axis")
+plt.title("Example: Legends, Labels & Title")
+
+# Show legend
+plt.legend(loc="upper left")
+
+plt.grid(True)
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">label="Squares"</span><span class="walk-desc">this string is what will show up in the legend for this line — it does nothing without <code>plt.legend()</code>.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.legend(loc="upper left")</span><span class="walk-desc">draws the legend box in the upper-left corner of the chart.</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Adding <code>label=</code> to your <code>plot()</code> calls but forgetting to call <code>plt.legend()</code> — the labels are stored but never shown until you ask for the legend.</div>
+          <div class="box tip"><span class="box-label">Tip</span>Try <code>loc="best"</code> and Matplotlib will automatically pick a spot that overlaps your data the least.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Title says "what," axis labels say "in what units," legend says "which line is which." Always include all three on any chart you share with others.</div></div>
+        </div>
+      </details>
+
+      <!-- 9. LINE STYLES -->
+      <details class="topic" id="mpl-styles">
+        <summary><span class="summary-icon" style="background:var(--blue)">09</span>Line Styles, Colors, Widths &amp; Markers<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-styles" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Matplotlib lets you customize almost everything about how a line looks: its color, thickness, dash pattern, and the little symbols (markers) placed at each data point.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>When you have several lines on one chart, different styles help the reader tell them apart — especially important in black-and-white print or for colorblind-friendly design.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li><code>color=</code> or <code>c=</code> — the line's color</li>
+            <li><code>linewidth=</code> or <code>lw=</code> — thickness</li>
+            <li><code>linestyle=</code> or <code>ls=</code> — <code>'-'</code> solid, <code>'--'</code> dashed, <code>'-.'</code> dash-dot, <code>':'</code> dotted</li>
+            <li><code>marker=</code> — symbol at each point (<code>'o'</code> circle, <code>'s'</code> square, <code>'*'</code> star, <code>'x'</code> x-mark), plus <code>markersize=</code>, <code>markerfacecolor=</code>, <code>markeredgecolor=</code></li>
+          </ul>
+
+          <div class="diagram">
+            <svg viewBox="0 0 380 130" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="20" x2="180" y2="20" stroke="#55A868" stroke-width="3"/>
+              <text x="190" y="24" font-family="IBM Plex Mono" font-size="12" fill="#5b5f73">'-'  solid</text>
+              <line x1="20" y1="46" x2="180" y2="46" stroke="#55A868" stroke-width="3" stroke-dasharray="10,6"/>
+              <text x="190" y="50" font-family="IBM Plex Mono" font-size="12" fill="#5b5f73">'--'  dashed</text>
+              <line x1="20" y1="72" x2="180" y2="72" stroke="#55A868" stroke-width="3" stroke-dasharray="10,5,2,5"/>
+              <text x="190" y="76" font-family="IBM Plex Mono" font-size="12" fill="#5b5f73">'-.'  dash-dot</text>
+              <line x1="20" y1="98" x2="180" y2="98" stroke="#55A868" stroke-width="3" stroke-dasharray="2,5"/>
+              <text x="190" y="102" font-family="IBM Plex Mono" font-size="12" fill="#5b5f73">':'  dotted</text>
+            </svg>
+          </div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — all the styling options</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+# Sample data
+x = [0, 1, 2, 3, 4, 5]
+
+fig, ax = plt.subplots(figsize=(12, 6))
+
+# Different line widths (all in orange)
+ax.plot(x, [v + 1 for v in x], color="orange", linewidth=0.5, label="width=0.5")
+ax.plot(x, [v + 2 for v in x], color="orange", linewidth=1.5, label="width=1.5")
+ax.plot(x, [v + 3 for v in x], color="orange", linewidth=3, label="width=3")
+
+# Line styles with constant width
+ax.plot(x, [v + 4 for v in x], color="green", lw=2, linestyle='-')    # solid
+ax.plot(x, [v + 5 for v in x], color="green", lw=2, linestyle='--')   # dashed
+ax.plot(x, [v + 6 for v in x], color="green", lw=2, linestyle='-.')   # dash-dot
+ax.plot(x, [v + 7 for v in x], color="green", lw=2, linestyle=':')    # dotted
+
+# Custom dash pattern
+line, = ax.plot(x, [v + 8 for v in x], color="black", lw=2)
+line.set_dashes([10, 5, 2, 5])  # dash, space, dash, space...
+
+# Marker styles with a blue line
+ax.plot(x, [v + 9 for v in x], color="blue", lw=2, ls='-', marker='o', label="circle")
+ax.plot(x, [v + 10 for v in x], color="blue", lw=2, ls='--', marker='s', label="square")
+ax.plot(x, [v + 11 for v in x], color="blue", lw=2, ls='-', marker='*', label="star")
+ax.plot(x, [v + 12 for v in x], color="blue", lw=2, ls=':', marker='x', label="x-mark")
+
+# Playing with marker size & colors
+ax.plot(x, [v + 13 for v in x], color="purple", lw=1, ls='-', marker='o', markersize=3)
+ax.plot(x, [v + 14 for v in x], color="purple", lw=1, ls='-', marker='o', markersize=6)
+ax.plot(x, [v + 15 for v in x], color="purple", lw=1, ls='-', marker='o',
+        markersize=8, markerfacecolor="yellow", markeredgewidth=2, markeredgecolor="red")
+
+# Final touches
+ax.set_title("Line Styles, Colors, Widths & Markers", fontsize=14)
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.grid(True)
+ax.legend(loc="upper left", fontsize=9)
+
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">[v + 1 for v in x]</span><span class="walk-desc">a list comprehension — shorthand for "add 1 to every number in x." Used here just to stack lines vertically so they don't overlap.</span></div>
+            <div class="walk-line"><span class="walk-code">line, = ax.plot(...)</span><span class="walk-desc"><code>ax.plot()</code> actually returns a <i>list</i> of line objects (even for one line) — the comma unpacks that single item into <code>line</code>.</span></div>
+            <div class="walk-line"><span class="walk-code">line.set_dashes([10,5,2,5])</span><span class="walk-desc">defines a custom dash rhythm in pixels: 10 on, 5 off, 2 on, 5 off, repeating.</span></div>
+            <div class="walk-line"><span class="walk-code">markerfacecolor / markeredgecolor</span><span class="walk-desc">lets the inside and the outline of a marker be different colors — here a yellow circle with a red outline.</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Writing <code>fig, ax = plt.subplots()</code> and then still calling <code>plt.plot()</code> instead of <code>ax.plot()</code> — this can silently draw onto the wrong Axes once you have more than one.</div>
+          <div class="box best"><span class="box-label">Best practice</span>Don't overload a single chart with every style at once (as our demo intentionally does!). In real work, use 2–4 distinct styles maximum so the chart stays readable.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Color, width, dash style, and markers are your toolbox for making multiple lines distinguishable — use them with restraint, not all at once.</div></div>
+        </div>
+      </details>
+
+      <!-- 10. AXIS LIMITS -->
+      <details class="topic" id="mpl-limits">
+        <summary><span class="summary-icon" style="background:var(--blue)">10</span>Setting Plot Range (Axis Limits)<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-limits" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>By default, Matplotlib automatically zooms to fit all your data. Sometimes you want to control that zoom yourself — showing extra empty space around the data, or cropping in tighter.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Useful for keeping consistent axis ranges across several charts (so they're visually comparable), or to zoom into a specific region of interest.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li>Quick style: <code>plt.xlim(min, max)</code> / <code>plt.ylim(min, max)</code></li>
+            <li>OO style: <code>ax.set_xlim(min, max)</code> / <code>ax.set_ylim(min, max)</code></li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — custom plot range</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+
+x = [0, 1, 2, 3, 4, 5]
+y = [0, 1, 4, 9, 16, 25]
+
+fig, ax = plt.subplots(figsize=(7, 4))
+
+ax.plot(x, y, color="teal", marker="o", linewidth=2)
+
+# Set custom plot range
+ax.set_xlim(-1, 6)      # x-axis range
+ax.set_ylim(-5, 30)     # y-axis range
+
+ax.set_title("Custom Plot Range")
+ax.set_xlabel("X-axis")
+ax.set_ylabel("Y-axis")
+ax.grid(True)
+
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">ax.set_xlim(-1, 6)</span><span class="walk-desc">forces the visible x-range from -1 to 6, even though the data only goes from 0 to 5 — this adds breathing room on both sides.</span></div>
+            <div class="walk-line"><span class="walk-code">ax.set_ylim(-5, 30)</span><span class="walk-desc">same idea for the y-axis, giving padding above and below the data (0 to 25).</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Setting limits that are <i>tighter</i> than your data range by accident — this silently crops out real data points from the visible chart without any error or warning.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Use <code>xlim</code>/<code>ylim</code> (or <code>set_xlim</code>/<code>set_ylim</code>) to take manual control of zoom and framing instead of relying on Matplotlib's auto-zoom.</div></div>
+        </div>
+      </details>
+
+      <!-- 11. SPECIAL PLOTS -->
+      <details class="topic" id="mpl-special">
+        <summary><span class="summary-icon" style="background:var(--blue)">11</span>Scatter, Histogram &amp; Boxplot<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="mpl-special" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Three special-purpose plot types, each answering a different question:</p>
+          <ul>
+            <li><b>Scatter plot</b> (<code>plt.scatter</code>) — shows individual points to reveal a <b>relationship</b> between two variables.</li>
+            <li><b>Histogram</b> (<code>plt.hist</code>) — groups numbers into "bins" to show the <b>shape/spread</b> of one variable's distribution.</li>
+            <li><b>Boxplot</b> (<code>plt.boxplot</code>) — summarizes a distribution's median, quartiles, and outliers in one compact shape.</li>
+          </ul>
+
+          <div class="diagram">
+            <svg viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg">
+              <!-- scatter -->
+              <g>
+                <circle cx="40" cy="90" r="4" fill="#C44E52"/><circle cx="60" cy="60" r="4" fill="#C44E52"/>
+                <circle cx="80" cy="100" r="4" fill="#C44E52"/><circle cx="100" cy="70" r="4" fill="#C44E52"/>
+                <circle cx="55" cy="120" r="4" fill="#C44E52"/><circle cx="90" cy="45" r="4" fill="#C44E52"/>
+                <text x="70" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">scatter</text>
+              </g>
+              <!-- histogram -->
+              <g>
+                <rect x="180" y="90" width="16" height="40" fill="#64B5CD"/>
+                <rect x="198" y="60" width="16" height="70" fill="#64B5CD"/>
+                <rect x="216" y="40" width="16" height="90" fill="#64B5CD"/>
+                <rect x="234" y="75" width="16" height="55" fill="#64B5CD"/>
+                <rect x="252" y="100" width="16" height="30" fill="#64B5CD"/>
+                <text x="225" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">histogram</text>
+              </g>
+              <!-- boxplot -->
+              <g>
+                <line x1="380" y1="40" x2="380" y2="60" stroke="#1e2130" stroke-width="2"/>
+                <rect x="360" y="60" width="40" height="40" fill="#f6f4ec" stroke="#1e2130" stroke-width="2"/>
+                <line x1="360" y1="80" x2="400" y2="80" stroke="#C44E52" stroke-width="2"/>
+                <line x1="380" y1="100" x2="380" y2="120" stroke="#1e2130" stroke-width="2"/>
+                <line x1="370" y1="40" x2="390" y2="40" stroke="#1e2130" stroke-width="2"/>
+                <line x1="370" y1="120" x2="390" y2="120" stroke="#1e2130" stroke-width="2"/>
+                <text x="380" y="150" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">boxplot</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — scatter, hist, box side by side</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import matplotlib.pyplot as plt
+import numpy as np
+
+# Data
+x = [1, 2, 3, 4, 5]
+y = [5, 7, 4, 6, 8]
+nums = np.random.randn(100)
+
+plt.figure(figsize=(12,4))
+
+# 1. Scatter
+plt.subplot(1,3,1)
+plt.scatter(x, y, color="red")
+plt.title("Scatter")
+
+# 2. Histogram
+plt.subplot(1,3,2)
+plt.hist(nums, bins=10, color="skyblue")
+plt.title("Histogram")
+
+# 3. Boxplot
+plt.subplot(1,3,3)
+plt.boxplot(nums)
+plt.title("Boxplot")
+
+plt.tight_layout()
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">nums = np.random.randn(100)</span><span class="walk-desc">generates 100 random numbers from a "normal" (bell-curve) distribution, using NumPy.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.scatter(x, y, color="red")</span><span class="walk-desc">plots each (x,y) pair as an individual red dot — no connecting line.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.hist(nums, bins=10, ...)</span><span class="walk-desc">splits the 100 numbers into 10 equal-width buckets ("bins") and draws a bar for how many numbers fall in each.</span></div>
+            <div class="walk-line"><span class="walk-code">plt.boxplot(nums)</span><span class="walk-desc">draws the classic "box and whiskers": the box spans the middle 50% of values, the line inside is the median, and the whiskers/dots show the range and outliers.</span></div>
+          </div>
+
+          <div class="usecard">
+            <div class="u use"><b>Use scatter when...</b>you want to see if two numeric variables move together (e.g., height vs. weight).</div>
+            <div class="u avoid"><b>Avoid scatter when...</b>you only have one variable, or the data is categorical — there's nothing to "relate."</div>
+            <div class="u use"><b>Use a histogram when...</b>you want to understand the shape of a single variable's spread (e.g., are most exam scores clustered around 70?).</div>
+            <div class="u avoid"><b>Avoid a histogram when...</b>you need to compare exact groups/categories — a bar chart does that better.</div>
+            <div class="u use"><b>Use a boxplot when...</b>you want a compact summary of spread and outliers, especially to compare several groups at once.</div>
+            <div class="u avoid"><b>Avoid a boxplot when...</b>your audience isn't familiar with quartiles — it can look intimidating without context.</div>
+          </div>
+
+          <div class="box note"><span class="box-label">Real-world example</span>A retailer might scatter-plot "ad spend vs. daily sales" to spot a relationship, histogram "order sizes" to see typical basket value, and boxplot "delivery time by region" to compare which region has the most delays and outliers.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Choosing too many/too few histogram <code>bins</code> — too few hides the shape, too many makes it look noisy and spiky. Try a few values and see what tells the clearest story.</div>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>You want to compare delivery times across 5 warehouses and spot outliers in each. Which chart fits best?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'Scatter needs two numeric variables to relate — here you only have one measurement (time) grouped by category (warehouse).')">Scatter plot</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Exactly — boxplots are built for comparing spread and outliers across multiple groups side by side.')">Boxplot</button>
+            <button class="qopt" onclick="checkAnswer(this,false,'A single histogram would mix all warehouses together, losing the group comparison.')">Histogram</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="box best"><span class="box-label">Best practice</span>Matplotlib can make all three of these, but as you'll see next, <b>Seaborn</b> makes them prettier and shorter to write — especially once "hue" grouping and Pandas DataFrames get involved.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Scatter = relationship between two variables. Histogram = shape of one variable. Boxplot = summary + outliers, great for comparing groups. Same data, three different questions answered.</div></div>
+        </div>
+      </details>
+
+    </div><!-- /topics part1 -->
+
+    <!-- =========================================================== -->
+    <!-- PART 2 : SEABORN                                             -->
+    <!-- =========================================================== -->
+    <div class="part-header" id="part2">
+      <div class="tag">Part 2</div>
+      <h2>Seaborn — visualization, simplified</h2>
+      <div class="rule" style="background:var(--cyan)"></div>
+    </div>
+    <p class="part-intro">Seaborn sits on top of Matplotlib and does two big favors for you: modern-looking defaults out of the box, and native support for Pandas DataFrames — so instead of pulling out lists by hand, you just point Seaborn at your columns.</p>
+
+    <div class="topics">
+
+      <!-- 12. INTRO SEABORN -->
+      <details class="topic" id="sns-intro" open>
+        <summary><span class="summary-icon" style="background:var(--cyan)">12</span>What is Seaborn?<span class="badge-mini">concept</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-intro" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Seaborn is a <b>high-level</b> plotting library built on Matplotlib. "High-level" means it hides a lot of the manual setup Matplotlib requires and gives you attractive charts in far fewer lines of code.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <ul>
+            <li>Beautiful, modern default styles — no manual color/theme tweaking needed.</li>
+            <li>Much more concise syntax for common statistical charts.</li>
+            <li>Deep integration with Pandas DataFrames — you can just say "plot column A against column B."</li>
+          </ul>
+
+          <h4 class="subhead">What are "relational" plots?</h4>
+          <p>Relational plots show the <b>relationship</b> between two continuous (numeric) variables. Seaborn's two main relational functions are <code>scatterplot()</code> and <code>lineplot()</code> — both belong to what Seaborn calls the "relational" family of plots.</p>
+
+          <h4 class="subhead">Loading sample datasets</h4>
+          <p>Seaborn ships with a few small built-in practice datasets so you can learn without hunting for your own CSV file.</p>
+          <div class="codewrap">
+            <div class="codehead"><span>python — load a built-in dataset</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+
+# Load one of Seaborn's built-in practice datasets
+tips = sns.load_dataset("tips")
+tips.head()</pre>
+          </div>
+          <p><code>sns.load_dataset("tips")</code> downloads (and caches) a small table of restaurant bills and tips as a Pandas DataFrame — a great, realistic dataset for practicing almost every plot type below.</p>
+
+          <div class="box warning"><span class="box-label">Common mistake</span><code>sns.load_dataset()</code> needs an internet connection the first time (it fetches the file online) — it will fail silently look-alike with a network error if you're offline and haven't cached it before.</div>
+          <div class="box tip"><span class="box-label">Tip</span>Always run <code>import seaborn as sns</code> — by convention, "sns" is the standard nickname the whole Python community uses for Seaborn (a nod to a character from the show The West Wing, if you're curious!).</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Seaborn = Matplotlib's power, minus the manual setup, plus native Pandas support. <code>scatterplot()</code> and <code>lineplot()</code> are its two core "relational" plots.</div></div>
+        </div>
+      </details>
+
+      <!-- 13. SCATTERPLOT -->
+      <details class="topic" id="sns-scatter">
+        <summary><span class="summary-icon" style="background:var(--cyan)">13</span>scatterplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-scatter" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Draws one dot per row of data at the (x, y) position given by two chosen columns — showing whether two numeric variables tend to move together.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>It's the fastest way to eyeball a relationship: does total bill size relate to tip size? Does one go up as the other goes up?</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.scatterplot(data=df, x="col1", y="col2", hue="col3")</code></p>
+          <ul>
+            <li><code>data</code> — your Pandas DataFrame</li>
+            <li><code>x</code>, <code>y</code> — the column names to plot</li>
+            <li><code>hue</code> (optional) — a column used to color-code points by category</li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — scatterplot with hue</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.scatterplot(data=tips, x="total_bill", y="tip", hue="time")
+plt.title("Tip Amount vs Total Bill")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">data=tips</span><span class="walk-desc">tells Seaborn which DataFrame holds the columns you're about to reference.</span></div>
+            <div class="walk-line"><span class="walk-code">x="total_bill", y="tip"</span><span class="walk-desc">plots each row as one dot: bill size on the x-axis, tip amount on the y-axis.</span></div>
+            <div class="walk-line"><span class="walk-code">hue="time"</span><span class="walk-desc">colors each dot by whether the meal was "Lunch" or "Dinner," adding a third dimension of information for free.</span></div>
+          </div>
+
+          <div class="box note"><span class="box-label">Note</span>Notice you never manually built lists of numbers — Seaborn read directly from DataFrame columns by name. That's the entire point of the Pandas integration.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Misspelling a column name (case-sensitive!) throws a <code>KeyError</code> — always double check with <code>df.columns</code> first.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>sns.scatterplot(data=df, x=..., y=..., hue=...)</code> — same idea as Matplotlib's scatter, but reads column names directly and adds free color-coding via <code>hue</code>.</div></div>
+        </div>
+      </details>
+
+      <!-- 14. LINEPLOT -->
+      <details class="topic" id="sns-line">
+        <summary><span class="summary-icon" style="background:var(--cyan)">14</span>lineplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-line" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Draws a continuous trend line through your data, and — unlike Matplotlib's basic <code>plt.plot()</code> — it can automatically average repeated x-values and shade a <b>confidence interval</b> band around the line.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Perfect for time-series or "how does Y change as X increases" stories, especially when you have multiple measurements per x-value and want to show the average trend plus its uncertainty.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.lineplot(data=df, x="col1", y="col2", hue="col3")</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — lineplot example</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+flights = sns.load_dataset("flights")
+
+sns.lineplot(data=flights, x="year", y="passengers")
+plt.title("Airline Passengers Over Time")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">flights = sns.load_dataset("flights")</span><span class="walk-desc">loads a classic dataset of monthly airline passenger counts across years.</span></div>
+            <div class="walk-line"><span class="walk-code">x="year", y="passengers"</span><span class="walk-desc">since each year has 12 monthly entries, Seaborn automatically averages them and draws one smooth line per year, with a shaded band showing the spread.</span></div>
+          </div>
+
+          <div class="diagram">
+            <svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 120 Q 80 60 140 90 T 260 40 T 320 60" fill="none" stroke="#4C72B0" stroke-width="3"/>
+              <path d="M20 130 Q 80 75 140 105 T 260 55 T 320 75 L 320 45 Q 260 25 140 75 T 20 110 Z" fill="#4C72B0" opacity="0.15"/>
+              <text x="170" y="145" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">line = average trend, shaded band = confidence interval</text>
+            </svg>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>Turn off the shaded confidence band with <code>sns.lineplot(..., errorbar=None)</code> if you just want a clean single line.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Using <code>lineplot()</code> on unordered/categorical x-data — lines imply a sequence, so they only make sense when x has a natural order (like time).</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>lineplot()</code> is <code>scatterplot()</code>'s trend-line cousin — it auto-averages repeated x-values and shows uncertainty as a shaded band, ideal for time-based data.</div></div>
+        </div>
+      </details>
+
+      <!-- 15. STYLING PALETTES -->
+      <details class="topic" id="sns-style">
+        <summary><span class="summary-icon" style="background:var(--cyan)">15</span>Styling &amp; Color Palettes<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-style" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Seaborn lets you switch the overall "look" of every chart (background, gridlines) with one line, and swap the color scheme used for categories/values with another.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Consistent, intentional styling makes your charts look professional and matches the mood of your report (clean and minimal vs. bold and colorful) without manually restyling every single chart.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li><code>sns.set_style("whitegrid")</code> — background themes: <code>white</code>, <code>dark</code>, <code>whitegrid</code>, <code>darkgrid</code>, <code>ticks</code></li>
+            <li><code>sns.set_palette("pastel")</code> — built-in palettes: <code>deep</code>, <code>muted</code>, <code>pastel</code>, <code>bright</code>, <code>dark</code>, <code>colorblind</code></li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — styling and palette</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set_style("whitegrid")
+sns.set_palette("pastel")
+
+tips = sns.load_dataset("tips")
+sns.scatterplot(data=tips, x="total_bill", y="tip", hue="day")
+plt.title("Styled Scatter Plot")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">sns.set_style("whitegrid")</span><span class="walk-desc">switches every subsequent chart's background to white with light gray gridlines.</span></div>
+            <div class="walk-line"><span class="walk-code">sns.set_palette("pastel")</span><span class="walk-desc">changes the default color cycle used for categories (like the 4 days of the week here) to soft pastel tones.</span></div>
+          </div>
+
+          <div class="box best"><span class="box-label">Best practice</span>Set your style and palette <b>once</b> near the top of your notebook — it then applies to every chart you make afterward, keeping your whole report visually consistent.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Calling <code>sns.set_style()</code> or <code>sns.set_palette()</code> <i>after</i> you've already drawn a chart — it only affects charts made from that point onward, not ones already rendered.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>sns.set_style()</code> controls the background/gridlines; <code>sns.set_palette()</code> controls the color scheme. Set both once at the top of your notebook for consistent-looking charts.</div></div>
+        </div>
+      </details>
+
+      <!-- 16. BAR vs COUNT -->
+      <details class="topic" id="sns-barcount">
+        <summary><span class="summary-icon" style="background:var(--orange)">16</span>barplot() vs countplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-barcount" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p><b>Categorical plots</b> visualize data where at least one variable is a category (day of week, gender, class) rather than a plain number.</p>
+          <ul>
+            <li><code>barplot()</code> — shows the <b>average value</b> of a numeric column for each category, with error bars.</li>
+            <li><code>countplot()</code> — simply counts <b>how many rows</b> fall into each category (no numeric column needed at all).</li>
+          </ul>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Comparing categories is one of the most common visualization tasks: average sales by region, number of customers by plan type, etc.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li><code>sns.barplot(data=df, x="category_col", y="numeric_col")</code></li>
+            <li><code>sns.countplot(data=df, x="category_col")</code> — note: no <code>y</code> needed.</li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — barplot vs countplot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+plt.figure(figsize=(10,4))
+
+plt.subplot(1,2,1)
+sns.barplot(data=tips, x="day", y="total_bill")
+plt.title("Average Bill by Day (barplot)")
+
+plt.subplot(1,2,2)
+sns.countplot(data=tips, x="day")
+plt.title("Number of Visits by Day (countplot)")
+
+plt.tight_layout()
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">sns.barplot(x="day", y="total_bill")</span><span class="walk-desc">for each day, computes the <b>average</b> total_bill and draws a bar to that height, with a small vertical line showing the confidence interval.</span></div>
+            <div class="walk-line"><span class="walk-code">sns.countplot(x="day")</span><span class="walk-desc">for each day, counts how many <b>rows</b> exist — this answers "how many visits happened," not "how much was spent."</span></div>
+          </div>
+
+          <div class="usecard">
+            <div class="u use"><b>Use barplot when...</b>you want to compare an average/summary number across groups (avg. tip by day).</div>
+            <div class="u use"><b>Use countplot when...</b>you just want to know how many observations fall in each category (how many customers visited on each day).</div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Passing a <code>y</code> column to <code>countplot()</code> — it doesn't take one; it always counts rows. If you need averages of a numeric column, use <code>barplot()</code> instead.</div>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>You want to know how many orders were placed per weekday (not the order value). Which function?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'barplot needs a numeric y-column to average — here you only care about counting rows.')">barplot()</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Right — countplot() tallies rows per category automatically.')">countplot()</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> barplot = "what's the average value per group?" countplot = "how many rows are in each group?" Different questions, different functions.</div></div>
+        </div>
+      </details>
+
+      <!-- 17. BOX VIOLIN -->
+      <details class="topic" id="sns-boxviolin">
+        <summary><span class="summary-icon" style="background:var(--orange)">17</span>boxplot() &amp; violinplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-boxviolin" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Both show the <b>spread</b> of a numeric variable within each category:</p>
+          <ul>
+            <li><code>boxplot()</code> — median, quartiles (the "box"), and outliers as individual dots.</li>
+            <li><code>violinplot()</code> — everything a boxplot shows, <b>plus</b> the full shape of the distribution, drawn as a mirrored, smoothed silhouette.</li>
+          </ul>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Great for comparing not just averages, but the full <i>spread</i> of values across groups — e.g., is the tip amount consistent on Fridays, or wildly variable?</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.boxplot(data=df, x="category", y="numeric")</code> and <code>sns.violinplot(data=df, x="category", y="numeric")</code> — nearly identical syntax, just swap the function name.</p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — box vs violin</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+plt.figure(figsize=(10,4))
+
+plt.subplot(1,2,1)
+sns.boxplot(data=tips, x="day", y="total_bill")
+plt.title("Boxplot")
+
+plt.subplot(1,2,2)
+sns.violinplot(data=tips, x="day", y="total_bill")
+plt.title("Violinplot")
+
+plt.tight_layout()
+plt.show()</pre>
+          </div>
+
+          <div class="diagram">
+            <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+              <!-- box -->
+              <g>
+                <line x1="60" y1="20" x2="60" y2="45" stroke="#1e2130" stroke-width="2"/>
+                <rect x="40" y="45" width="40" height="45" fill="#f6f4ec" stroke="#1e2130" stroke-width="2"/>
+                <line x1="40" y1="67" x2="80" y2="67" stroke="#C44E52" stroke-width="2"/>
+                <line x1="60" y1="90" x2="60" y2="115" stroke="#1e2130" stroke-width="2"/>
+                <text x="60" y="140" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">boxplot</text>
+              </g>
+              <!-- violin -->
+              <g>
+                <path d="M220 20 C 190 40, 190 70, 220 75 C 250 70, 250 40, 220 20 Z" fill="#8172B2" opacity="0.5"/>
+                <path d="M220 75 C 195 90, 195 105, 220 115 C 245 105, 245 90, 220 75 Z" fill="#8172B2" opacity="0.5"/>
+                <line x1="220" y1="20" x2="220" y2="115" stroke="#1e2130" stroke-width="1.5"/>
+                <text x="220" y="140" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">violinplot</text>
+              </g>
+            </svg>
+          </div>
+          <div class="diagram-caption">A violin plot is a boxplot's shape "inflated" to show the full density curve of the data.</div>
+
+          <div class="box tip"><span class="box-label">Tip</span>If your audience is unfamiliar with statistics, a boxplot is usually easier to explain quickly; save violinplot for audiences comfortable reading distribution shapes.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Using a violinplot with very little data (say, under ~20 points per group) — the smoothed shape can imply more data richness than actually exists, misleading readers.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> boxplot = quick summary of spread + outliers. violinplot = boxplot + the actual distribution shape. Use violin only when you have enough data to make the shape meaningful.</div></div>
+        </div>
+      </details>
+
+      <!-- 18. STRIP SWARM -->
+      <details class="topic" id="sns-stripswarm">
+        <summary><span class="summary-icon" style="background:var(--orange)">18</span>stripplot() &amp; swarmplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-stripswarm" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Both plot <b>every single data point</b> as a dot, grouped by category — no summarizing or averaging.</p>
+          <ul>
+            <li><code>stripplot()</code> — scatters points along the category axis, with a little random jitter so they don't all stack in one vertical line.</li>
+            <li><code>swarmplot()</code> — like stripplot, but intelligently spreads overlapping points sideways so none of them hide behind each other.</li>
+          </ul>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Perfect for small-to-medium datasets where you want to see literally every observation, not just a summary shape.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.stripplot(data=df, x="category", y="numeric")</code> / <code>sns.swarmplot(data=df, x="category", y="numeric")</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — strip vs swarm</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+plt.figure(figsize=(10,4))
+
+plt.subplot(1,2,1)
+sns.stripplot(data=tips, x="day", y="total_bill", jitter=True)
+plt.title("Stripplot")
+
+plt.subplot(1,2,2)
+sns.swarmplot(data=tips, x="day", y="total_bill")
+plt.title("Swarmplot")
+
+plt.tight_layout()
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">jitter=True</span><span class="walk-desc">nudges each point a small random amount left/right so overlapping points are still visible (this is stripplot's default anyway).</span></div>
+            <div class="walk-line"><span class="walk-code">sns.swarmplot(...)</span><span class="walk-desc">no jitter parameter needed — it calculates exact non-overlapping positions instead of random ones.</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Using <code>swarmplot()</code> on a very large dataset (thousands of points) — it gets slow and cramped. Beyond a few hundred points, prefer <code>violinplot()</code> or <code>boxplot()</code>.</div>
+          <div class="box tip"><span class="box-label">Tip</span>Combine a boxplot or violinplot with a stripplot/swarmplot on top (using the same Axes) to get both the summary shape AND the raw data points in one chart.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Both show every raw point. stripplot = fast + jittered (works at any scale). swarmplot = precise, non-overlapping, but best for smaller datasets.</div></div>
+        </div>
+      </details>
+
+      <!-- summary table categorical -->
+      <details class="topic" id="sns-cat-summary">
+        <summary><span class="summary-icon" style="background:var(--orange)">★</span>Categorical Plots — Cheat Sheet<span class="badge-mini">reference</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-cat-summary" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <table class="cmp">
+            <tr><th>Plot</th><th>Best for</th></tr>
+            <tr><td><b>barplot</b></td><td>Compare average values across categories</td></tr>
+            <tr><td><b>countplot</b></td><td>Show how many items fall in each category</td></tr>
+            <tr><td><b>boxplot</b></td><td>See median, quartiles, and outliers</td></tr>
+            <tr><td><b>violinplot</b></td><td>Same as boxplot + shows distribution shape</td></tr>
+            <tr><td><b>stripplot</b></td><td>View every observation (good for small data)</td></tr>
+            <tr><td><b>swarmplot</b></td><td>Like stripplot but avoids overlap</td></tr>
+          </table>
+          <div class="takeaway"><span class="icon">📌</span><div><b>Keep this table handy</b> — it's the fastest way to pick the right categorical plot for any question you're asked.</div></div>
+        </div>
+      </details>
+
+      <!-- 19. HISTPLOT -->
+      <details class="topic" id="sns-hist">
+        <summary><span class="summary-icon" style="background:var(--green)">19</span>histplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-hist" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p><b>Distribution plots</b> show how the values of a single variable are spread or concentrated. <code>histplot()</code> is Seaborn's modern histogram — grouping numbers into bins, with an option to overlay a smooth KDE curve on top.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>The go-to first chart for understanding any new numeric column: is it symmetric? Skewed? Are there two separate clusters ("bimodal")?</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.histplot(data=df, x="numeric_col", bins=20, kde=True)</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — basic histogram</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.histplot(data=tips, x="total_bill", bins=20, kde=True)
+plt.title("Distribution of Total Bill")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">bins=20</span><span class="walk-desc">splits the range of total_bill values into 20 equal buckets.</span></div>
+            <div class="walk-line"><span class="walk-code">kde=True</span><span class="walk-desc">overlays a smooth curve (Kernel Density Estimate) on top of the bars, showing the "smoothed" version of the same shape.</span></div>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span><code>histplot()</code> replaces the older, now-deprecated <code>distplot()</code> — always reach for <code>histplot()</code> in new code.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Too few bins hides real structure in the data; too many makes it noisy. There's no single "correct" number — try a few and see what tells the clearest story.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>histplot()</code> is your default, flexible histogram — bars for counts, optional KDE curve for a smooth summary of the same shape.</div></div>
+        </div>
+      </details>
+
+      <!-- 20. KDEPLOT -->
+      <details class="topic" id="sns-kde">
+        <summary><span class="summary-icon" style="background:var(--green)">20</span>kdeplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-kde" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Draws <b>only</b> the smooth curve version of a distribution — no bars at all. Mathematically, it estimates the underlying probability density that the histogram bars are approximating.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Cleaner than a histogram when you want to compare the <i>shape</i> of several distributions on the same chart — overlapping bars get messy fast, but overlapping smooth curves stay readable.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.kdeplot(data=df, x="numeric_col", fill=True)</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — kde curve</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.kdeplot(data=tips, x="total_bill", fill=True, color="teal")
+plt.title("Smoothed Distribution of Total Bill")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">fill=True</span><span class="walk-desc">shades the area under the curve instead of drawing just an outline — usually easier to read at a glance.</span></div>
+          </div>
+
+          <div class="box note"><span class="box-label">Note</span>A KDE curve is a mathematical <i>estimate</i> of the true shape — with very little data, it can smooth over real gaps or clusters that a histogram would reveal honestly.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> Use <code>kdeplot()</code> when you want a clean, smooth "silhouette" of a distribution — especially useful for comparing multiple groups on one chart.</div></div>
+        </div>
+      </details>
+
+      <!-- 21. DISTPLOT LEGACY -->
+      <details class="topic" id="sns-distplot">
+        <summary><span class="summary-icon" style="background:var(--green)">21</span>distplot() (Legacy)<span class="badge-mini">concept</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-distplot" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p><code>distplot()</code> used to be Seaborn's all-in-one function for histogram + KDE. It has been officially <b>deprecated</b> (retired) and split into the two more focused functions you just learned: <code>histplot()</code> and <code>kdeplot()</code>.</p>
+
+          <h4 class="subhead">Why it matters</h4>
+          <p>If you ever see <code>sns.distplot()</code> in an old tutorial, StackOverflow answer, or textbook, know that it will likely raise a deprecation warning (or an error in newer Seaborn versions) — replace it with <code>histplot()</code> or <code>kdeplot()</code>.</p>
+
+          <div class="box warning"><span class="box-label">Important warning</span><code>distplot()</code> is deprecated — do not use it in new code. Use <code>histplot()</code> for bars (with optional KDE overlay), or <code>kdeplot()</code> for a curve-only view.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> distplot() → retired. histplot() and kdeplot() → its modern replacements. Recognize the old name, but always write the new one.</div></div>
+        </div>
+      </details>
+
+      <!-- 22. RUGPLOT -->
+      <details class="topic" id="sns-rug">
+        <summary><span class="summary-icon" style="background:var(--green)">22</span>rugplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-rug" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Draws a small vertical tick mark on the x-axis for <b>every single data point</b> — like the fringe on a rug, hence the name. It shows raw density without any smoothing or binning at all.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Great as an <b>add-on</b> to a histogram or KDE plot — it lets you double check that the smoothed shape isn't hiding gaps or clusters in the actual raw data.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.rugplot(data=df, x="numeric_col")</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — rugplot on top of a KDE</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.kdeplot(data=tips, x="total_bill", fill=True)
+sns.rugplot(data=tips, x="total_bill", color="black")
+plt.title("KDE with Rugplot Overlay")
+plt.show()</pre>
+          </div>
+
+          <div class="diagram">
+            <svg viewBox="0 0 320 90" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 70 Q 80 10 160 70 T 300 70" fill="#CCB974" opacity="0.4" stroke="#CCB974" stroke-width="2"/>
+              <g stroke="#1e2130" stroke-width="1.5">
+                <line x1="40" y1="72" x2="40" y2="82"/><line x1="55" y1="72" x2="55" y2="82"/>
+                <line x1="70" y1="72" x2="70" y2="82"/><line x1="100" y1="72" x2="100" y2="82"/>
+                <line x1="130" y1="72" x2="130" y2="82"/><line x1="160" y1="72" x2="160" y2="82"/>
+                <line x1="190" y1="72" x2="190" y2="82"/><line x1="220" y1="72" x2="220" y2="82"/>
+                <line x1="250" y1="72" x2="250" y2="82"/><line x1="270" y1="72" x2="270" y2="82"/>
+              </g>
+              <text x="160" y="45" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">KDE curve + rug ticks below</text>
+            </svg>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>Rugplot is rarely used alone — it shines as a companion to <code>histplot()</code> or <code>kdeplot()</code>, giving you both the smoothed summary and the raw truth in one chart.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> rugplot = a quick, honest look at raw values, best layered underneath a histogram or KDE plot.</div></div>
+        </div>
+      </details>
+
+      <!-- 23. HUE DISTRIBUTIONS -->
+      <details class="topic" id="sns-hue">
+        <summary><span class="summary-icon" style="background:var(--green)">23</span>Multiple Distributions with hue<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-hue" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Add the <code>hue</code> parameter to any distribution plot to split it by category and compare several groups' distributions on the very same chart — automatically colored.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Instead of asking "what's the distribution of tips?" you can ask "does the distribution of tips look different at Lunch vs. Dinner?" — a much richer question.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.histplot(data=df, x="numeric_col", hue="category_col")</code></p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — distributions split by category</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.histplot(data=tips, x="total_bill", hue="time", kde=True)
+plt.title("Total Bill Distribution by Meal Time")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">hue="time"</span><span class="walk-desc">splits the histogram into separate colored groups for "Lunch" and "Dinner," each with its own bars and KDE curve, automatically layered and color-coded.</span></div>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>If overlapping bars get too busy, add <code>multiple="stack"</code> or switch to <code>kdeplot(..., hue=...)</code> for cleaner overlapping curves.</div>
+
+          <h4 class="subhead">Key takeaways for distribution plots</h4>
+          <ul>
+            <li><code>histplot()</code> → flexible histogram (can combine with KDE).</li>
+            <li><code>kdeplot()</code> → smooth density curve.</li>
+            <li><code>rugplot()</code> → quick look at raw values.</li>
+            <li><code>distplot()</code> is deprecated → prefer <code>histplot()</code>.</li>
+            <li>Use <code>hue</code> to compare groups in the same distribution plot.</li>
+          </ul>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>Which parameter would you add to compare tip distributions between smokers and non-smokers on one chart?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'bins controls bucket count, not category splitting.')">bins="smoker"</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Correct — hue splits and color-codes the distribution by category.')">hue="smoker"</button>
+            <button class="qopt" onclick="checkAnswer(this,false,'kde just toggles the smoothing curve, it does not split by group.')">kde="smoker"</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>hue</code> turns any single-group distribution plot into a group comparison — one of Seaborn's most powerful, reusable tricks.</div></div>
+        </div>
+      </details>
+
+      <!-- 24. REGPLOT LMPLOT -->
+      <details class="topic" id="sns-reg">
+        <summary><span class="summary-icon" style="background:var(--red)">24</span>regplot() &amp; lmplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-reg" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>These combine a scatter plot with a fitted <b>regression line</b> — a straight (or curved) line that best summarizes the trend, plus a shaded confidence band around it.</p>
+          <ul>
+            <li><code>regplot()</code> — draws onto a single Axes; simple and direct.</li>
+            <li><code>lmplot()</code> — works at the "figure level," meaning it can automatically create <b>separate small subplots ("facets")</b> for different categories, e.g., one regression line per day of the week.</li>
+          </ul>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Perfect for answering "is there a linear trend here, and how strong/certain is it?" — e.g., does tip amount increase predictably with bill size?</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <ul>
+            <li><code>sns.regplot(data=df, x="col1", y="col2")</code></li>
+            <li><code>sns.lmplot(data=df, x="col1", y="col2", col="category_col")</code> — <code>col</code> creates one facet per category.</li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — regplot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+sns.regplot(data=tips, x="total_bill", y="tip")
+plt.title("Tip vs Total Bill with Regression Line")
+plt.show()</pre>
+          </div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — lmplot with facets</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">sns.lmplot(data=tips, x="total_bill", y="tip", col="time")</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">sns.regplot(x="total_bill", y="tip")</span><span class="walk-desc">scatters every (bill, tip) point and draws the best-fit straight line through them, with a shaded band showing uncertainty.</span></div>
+            <div class="walk-line"><span class="walk-code">sns.lmplot(..., col="time")</span><span class="walk-desc">creates <b>two separate mini-charts</b> side by side — one regression for "Lunch" rows, one for "Dinner" rows — automatically.</span></div>
+          </div>
+
+          <div class="box note"><span class="box-label">Important note</span><code>lmplot()</code> returns a whole grid/figure object, not a single Axes — that's why you can't easily combine it with <code>plt.subplot()</code> the way you can with <code>regplot()</code>.</div>
+          <div class="box warning"><span class="box-label">Common mistake</span>Trusting the regression line on clearly non-linear data — always eyeball the scatter first; a straight line fit to a curved relationship is misleading.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> regplot = scatter + trend line on one Axes. lmplot = the same idea, but able to split into multiple side-by-side facets by category.</div></div>
+        </div>
+      </details>
+
+      <!-- 25. JOINTPLOT -->
+      <details class="topic" id="sns-joint">
+        <summary><span class="summary-icon" style="background:var(--red)">25</span>jointplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-joint" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Combines a central scatter (or other relational) plot with a histogram (or KDE) of each variable squeezed along the top and right edges — three charts in one, all about the same two variables.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Answers "how do x and y relate to each other <i>and</i> what does each one's individual distribution look like?" in a single glance.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.jointplot(data=df, x="col1", y="col2", kind="scatter")</code> — <code>kind</code> can also be <code>"hex"</code>, <code>"kde"</code>, or <code>"reg"</code>.</p>
+
+          <div class="diagram">
+            <svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg">
+              <!-- top histogram -->
+              <g fill="#4C72B0" opacity="0.7">
+                <rect x="40" y="10" width="10" height="20"/><rect x="55" y="5" width="10" height="25"/>
+                <rect x="70" y="12" width="10" height="18"/><rect x="85" y="8" width="10" height="22"/>
+                <rect x="100" y="15" width="10" height="15"/><rect x="115" y="10" width="10" height="20"/>
+                <rect x="130" y="6" width="10" height="24"/><rect x="145" y="14" width="10" height="16"/>
+              </g>
+              <!-- central scatter -->
+              <rect x="35" y="35" width="150" height="150" fill="#f6f4ec" stroke="#1e2130" stroke-width="1.5"/>
+              <g fill="#C44E52">
+                <circle cx="60" cy="150" r="3"/><circle cx="80" cy="120" r="3"/><circle cx="100" cy="140" r="3"/>
+                <circle cx="120" cy="90" r="3"/><circle cx="140" cy="110" r="3"/><circle cx="160" cy="70" r="3"/>
+                <circle cx="70" cy="160" r="3"/><circle cx="150" cy="60" r="3"/>
+              </g>
+              <!-- right histogram -->
+              <g fill="#55A868" opacity="0.7">
+                <rect x="190" y="150" width="20" height="10"/><rect x="190" y="135" width="25" height="10"/>
+                <rect x="190" y="120" width="15" height="10"/><rect x="190" y="105" width="30" height="10"/>
+                <rect x="190" y="90" width="18" height="10"/><rect x="190" y="75" width="22" height="10"/>
+                <rect x="190" y="60" width="12" height="10"/><rect x="190" y="45" width="20" height="10"/>
+              </g>
+              <text x="130" y="210" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#5b5f73">jointplot = center relation + edge distributions</text>
+            </svg>
+          </div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — jointplot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+
+tips = sns.load_dataset("tips")
+
+sns.jointplot(data=tips, x="total_bill", y="tip", kind="scatter")</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">kind="scatter"</span><span class="walk-desc">the center panel shows individual points; the top and right panels automatically show each variable's histogram.</span></div>
+          </div>
+
+          <div class="box tip"><span class="box-label">Tip</span>Try <code>kind="hex"</code> for large datasets — it bins points into hexagons to avoid overplotting thousands of overlapping dots.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> jointplot = "relationship + both individual distributions" in one compact figure — great for a thorough first look at two numeric variables.</div></div>
+        </div>
+      </details>
+
+      <!-- 26. PAIRPLOT -->
+      <details class="topic" id="sns-pair">
+        <summary><span class="summary-icon" style="background:var(--red)">26</span>pairplot()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-pair" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Automatically builds a whole <b>grid</b> of scatter plots for every pair of numeric columns in your DataFrame, with histograms along the diagonal — the fastest way to eyeball every relationship at once.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>When exploring a brand-new dataset, <code>pairplot()</code> is often the very first chart to run — it instantly reveals which variables might be correlated, worth investigating further.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.pairplot(df, hue="category_col")</code> — <code>hue</code> optionally color-codes every scatter by a category.</p>
+
+          <div class="diagram">
+            <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
+              <g stroke="#1e2130" stroke-width="1">
+                <line x1="20" y1="20" x2="240" y2="20"/><line x1="20" y1="86" x2="240" y2="86"/>
+                <line x1="20" y1="152" x2="240" y2="152"/><line x1="20" y1="218" x2="240" y2="218"/>
+                <line x1="20" y1="20" x2="20" y2="218"/><line x1="86" y1="20" x2="86" y2="218"/>
+                <line x1="152" y1="20" x2="152" y2="218"/><line x1="218" y1="20" x2="218" y2="218"/>
+              </g>
+              <!-- diagonal histograms -->
+              <rect x="30" y="55" width="8" height="20" fill="#4C72B0"/><rect x="42" y="45" width="8" height="30" fill="#4C72B0"/><rect x="54" y="60" width="8" height="15" fill="#4C72B0"/>
+              <rect x="96" y="120" width="8" height="20" fill="#DD8452"/><rect x="108" y="110" width="8" height="30" fill="#DD8452"/><rect x="120" y="125" width="8" height="15" fill="#DD8452"/>
+              <rect x="162" y="185" width="8" height="20" fill="#55A868"/><rect x="174" y="175" width="8" height="30" fill="#55A868"/><rect x="186" y="190" width="8" height="15" fill="#55A868"/>
+              <!-- off diagonal scatters -->
+              <g fill="#C44E52"><circle cx="45" cy="120" r="2.5"/><circle cx="55" cy="130" r="2.5"/><circle cx="65" cy="110" r="2.5"/><circle cx="40" cy="140" r="2.5"/></g>
+              <g fill="#8172B2"><circle cx="110" cy="55" r="2.5"/><circle cx="120" cy="65" r="2.5"/><circle cx="130" cy="45" r="2.5"/><circle cx="105" cy="70" r="2.5"/></g>
+              <g fill="#937860"><circle cx="175" cy="55" r="2.5"/><circle cx="185" cy="65" r="2.5"/><circle cx="195" cy="45" r="2.5"/><circle cx="170" cy="70" r="2.5"/></g>
+            </svg>
+          </div>
+          <div class="diagram-caption">Every numeric column plotted against every other — diagonal cells show that column's own histogram.</div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — pairplot</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+
+tips = sns.load_dataset("tips")
+
+sns.pairplot(tips, hue="sex")</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">sns.pairplot(tips, hue="sex")</span><span class="walk-desc">automatically finds every numeric column (total_bill, tip, size), scatters each pair against each other, and colors points by "sex."</span></div>
+          </div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Running <code>pairplot()</code> on a DataFrame with many numeric columns (say, 20+) — the resulting grid becomes huge and slow to render. Narrow down to the columns you actually care about first.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> pairplot = "show me everything against everything" — the fastest first-look chart when exploring a brand-new dataset.</div></div>
+        </div>
+      </details>
+
+      <!-- 27. HEATMAP -->
+      <details class="topic" id="sns-heat">
+        <summary><span class="summary-icon" style="background:var(--brown)">27</span>heatmap()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-heat" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>A <b>matrix / grid plot</b> colors each cell of a 2D table (like a correlation matrix or pivot table) according to its numeric value — darker or brighter color = higher or lower number, at a glance.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <ul>
+            <li>Showing correlations between many variables at once.</li>
+            <li>Visualizing pivot tables (e.g., sales by month × region).</li>
+            <li>Spotting patterns in large numeric datasets that would be unreadable as plain numbers.</li>
+          </ul>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.heatmap(data, annot=True, cmap="coolwarm")</code></p>
+          <ul>
+            <li><code>data</code> — a 2D table (like the output of <code>df.corr()</code>)</li>
+            <li><code>annot=True</code> — prints the actual number inside each cell</li>
+            <li><code>cmap</code> — the color scale to use</li>
+          </ul>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — correlation heatmap</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+tips = sns.load_dataset("tips")
+
+corr = tips.corr(numeric_only=True)
+sns.heatmap(corr, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">tips.corr(numeric_only=True)</span><span class="walk-desc">computes a table of correlation coefficients (from -1 to 1) between every pair of numeric columns.</span></div>
+            <div class="walk-line"><span class="walk-code">sns.heatmap(corr, annot=True, cmap="coolwarm")</span><span class="walk-desc">colors each cell of that table and prints its exact number inside, using a red-to-blue scale ("coolwarm").</span></div>
+          </div>
+
+          <div class="diagram">
+            <svg viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="60" height="60" fill="#C44E52"/><rect x="60" y="0" width="60" height="60" fill="#DD8452"/><rect x="120" y="0" width="60" height="60" fill="#64B5CD"/>
+              <rect x="0" y="60" width="60" height="60" fill="#DD8452"/><rect x="60" y="60" width="60" height="60" fill="#C44E52"/><rect x="120" y="60" width="60" height="60" fill="#4C72B0"/>
+              <rect x="0" y="120" width="60" height="60" fill="#64B5CD"/><rect x="60" y="120" width="60" height="60" fill="#4C72B0"/><rect x="120" y="120" width="60" height="60" fill="#C44E52"/>
+              <g font-family="IBM Plex Mono" font-size="13" fill="#fff" text-anchor="middle">
+                <text x="30" y="34">1.0</text><text x="90" y="34">0.5</text><text x="150" y="34">-0.1</text>
+                <text x="30" y="94">0.5</text><text x="90" y="94">1.0</text><text x="150" y="94">0.3</text>
+                <text x="30" y="154">-0.1</text><text x="90" y="154">0.3</text><text x="150" y="154">1.0</text>
+              </g>
+            </svg>
+          </div>
+          <div class="diagram-caption">Diagonal is always 1.0 (a column perfectly correlates with itself) — look for the brightest off-diagonal cells to spot strong relationships.</div>
+
+          <div class="box warning"><span class="box-label">Common mistake</span>Forgetting <code>numeric_only=True</code> in <code>.corr()</code> on newer Pandas versions — it will error or warn if text columns are included, since correlation only makes sense for numbers.</div>
+          <div class="box tip"><span class="box-label">Tip</span>The diagonal of a correlation heatmap is always 1.0 — that's expected, not a bug (any column always perfectly correlates with itself).</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> heatmap = color-coded numbers in a grid, most often used to visualize correlation matrices or pivot tables at a glance.</div></div>
+        </div>
+      </details>
+
+      <!-- 28. CLUSTERMAP -->
+      <details class="topic" id="sns-cluster">
+        <summary><span class="summary-icon" style="background:var(--brown)">28</span>clustermap()<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-cluster" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>Everything a heatmap does, <b>plus</b> it automatically reorders the rows and columns so that similar ones sit next to each other, and draws little tree diagrams ("dendrograms") on the side showing that grouping.</p>
+
+          <h4 class="subhead">Why it's used</h4>
+          <p>Helps you spot <b>clusters</b> of similar rows/columns that a plain heatmap's fixed row/column order might hide.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.clustermap(data, cmap="viridis", annot=True)</code> — same core arguments as <code>heatmap()</code>.</p>
+
+          <div class="diagram">
+            <svg viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg">
+              <!-- dendrogram left -->
+              <g stroke="#1e2130" stroke-width="1.5" fill="none">
+                <path d="M10 30 L 25 30 L 25 60 L 10 60"/>
+                <path d="M25 45 L 40 45 L 40 100 L 25 100"/>
+                <path d="M10 120 L 25 120 L 25 145 L 10 145"/>
+                <path d="M25 100 L 40 100 L 40 132 L 25 132"/>
+              </g>
+              <!-- grid -->
+              <rect x="50" y="15" width="45" height="30" fill="#4C72B0"/><rect x="95" y="15" width="45" height="30" fill="#64B5CD"/><rect x="140" y="15" width="45" height="30" fill="#DD8452"/>
+              <rect x="50" y="45" width="45" height="30" fill="#64B5CD"/><rect x="95" y="45" width="45" height="30" fill="#4C72B0"/><rect x="140" y="45" width="45" height="30" fill="#C44E52"/>
+              <rect x="50" y="105" width="45" height="30" fill="#DD8452"/><rect x="95" y="105" width="45" height="30" fill="#C44E52"/><rect x="140" y="105" width="45" height="30" fill="#4C72B0"/>
+              <rect x="50" y="135" width="45" height="30" fill="#C44E52"/><rect x="95" y="135" width="45" height="30" fill="#DD8452"/><rect x="140" y="135" width="45" height="30" fill="#64B5CD"/>
+              <text x="130" y="180" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#5b5f73" transform="translate(0,-2)">dendrogram (left) groups similar rows together</text>
+            </svg>
+          </div>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — clustermap</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+
+tips = sns.load_dataset("tips")
+corr = tips.corr(numeric_only=True)
+
+sns.clustermap(corr, cmap="viridis", annot=True)</pre>
+          </div>
+
+          <div class="box note"><span class="box-label">Note</span>Because clustermap reorders rows/columns, the row/column order in the final chart will usually look <i>different</i> from your original table — that's intentional, not an error.</div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> clustermap = heatmap + automatic grouping of similar rows/columns, visualized with dendrograms — great for spotting hidden structure.</div></div>
+        </div>
+      </details>
+
+      <!-- 29. THEMES -->
+      <details class="topic" id="sns-theme">
+        <summary><span class="summary-icon" style="background:var(--brown)">29</span>Themes &amp; Styling<span class="badge-mini">code</span><label class="done-toggle" onclick="event.stopPropagation()" title="Mark this topic complete"><input type="checkbox" class="done-check" data-topic="sns-theme" onchange="toggleComplete(this)"><span class="done-check-label">Done</span></label><span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <h4 class="subhead">Simple explanation</h4>
+          <p>A wrap-up of Seaborn's global styling tools — the same <code>set_style()</code>/<code>set_palette()</code> ideas from Class 1, applied here to finish off matrix/grid plots with a consistent, polished look.</p>
+
+          <h4 class="subhead">Syntax</h4>
+          <p><code>sns.set_theme(style="darkgrid", palette="deep", font_scale=1.1)</code> — a convenient all-in-one setup call.</p>
+
+          <div class="codewrap">
+            <div class="codehead"><span>python — one-line global theme</span><button class="copybtn" onclick="copyCode(this)">Copy</button></div>
+            <pre class="code" data-lang="py">import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.set_theme(style="darkgrid", palette="deep", font_scale=1.1)
+
+tips = sns.load_dataset("tips")
+sns.boxplot(data=tips, x="day", y="total_bill")
+plt.title("Themed Boxplot")
+plt.show()</pre>
+          </div>
+
+          <h4 class="subhead">Line-by-line walkthrough</h4>
+          <div class="walk">
+            <div class="walk-line"><span class="walk-code">sns.set_theme(...)</span><span class="walk-desc">one call that sets the background style, color palette, and font scale together — the modern, recommended way to theme all your charts at once.</span></div>
+          </div>
+
+          <div class="box best"><span class="box-label">Best practice</span>Call <code>sns.set_theme()</code> exactly once, at the very top of your notebook, before drawing any charts.</div>
+
+          <div class="quiz">
+            <div class="qtitle">Quick check</div>
+            <p>Which chart would you reach for first to spot rows/columns that "cluster together" in a big numeric table?</p>
+            <button class="qopt" onclick="checkAnswer(this,false,'heatmap shows the values but keeps your original row/column order — it will not regroup similar rows.')">heatmap()</button>
+            <button class="qopt" onclick="checkAnswer(this,true,'Right — clustermap reorders rows/columns by similarity and shows the grouping as a dendrogram.')">clustermap()</button>
+            <div class="qfeedback"></div>
+          </div>
+
+          <div class="takeaway"><span class="icon">💡</span><div><b>Key takeaway:</b> <code>sns.set_theme()</code> is the modern one-liner for style + palette + font — set it once, and every chart afterward inherits a consistent, professional look.</div></div>
+        </div>
+      </details>
+
+    </div><!-- /topics part2 -->
+
+    <!-- ============ CLOSING ============ -->
+    <div class="part-header">
+      <div class="tag">Recap</div>
+      <h2>The whole journey, in one line each</h2>
+      <div class="rule" style="background:var(--purple)"></div>
+    </div>
+    <div class="topics">
+      <details class="topic" open>
+        <summary><span class="summary-icon" style="background:var(--purple)">✓</span>Full course cheat sheet<span class="summary-chevron">›</span></summary>
+        <div class="topic-body">
+          <table class="cmp">
+            <tr><th>Function</th><th>One-line purpose</th></tr>
+            <tr><td><code>plt.plot()</code></td><td>Basic line between points</td></tr>
+            <tr><td><code>plt.figure()</code></td><td>Create the canvas / control size</td></tr>
+            <tr><td><code>plt.subplot()</code></td><td>Grid of multiple charts on one figure</td></tr>
+            <tr><td><code>fig, ax = plt.subplots()</code></td><td>Object-oriented, explicit control</td></tr>
+            <tr><td><code>plt.scatter() / plt.hist() / plt.boxplot()</code></td><td>Relationship / shape / spread of raw numbers</td></tr>
+            <tr><td><code>sns.scatterplot() / lineplot()</code></td><td>Relationship &amp; trend, DataFrame-native</td></tr>
+            <tr><td><code>sns.barplot() / countplot()</code></td><td>Average per group / count per group</td></tr>
+            <tr><td><code>sns.boxplot() / violinplot()</code></td><td>Spread + outliers per group (± full shape)</td></tr>
+            <tr><td><code>sns.stripplot() / swarmplot()</code></td><td>Every raw point per group</td></tr>
+            <tr><td><code>sns.histplot() / kdeplot() / rugplot()</code></td><td>Shape of one variable — bars / curve / raw ticks</td></tr>
+            <tr><td><code>sns.regplot() / lmplot()</code></td><td>Scatter + trend line (± facets by category)</td></tr>
+            <tr><td><code>sns.jointplot()</code></td><td>Relationship + both distributions together</td></tr>
+            <tr><td><code>sns.pairplot()</code></td><td>Every numeric column against every other</td></tr>
+            <tr><td><code>sns.heatmap() / clustermap()</code></td><td>Color-coded matrix (± auto-grouped by similarity)</td></tr>
+          </table>
+          <div class="takeaway"><span class="icon">🎓</span><div><b>You made it through the whole course.</b> The pattern behind every plot is the same: pick the function that answers your actual question, feed it your DataFrame and column names, then style, label, and share.</div></div>
+        </div>
+      </details>
+    </div>
+
+    <footer>Made for self-paced learning · Matplotlib &amp; Seaborn Course Notes</footer>
+  </main>
+</div>
+
+<script>
+// ---------- Copy button ----------
+function copyCode(btn){
+  const pre = btn.closest('.codewrap').querySelector('pre.code');
+  const text = pre.dataset.raw !== undefined ? pre.dataset.raw : pre.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const old = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(()=>{ btn.textContent = old; }, 1400);
+  });
+}
+
+// ---------- Quiz ----------
+function checkAnswer(btn, isCorrect, feedback){
+  const quiz = btn.closest('.quiz');
+  const opts = quiz.querySelectorAll('.qopt');
+  opts.forEach(o => o.disabled = true);
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  quiz.querySelector('.qfeedback').textContent = (isCorrect ? "✓ " : "✗ ") + feedback;
+}
+
+// ---------- Very small python syntax highlighter (single-pass tokenizer) ----------
+(function highlight(){
+  const blocks = document.querySelectorAll('pre.code[data-lang="py"]');
+  const KEYWORDS = new Set(['import','as','def','return','for','in','if','else','elif','True','False','None','from','with','while','class']);
+  // One combined regex, scanned left-to-right, so a later token can never re-match
+  // text that an earlier token already produced (that was the bug: sequential
+  // .replace() passes were matching inside spans inserted by earlier passes).
+  const TOKEN = /(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|\b(\d+\.?\d*)\b|\b([a-zA-Z_][a-zA-Z0-9_.]*)\b(?=\s*\()|\b([a-zA-Z_]\w*)\b/gm;
+  function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  blocks.forEach(block=>{
+    const raw = block.textContent; // keep the original plain code safe for copying
+    block.dataset.raw = raw;
+    const html = raw.replace(TOKEN, (m, comment, str, num, fn, word) => {
+      if (comment !== undefined) return `<span class="com">${esc(comment)}</span>`;
+      if (str !== undefined) return `<span class="str">${esc(str)}</span>`;
+      if (num !== undefined) return `<span class="num">${esc(num)}</span>`;
+      if (fn !== undefined) return `<span class="fn">${esc(fn)}</span>`;
+      if (word !== undefined) {
+        return KEYWORDS.has(word) ? `<span class="kw">${esc(word)}</span>` : esc(word);
+      }
+      return esc(m);
+    });
+    block.innerHTML = html;
+  });
+})();
+
+// close mobile toc when a link is clicked
+document.querySelectorAll('.toc a').forEach(a=>{
+  a.addEventListener('click', ()=>{
+    if(window.innerWidth <= 900){ document.querySelector('.toc').classList.remove('open'); }
+  });
+});
+
+// ============ MARK-COMPLETE / PROGRESS TRACKING ============
+const completedTopics = new Set(); // in-memory only, resets on page reload
+const allTopicIds = Array.from(document.querySelectorAll('.done-check')).map(c => c.dataset.topic);
+const totalTopics = allTopicIds.length;
+let celebrated = false;
+
+function updateProgressUI(){
+  const pct = totalTopics ? Math.round((completedTopics.size / totalTopics) * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  const badge = document.getElementById('tocProgressBadge');
+  badge.textContent = pct + '%';
+  badge.classList.toggle('complete', pct === 100);
+
+  if(pct === 100 && !celebrated){
+    celebrated = true;
+    celebrate();
+  }
+}
+
+function toggleComplete(checkbox){
+  const id = checkbox.dataset.topic;
+  const details = checkbox.closest('details.topic');
+  const tocDot = document.querySelector('#toc-' + CSS.escape(id) + ' .dot');
+  if(checkbox.checked){
+    completedTopics.add(id);
+    details.classList.add('is-done');
+    if(tocDot) tocDot.classList.add('done');
+  } else {
+    completedTopics.delete(id);
+    details.classList.remove('is-done');
+    if(tocDot) tocDot.classList.remove('done');
+  }
+  updateProgressUI();
+}
+
+// ============ EXPAND ALL / COLLAPSE ALL ============
+function setAllDetails(open){
+  document.querySelectorAll('main details').forEach(d => { d.open = open; });
+}
+
+// ============ TOC SEARCH / FILTER ============
+function filterToc(query){
+  const q = query.trim().toLowerCase();
+  document.querySelectorAll('.toc-group').forEach(group => {
+    let anyVisible = false;
+    group.querySelectorAll('a[data-toc-link]').forEach(a => {
+      const match = !q || a.textContent.toLowerCase().includes(q);
+      a.classList.toggle('toc-hidden', !match);
+      if(match) anyVisible = true;
+    });
+    group.classList.toggle('toc-group-hidden', !anyVisible);
+  });
+}
+
+// ============ SCROLLSPY (highlight current topic in TOC) ============
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const id = entry.target.id;
+    const link = document.getElementById('toc-' + id);
+    if(!link) return;
+    if(entry.isIntersecting){
+      document.querySelectorAll('.toc a.active').forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+document.querySelectorAll('main details.topic[id]').forEach(d => spyObserver.observe(d));
+
+// ============ QUIZ SCORE TRACKER ============
+const totalQuizzes = document.querySelectorAll('.quiz').length;
+let quizzesAnswered = 0;
+let quizzesCorrect = 0;
+document.getElementById('quizTrackerText').textContent = `Quizzes: 0/${totalQuizzes}`;
+if(totalQuizzes === 0){ document.getElementById('quizTracker').classList.add('hidden'); }
+
+const originalCheckAnswer = checkAnswer;
+checkAnswer = function(btn, isCorrect, feedback){
+  const quiz = btn.closest('.quiz');
+  if(!quiz.dataset.answered){
+    quiz.dataset.answered = "1";
+    quizzesAnswered++;
+    if(isCorrect) quizzesCorrect++;
+    const tracker = document.getElementById('quizTracker');
+    document.getElementById('quizTrackerText').textContent = `Quizzes: ${quizzesCorrect}/${totalQuizzes} correct`;
+    tracker.classList.toggle('all-correct', quizzesAnswered === totalQuizzes && quizzesCorrect === totalQuizzes);
+  }
+  originalCheckAnswer(btn, isCorrect, feedback);
+};
+
+// ============ BACK TO TOP ============
+window.addEventListener('scroll', () => {
+  document.getElementById('backToTop').classList.toggle('show', window.scrollY > 500);
+});
+
+// ============ CELEBRATION CONFETTI ============
+function celebrate(){
+  const colors = ['#4C72B0','#DD8452','#55A868','#C44E52','#8172B2','#64B5CD','#CCB974'];
+  for(let i = 0; i < 90; i++){
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + 'vw';
+    piece.style.width = (5 + Math.random() * 5) + 'px';
+    piece.style.height = (8 + Math.random() * 6) + 'px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2.2 + Math.random() * 1.6) + 's';
+    piece.style.animationDelay = (Math.random() * 0.4) + 's';
+    document.body.appendChild(piece);
+    setTimeout(() => piece.remove(), 4500);
+  }
+  const toast = document.createElement('div');
+  toast.className = 'celebrate-toast';
+  toast.textContent = "🎉 All topics complete — nice work!";
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('show'));
+  setTimeout(() => { toast.classList.remove('show'); setTimeout(()=>toast.remove(), 500); }, 3500);
+}
+</script>
+</body>
+</html>

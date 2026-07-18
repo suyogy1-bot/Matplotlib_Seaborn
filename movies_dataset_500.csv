@@ -1,0 +1,511 @@
+Movie_ID,Title,Genre,Release_Year,Rating,Duration,Director,Country,Language,Budget,Revenue,Platform,Age_Rating,Added_Date,Status
+1,Dangal,Action,2018,5.5,154 min,Director 4,,Hindi,,"171,246",Netflix,PG-13,02-10-2020,Released
+2,Avengers,Thriller,2018,5.2,97 min,Director 19, india ,Hindi,$312M,"935,698",Amazon Prime,U,19-10-2025,Released
+3,Bahubali,Scifi,2018,7.4,148 min,Director 28,Australia,French,$252M,"354,813",Amazon Prime,U/A,03-10-2022,Upcoming
+4,Dangal,Comedy,2018,5.8,123 min,Director 10, usa ,French,,"882,571",Disney+ Hotstar,A,23-06-2024,Upcoming
+5, Avengers ,Comedy,2020,8.3,87 min,Director 20, usa ,Spanish,$197M,,JioHotstar,A,06-10-2020,Upcoming
+6,Inception,Sci-Fi,2021,9.3,90 min,Director 11, usa ,French,$90M,"984,563",Disney+ Hotstar,PG-13,12-11-2023,Released
+7, 3 Idiots ,Romnce,2019,,155 min,Director 12,Japan,Spanish,,"478,624",Disney+ Hotstar,U/A,23-09-2024,Released
+8,Joker,Romnce,2024,7.0,130 min,Director 7, usa ,HINDI,$117M,,Amazon Prime,PG-13,06-02-2022,Released
+9,,Drama,2022,6.8,83 min,Director 5,Canada,english,$344M,"455,616",Disney+ Hotstar,PG-13,04-02-2023,Upcoming
+10, Leo ,Comedy,2023,6.3,168 min,Director 11,,English,$290M,"806,556",Netflix,A,21-02-2025,Upcoming
+11, Kalki ,Sci-Fi,2022,7.5,161 min,Director 15,Canada,,$225M,"332,204",JioHotstar,A,24-01-2020,Upcoming
+12,Leo,Horror,2021,8.5,124 min,Director 24,USA,Hindi,$260M,"309,494",Netflix,PG-13,21-06-2025,Released
+13,Jawan,Sci-Fi,2021,7.1,161 min,Director 22,USA,,$222M,"861,969",Netflix,U/A,06-03-2020,Released
+14,Avengers,Drama,2022,9.8,164 min,Director 23,UK,english,$30M,,Netflix,U/A,14-04-2021,Released
+15,Pushpa,Scifi,2020,7.1,96 min,Director 4,Australia,French,$284M,"999,513",Amazon Prime,U/A,17-09-2020,Upcoming
+16,Interstellar,Drama,2019,8.0,95 min,Director 4,Australia,HINDI,$304M,"895,108",Netflix,U/A,07-05-2020,Released
+17, Kalki ,Comedy,2021,9.8,157 min,Director 33,Canada,HINDI,$280M,"589,519",Amazon Prime,A,18-04-2023,Released
+18,Moana,Comedy,2023,5.4,165 min,Director 20,USA,,$349M,"246,259",Amazon Prime,PG-13,08-12-2020,Upcoming
+19,Leo,Sci-Fi,2019,9.9,131 min,Director 22, india ,Hindi,$67M,"119,346",JioHotstar,PG-13,23-01-2023,Upcoming
+20,Kalki,Comedy,2018,8.9,93 min,Director 6,Japan,Spanish,,"376,773",Amazon Prime,PG-13,28-11-2022,Upcoming
+21,3 Idiots,Animation,2023,6.4,168 min,Director 12, india ,English,$28M,"920,266",Netflix,U/A,03-05-2020,Upcoming
+22,Avatar,Romance,2022,7.6,110 min,Director 8,UK,Spanish,,"419,643",Disney+ Hotstar,U/A,10-08-2024,Released
+23, Pushpa ,Romance,2018,,173 min,Director 33,,Hindi,$145M,"208,674",JioHotstar,PG-13,18-07-2024,Upcoming
+24,Frozen,Romnce,2019,6.7,86 min,Director 9,India,English,$150M,"156,086",JioHotstar,A,20-04-2025,Upcoming
+25, Inception ,Animation,2018,9.7,150 min,Director 21,Canada,English,$178M,"287,001",Disney+ Hotstar,PG-13,03-08-2022,Released
+26, RRR ,Romance,2024,7.0,85 min,Director 26,India,Spanish,$139M,"641,873",Amazon Prime,PG-13,25-06-2025,Upcoming
+27,3 Idiots,Drama,2018,8.5,145 min,Director 28,,Hindi,$278M,"932,823",Netflix,U/A,03-01-2020,Released
+28,Bahubali,Animation,2022,,82 min,Director 35,Canada,French,$253M,"866,954",Netflix,U,24-12-2023,Upcoming
+29,Titanic,Sci-Fi,2019,9.8,143 min,Director 25,USA,French,$167M,"731,647",Amazon Prime,U,20-03-2022,Upcoming
+30, KGF ,Animation,2018,9.8,92 min,Director 14, usa ,Spanish,$166M,"577,785",Netflix,U/A,10-02-2023,Released
+31,KGF,Animation,2020,9.5,106 min,Director 5,USA,Hindi,$154M,"235,617",Disney+ Hotstar,U,23-06-2021,Upcoming
+32, Leo ,Animation,2023,6.5,98 min,Director 27,Australia,French,$189M,,Disney+ Hotstar,PG-13,04-04-2025,Released
+33, KGF ,Thriller,2024,6.8,134 min,Director 18,India,Spanish,$166M,"252,255",Disney+ Hotstar,PG-13,17-06-2021,Upcoming
+34,Moana,Romnce,2021,9.6,150 min,Director 14,USA,English,$230M,"870,141",Disney+ Hotstar,PG-13,02-09-2021,Released
+35,Leo,Romance,2023,8.2,131 min,Director 16,Japan,French,$221M,"758,165",Netflix,U/A,17-08-2024,Released
+36,Joker,Animation,2021,5.9,91 min,Director 12,Australia,english,$142M,"928,583",Amazon Prime,U,24-07-2023,Upcoming
+37,Kalki,Action,2021,9.7,96 min,Director 33,,HINDI,$130M,"354,393",JioHotstar,PG-13,14-05-2020,Released
+38,Inception,Animation,2022,5.4,147 min,Director 30, usa ,Hindi,$134M,"634,995",Netflix,PG-13,03-09-2020,Released
+39,3 Idiots,Romnce,2023,5.6,112 min,Director 34, india ,HINDI,$70M,,Amazon Prime,PG-13,09-04-2024,Released
+40,Avatar,Romance,2020,9.3,140 min,Director 34,Canada,english,$230M,"414,056",Netflix,U/A,16-11-2025,Upcoming
+41,Titanic,Horror,2019,8.4,171 min,Director 27,Australia,HINDI,$23M,"856,865",Netflix,U/A,16-04-2022,Released
+42,RRR,Romance,2018,7.4,103 min,Director 15, usa ,French,$48M,"249,944",JioHotstar,U,07-01-2024,Released
+43,,Action,2019,9.4,120 min,Director 8,USA,Hindi,$114M,"637,764",JioHotstar,U,10-11-2025,Upcoming
+44,Bahubali,Comedy,2018,,90 min,Director 23, india ,English,$126M,"887,841",Disney+ Hotstar,PG-13,03-01-2025,Upcoming
+45,Frozen,Sci-Fi,2020,9.4,83 min,Director 27,Canada,,$227M,,Netflix,PG-13,03-01-2022,Released
+46,Titanic,Romance,2020,8.0,113 min,Director 21,Japan,Spanish,,"924,649",Netflix,U,27-04-2020,Upcoming
+47,Joker,Romance,2021,5.7,143 min,Director 12,India,,$175M,"891,154",Amazon Prime,A,28-06-2023,Upcoming
+48,,Sci-Fi,2021,6.2,88 min,Director 3, usa ,english,$102M,"207,073",Disney+ Hotstar,U,07-02-2023,Upcoming
+49, Joker ,Animation,2022,6.2,148 min,Director 8,Japan,Spanish,$157M,"855,266",Amazon Prime,PG-13,08-03-2021,Released
+50,3 Idiots,Sci-Fi,2020,,112 min,Director 16,,english,$71M,"137,104",Netflix,PG-13,27-04-2023,Upcoming
+51,Inception,Action,2019,9.1,104 min,Director 5,Australia,english,$249M,"893,796",Netflix,U,21-10-2025,Upcoming
+52,,Horror,2019,,112 min,Director 3,Canada,,,"794,380",Amazon Prime,A,03-04-2020,Upcoming
+53,The Batman,Thriller,2023,8.1,91 min,Director 11, india ,HINDI,$165M,"527,976",Netflix,A,24-10-2022,Upcoming
+54,,Horror,2023,8.6,106 min,Director 1, india ,Hindi,$66M,"473,471",Amazon Prime,U/A,01-01-2024,Released
+55,Coco,Horror,2023,5.7,116 min,Director 11,,Hindi,$75M,"871,824",Amazon Prime,A,05-01-2023,Upcoming
+56,Inception,Comedy,2023,9.0,100 min,Director 15, india ,english,$262M,"323,042",JioHotstar,U/A,13-06-2020,Released
+57,RRR,Sci-Fi,2018,9.1,166 min,Director 3,Australia,English,$253M,"742,796",Disney+ Hotstar,PG-13,10-10-2021,Upcoming
+58,Coco,Animation,2019,,159 min,Director 32, usa ,Hindi,$336M,"569,856",Amazon Prime,PG-13,13-02-2020,Released
+59, Bahubali ,Animation,2022,5.2,161 min,Director 9,USA,HINDI,$281M,,JioHotstar,U/A,01-02-2024,Released
+60,Frozen,Romance,2024,5.8,180 min,Director 15,USA,,$149M,"728,281",JioHotstar,U/A,09-09-2023,Released
+61,Avengers,Horror,2020,,103 min,Director 26,UK,HINDI,$187M,"272,811",Disney+ Hotstar,U,25-09-2020,Upcoming
+62,Joker,Comedy,2020,8.1,130 min,Director 24,Japan,French,$315M,"438,782",Netflix,PG-13,08-03-2024,Released
+63,KGF,Romnce,2024,8.3,120 min,Director 1,India,Hindi,$335M,"527,524",Disney+ Hotstar,U,05-08-2021,Released
+64,,Scifi,2020,7.6,148 min,Director 15, india ,english,$88M,"738,848",JioHotstar,U/A,05-01-2021,Released
+65,Joker,Romnce,2024,9.0,81 min,Director 4,,Spanish,$316M,"630,751",JioHotstar,U/A,06-01-2020,Released
+66,,Drama,2019,9.5,93 min,Director 1,,HINDI,$92M,"630,622",JioHotstar,U/A,17-05-2020,Upcoming
+67,Inception,Animation,2023,6.8,135 min,Director 30,USA,HINDI,$109M,"207,267",Amazon Prime,U,04-06-2025,Upcoming
+68,Inception,Thriller,2023,7.6,113 min,Director 19,Canada,English,$27M,"341,861",Amazon Prime,U/A,24-06-2021,Upcoming
+69,Dangal,Romnce,2023,9.1,148 min,Director 31, usa ,,$23M,"547,978",Amazon Prime,A,26-04-2023,Released
+70, Avengers ,Action,2018,9.6,124 min,Director 10,India,English,,"749,043",Netflix,U,03-10-2022,Released
+71, The Batman ,Thriller,2018,6.0,84 min,Director 3,USA,,$343M,"202,135",Netflix,U/A,10-06-2022,Upcoming
+72,,Romance,2020,,177 min,Director 24,Australia,,$277M,"394,633",Netflix,PG-13,01-07-2024,Released
+73, Bahubali ,Scifi,2019,9.1,153 min,Director 19,UK,French,,"880,768",Netflix,U,12-08-2020,Upcoming
+74,Interstellar,Acton,2020,5.8,107 min,Director 15, usa ,Hindi,$345M,"602,806",Netflix,A,12-02-2023,Upcoming
+75,Titanic,Horror,2019,7.1,149 min,Director 33,UK,French,$342M,"571,129",Netflix,A,19-06-2024,Released
+76,Joker,Drama,2021,8.8,154 min,Director 15,UK,Spanish,$141M,"373,308",Amazon Prime,U/A,08-12-2022,Upcoming
+77,Interstellar,Romance,2023,5.8,164 min,Director 7,Canada,French,$95M,"850,304",JioHotstar,A,07-02-2025,Released
+78,Pushpa,Action,2018,8.9,168 min,Director 15,,HINDI,$31M,"718,755",JioHotstar,U,24-04-2023,Upcoming
+79,RRR,Romnce,2023,6.1,103 min,Director 8, usa ,French,$341M,"529,248",JioHotstar,U/A,09-07-2023,Upcoming
+80,Avatar,Romnce,2023,5.9,163 min,Director 21,India,French,$74M,,Amazon Prime,U/A,23-04-2024,Upcoming
+81,Jawan,Sci-Fi,2023,5.1,127 min,Director 34,Australia,French,$253M,"800,188",JioHotstar,U,24-10-2022,Released
+82,Pushpa,Action,2018,7.1,169 min,Director 23,Japan,English,$225M,"639,994",Amazon Prime,PG-13,15-04-2021,Released
+83,Titanic,Animation,2023,6.1,98 min,Director 23, india ,French,$300M,"898,853",JioHotstar,A,26-04-2022,Upcoming
+84,Pushpa,Animation,2018,8.9,125 min,Director 16,Japan,Spanish,$239M,"187,675",Disney+ Hotstar,U/A,10-07-2020,Released
+85,Avengers,Drama,2022,8.1,81 min,Director 1,Canada,English,$148M,"692,146",Amazon Prime,U/A,25-08-2022,Released
+86,Frozen,Drama,2022,8.0,180 min,Director 6,,,$172M,"809,218",Netflix,PG-13,22-02-2024,Released
+87,Pushpa,Animation,2021,7.4,98 min,Director 32,Canada,French,$326M,"106,164",Disney+ Hotstar,PG-13,23-10-2023,Upcoming
+88,Joker,Romnce,2018,6.8,162 min,Director 2,India,english,,"438,828",Netflix,PG-13,16-03-2020,Released
+89,Moana,Romnce,2020,8.8,150 min,Director 14,Japan,French,$148M,"946,296",Disney+ Hotstar,A,27-08-2023,Upcoming
+90,Kalki,Horror,2019,8.9,122 min,Director 13,Australia,HINDI,$320M,"189,803",Netflix,PG-13,24-09-2023,Released
+91, Coco ,Sci-Fi,2024,8.0,164 min,Director 4,,english,$335M,"789,713",Netflix,U/A,02-11-2025,Upcoming
+92, Interstellar ,Action,2021,9.5,163 min,Director 1,Australia,,$178M,"364,883",Disney+ Hotstar,U/A,14-01-2022,Released
+93,Moana,Action,2021,5.2,95 min,Director 27, india ,French,,"708,606",Amazon Prime,PG-13,25-07-2024,Released
+94,Titanic,Drama,2023,,80 min,Director 1,USA,,$82M,"118,282",Amazon Prime,PG-13,24-12-2021,Released
+95,Bahubali,Drama,2023,6.4,151 min,Director 32, usa ,HINDI,$150M,"153,734",Netflix,U,02-01-2025,Released
+96,Coco,Drama,2024,8.0,120 min,Director 24, usa ,French,$94M,"219,371",Amazon Prime,PG-13,16-07-2023,Upcoming
+97,Avengers,Scifi,2023,9.1,122 min,Director 1,UK,english,$319M,"352,385",JioHotstar,PG-13,20-04-2023,Upcoming
+98,Avatar,Drama,2022,8.7,180 min,Director 3,Japan,,$312M,"971,816",JioHotstar,A,18-02-2024,Upcoming
+99,Coco,Sci-Fi,2020,8.3,139 min,Director 14,Japan,english,$217M,"189,549",Disney+ Hotstar,U,08-07-2024,Upcoming
+100,Kalki,Sci-Fi,2019,5.5,169 min,Director 19,Australia,english,$226M,"977,152",Amazon Prime,U,16-06-2020,Upcoming
+101, Joker ,Scifi,2018,7.5,82 min,Director 7,India,Hindi,$309M,"680,218",Disney+ Hotstar,A,14-02-2023,Released
+102,Pushpa,Drama,2021,5.2,151 min,Director 24, usa ,French,$52M,"755,406",Netflix,U,09-06-2024,Released
+103,Titanic,Thriller,2019,5.8,110 min,Director 15,UK,English,$200M,,Netflix,U,09-09-2025,Upcoming
+104,Inception,Action,2019,6.5,155 min,Director 29,USA,French,$151M,"483,492",JioHotstar,U/A,15-04-2021,Released
+105, Joker ,Action,2019,6.1,159 min,Director 24,UK,,$69M,"494,862",Netflix,U,15-06-2022,Released
+106,Leo,Horror,2019,5.9,137 min,Director 10, usa ,,$234M,"259,026",Disney+ Hotstar,A,11-03-2022,Upcoming
+107,Jawan,Comedy,2019,5.3,180 min,Director 14,,French,$81M,"306,993",Disney+ Hotstar,PG-13,09-04-2021,Released
+108,Coco,Action,2024,6.4,161 min,Director 2, usa ,,$281M,"101,808",Disney+ Hotstar,U/A,12-07-2020,Upcoming
+109, Frozen ,Drama,2022,8.5,105 min,Director 6,USA,english,$160M,"240,627",Amazon Prime,A,07-01-2020,Upcoming
+110,Inception,Romance,2024,9.6,91 min,Director 1, india ,,$156M,"676,851",Disney+ Hotstar,U,06-12-2022,Released
+111,Bahubali,Acton,2018,8.5,121 min,Director 25,India,Spanish,$273M,"126,543",Amazon Prime,U,08-02-2021,Released
+112,Interstellar,Action,2018,8.4,104 min,Director 17,India,,$315M,"344,719",JioHotstar,U,12-02-2025,Released
+113,Inception,Scifi,2022,5.5,95 min,Director 26,UK,english,$136M,"686,473",JioHotstar,U/A,27-01-2025,Upcoming
+114,Moana,Action,2021,5.3,126 min,Director 22, india ,Hindi,$243M,"677,823",Disney+ Hotstar,PG-13,28-09-2020,Upcoming
+115,Kalki,Horror,2019,8.2,81 min,Director 24,USA,english,$186M,"616,685",Netflix,U/A,05-07-2023,Upcoming
+116,Inception,Action,2018,8.0,166 min,Director 18,,,$338M,"224,532",Netflix,PG-13,08-01-2022,Released
+117, KGF ,Action,2022,9.5,114 min,Director 6, usa ,english,$95M,"623,134",Disney+ Hotstar,PG-13,19-05-2022,Released
+118,Titanic,Animation,2022,6.1,129 min,Director 13,,HINDI,$300M,"589,480",Disney+ Hotstar,U,08-06-2021,Released
+119,Kalki,Thriller,2018,5.8,110 min,Director 21,,Spanish,$165M,"321,302",Netflix,U,06-09-2020,Upcoming
+120,Joker,Animation,2020,5.5,108 min,Director 10, india ,Spanish,$91M,"731,625",Disney+ Hotstar,U,24-12-2023,Upcoming
+121, 3 Idiots ,Thriller,2024,5.6,130 min,Director 10, india ,,$338M,"488,872",JioHotstar,PG-13,10-12-2022,Upcoming
+122,Bahubali,Thriller,2023,8.9,143 min,Director 25, usa ,Spanish,$175M,"546,589",JioHotstar,U/A,03-06-2022,Released
+123,Dangal,Action,2018,,152 min,Director 32,Japan,english,$295M,"547,529",JioHotstar,PG-13,15-06-2020,Upcoming
+124,Joker,Acton,2019,6.8,131 min,Director 10,Canada,French,$245M,"701,351",Netflix,U/A,12-06-2022,Released
+125, KGF ,Romance,2023,9.6,145 min,Director 27,UK,english,$281M,"292,422",Amazon Prime,U,21-10-2024,Released
+126,Bahubali,Action,2023,8.9,119 min,Director 1,Japan,French,$320M,,Netflix,U/A,06-08-2024,Upcoming
+127, The Batman ,Sci-Fi,2021,5.7,146 min,Director 33,USA,English,$107M,"602,842",JioHotstar,PG-13,26-01-2025,Released
+128,Avengers,Horror,2020,6.3,92 min,Director 5,Australia,Hindi,$217M,,Amazon Prime,PG-13,19-01-2023,Released
+129,Drishyam,Drama,2022,6.5,138 min,Director 20, india ,english,$273M,"169,248",JioHotstar,U/A,14-05-2023,Upcoming
+130,Avatar,Drama,2019,5.9,117 min,Director 26,,Spanish,$293M,"443,412",Netflix,U,14-06-2024,Released
+131,Coco,Sci-Fi,2021,,165 min,Director 2,Australia,,$86M,"376,557",Amazon Prime,PG-13,15-04-2021,Upcoming
+132,Bahubali,Romnce,2022,9.7,144 min,Director 14,Canada,,$87M,"367,610",JioHotstar,A,18-04-2023,Released
+133, 3 Idiots ,Acton,2018,6.3,178 min,Director 25,India,HINDI,$94M,"499,727",Netflix,U/A,25-04-2022,Released
+134,,Horror,2024,6.5,88 min,Director 20,USA,Hindi,$224M,"513,864",JioHotstar,U/A,09-03-2020,Upcoming
+135, Bahubali ,Animation,2019,7.0,160 min,Director 7,UK,Spanish,$331M,"829,693",Netflix,PG-13,02-10-2021,Upcoming
+136, Frozen ,Action,2022,8.1,102 min,Director 15, usa ,HINDI,$242M,"689,357",Netflix,U,27-11-2022,Released
+137, Avengers ,Sci-Fi,2023,8.9,106 min,Director 23,USA,French,$221M,"730,848",Amazon Prime,A,17-02-2022,Upcoming
+138,Joker,Romnce,2023,5.3,169 min,Director 14, india ,HINDI,$85M,"293,044",Disney+ Hotstar,U/A,18-03-2025,Released
+139,The Batman,Drama,2020,5.5,161 min,Director 20,UK,Hindi,$269M,"343,722",Amazon Prime,U,17-12-2023,Released
+140, Bahubali ,Drama,2022,6.6,95 min,Director 28,UK,HINDI,$326M,"959,784",JioHotstar,U/A,04-12-2022,Released
+141, Bahubali ,Romance,2020,8.4,137 min,Director 8,UK,Spanish,$311M,"272,570",Netflix,U,01-08-2023,Released
+142,Dangal,Comedy,2023,7.1,104 min,Director 35,Australia,English,$66M,"742,628",Disney+ Hotstar,U/A,03-03-2025,Released
+143,Avatar,Romance,2020,8.1,167 min,Director 11,USA,,$178M,"434,388",Amazon Prime,A,11-04-2022,Released
+144,The Batman,Romance,2019,,93 min,Director 26,India,Hindi,$275M,"406,617",Netflix,U/A,23-04-2021,Released
+145,Joker,Action,2024,5.9,172 min,Director 24,India,English,$281M,"390,073",Netflix,PG-13,11-02-2023,Released
+146, Interstellar ,Romance,2018,7.8,124 min,Director 13, usa ,English,$284M,"647,930",Amazon Prime,PG-13,20-10-2020,Released
+147,Dangal,Scifi,2021,7.4,162 min,Director 9,Japan,,$344M,,Amazon Prime,U/A,22-12-2023,Released
+148,3 Idiots,Scifi,2021,6.2,136 min,Director 26,Japan,English,$123M,"214,226",Disney+ Hotstar,U,07-09-2025,Upcoming
+149,Leo,Acton,2022,8.6,155 min,Director 6, india ,HINDI,,"984,515",Netflix,U,15-11-2023,Released
+150,Frozen,Drama,2020,5.3,110 min,Director 4,Australia,English,,"318,470",Disney+ Hotstar,U,23-03-2023,Released
+151,Drishyam,Comedy,2023,5.8,175 min,Director 22,India,,$142M,"854,537",Disney+ Hotstar,PG-13,02-10-2022,Released
+152,Bahubali,Comedy,2018,8.3,112 min,Director 23,Canada,HINDI,$317M,"910,021",JioHotstar,U,03-05-2021,Released
+153,The Batman,Romnce,2021,7.9,112 min,Director 35,Japan,French,,"254,498",JioHotstar,U,26-01-2020,Released
+154,Drishyam,Thriller,2024,5.8,137 min,Director 26,Canada,,$284M,,Disney+ Hotstar,U/A,10-03-2024,Released
+155,Frozen,Animation,2020,6.9,125 min,Director 21,India,Spanish,$190M,"354,470",Netflix,U/A,24-11-2021,Upcoming
+156,Coco,Romance,2020,7.6,97 min,Director 3,,,$122M,"748,585",Netflix,A,26-05-2021,Released
+157,Titanic,Horror,2022,6.2,150 min,Director 26,Australia,English,$185M,"901,493",Disney+ Hotstar,U/A,26-04-2022,Released
+158,3 Idiots,Romnce,2021,6.9,178 min,Director 20,UK,english,,"415,258",Disney+ Hotstar,U,07-10-2020,Released
+159,KGF,Horror,2024,8.5,88 min,Director 32,Australia,Hindi,$151M,"876,168",Disney+ Hotstar,U/A,23-01-2021,Released
+160,Coco,Romance,2024,5.5,110 min,Director 4,UK,english,,,Disney+ Hotstar,U/A,01-04-2022,Released
+161,Dangal,Horror,2024,8.2,131 min,Director 22,UK,English,$43M,"727,342",JioHotstar,PG-13,09-08-2020,Released
+162,Dangal,Action,2021,8.5,122 min,Director 11,USA,English,$93M,"960,092",Disney+ Hotstar,A,14-06-2024,Released
+163,Drishyam,Scifi,2020,7.3,84 min,Director 20,,HINDI,$162M,"642,963",Disney+ Hotstar,U/A,09-01-2024,Upcoming
+164,Jawan,Horror,2019,6.1,176 min,Director 6,India,english,$50M,"309,568",Amazon Prime,A,20-06-2025,Released
+165,Interstellar,Drama,2022,,179 min,Director 16, usa ,,$345M,"919,398",JioHotstar,U/A,11-01-2020,Released
+166,Titanic,Romnce,2024,6.1,128 min,Director 27, india ,HINDI,$134M,,Netflix,A,23-07-2021,Released
+167,Bahubali,Romnce,2020,9.9,107 min,Director 11, usa ,,$156M,"239,842",Disney+ Hotstar,A,03-06-2020,Upcoming
+168,RRR,Scifi,2021,5.3,180 min,Director 14,Australia,English,$244M,"984,143",Disney+ Hotstar,U,26-02-2021,Released
+169, 3 Idiots ,Horror,2018,7.3,130 min,Director 6, india ,Spanish,$223M,"133,599",Amazon Prime,U/A,26-11-2025,Released
+170,Inception,Scifi,2021,8.6,86 min,Director 21,USA,English,$269M,"638,438",Netflix,U/A,08-11-2024,Released
+171, The Batman ,Horror,2024,9.5,124 min,Director 14,Canada,HINDI,,"115,270",Disney+ Hotstar,U,02-04-2024,Released
+172,Moana,Romance,2018,5.2,138 min,Director 35,Japan,english,$230M,"995,763",Disney+ Hotstar,PG-13,14-06-2024,Upcoming
+173,Coco,Thriller,2021,9.4,161 min,Director 1,Canada,english,$150M,"847,386",Amazon Prime,U/A,22-02-2020,Released
+174,Inception,Romnce,2023,8.3,138 min,Director 1, usa ,HINDI,$260M,"706,559",JioHotstar,U/A,27-11-2025,Upcoming
+175,Bahubali,Acton,2020,8.3,121 min,Director 5,,HINDI,$333M,"368,930",JioHotstar,A,17-10-2023,Released
+176,,Acton,2020,7.6,126 min,Director 16,UK,Hindi,$255M,"947,876",Netflix,A,13-06-2023,Released
+177,Moana,Comedy,2020,8.9,146 min,Director 20, usa ,HINDI,$222M,"556,711",Netflix,PG-13,21-08-2025,Released
+178,Kalki,Horror,2021,6.2,127 min,Director 34,Australia,,$29M,"100,584",Disney+ Hotstar,U,19-03-2022,Upcoming
+179,Dangal,Animation,2018,7.4,91 min,Director 13,UK,French,$168M,"480,942",Netflix,PG-13,13-06-2020,Upcoming
+180,Moana,Romance,2020,9.2,96 min,Director 13,Australia,English,$188M,"181,774",JioHotstar,PG-13,13-09-2023,Upcoming
+181,Avatar,Animation,2023,7.0,140 min,Director 12,USA,French,$89M,"944,009",Amazon Prime,U/A,13-09-2020,Upcoming
+182,The Batman,Animation,2018,9.2,153 min,Director 1,USA,French,$130M,"156,843",Amazon Prime,A,16-01-2024,Upcoming
+183,Avengers,Action,2024,6.6,104 min,Director 34,India,Hindi,$160M,"188,320",JioHotstar,A,22-05-2024,Upcoming
+184,Kalki,Romance,2020,6.9,135 min,Director 35,Japan,Spanish,$46M,"767,382",JioHotstar,PG-13,23-10-2021,Upcoming
+185,Dangal,Acton,2023,,120 min,Director 1,,English,$309M,"136,280",Amazon Prime,PG-13,10-04-2025,Released
+186,Avengers,Animation,2019,5.3,135 min,Director 8,India,Hindi,$56M,"609,184",Netflix,U/A,16-04-2025,Upcoming
+187, Frozen ,Sci-Fi,2022,5.5,180 min,Director 6,India,French,$151M,"553,702",JioHotstar,U/A,28-01-2025,Released
+188,Inception,Sci-Fi,2024,6.6,151 min,Director 10,Japan,Spanish,$129M,"918,681",Amazon Prime,PG-13,02-06-2023,Released
+189,KGF,Comedy,2019,8.6,135 min,Director 22, india ,English,,"773,945",Amazon Prime,U,10-08-2022,Released
+190,Leo,Sci-Fi,2021,6.5,154 min,Director 35,USA,Hindi,$158M,"883,865",Amazon Prime,A,02-10-2024,Released
+191,Avatar,Romnce,2020,,122 min,Director 23, usa ,French,$206M,"906,851",Disney+ Hotstar,U,24-09-2023,Released
+192, The Batman ,Thriller,2021,,85 min,Director 33,USA,French,$87M,"957,361",Netflix,A,24-11-2025,Released
+193,Bahubali,Horror,2018,9.3,141 min,Director 20,UK,Spanish,$142M,"608,276",Netflix,A,15-04-2021,Released
+194,Kalki,Romance,2021,9.8,110 min,Director 35,,Hindi,$27M,"154,500",Amazon Prime,U/A,03-03-2021,Upcoming
+195,Avatar,Comedy,2020,5.6,164 min,Director 14,Canada,Hindi,$282M,"163,841",Amazon Prime,U,20-06-2020,Released
+196,Frozen,Romance,2020,8.7,155 min,Director 12,India,Spanish,$230M,"133,090",Amazon Prime,U/A,24-09-2025,Released
+197,3 Idiots,Sci-Fi,2019,8.4,170 min,Director 5,India,,$39M,"897,337",Netflix,U,07-11-2020,Upcoming
+198,Moana,Horror,2022,9.7,166 min,Director 32,UK,Spanish,$175M,"862,477",Amazon Prime,PG-13,13-11-2024,Upcoming
+199,Avengers,Comedy,2018,8.9,112 min,Director 15,Canada,Hindi,$307M,"604,588",Netflix,PG-13,22-07-2025,Upcoming
+200, Coco ,Romnce,2023,6.7,156 min,Director 28,Japan,English,$329M,,Netflix,PG-13,14-07-2024,Upcoming
+201,Joker,Comedy,2020,7.3,84 min,Director 19,Australia,English,$115M,"552,417",Amazon Prime,U,07-11-2025,Released
+202, Coco ,Romance,2020,6.8,108 min,Director 23, india ,Spanish,$279M,"721,193",Amazon Prime,PG-13,17-01-2020,Released
+203,Jawan,Romnce,2020,8.3,150 min,Director 33, india ,Hindi,$149M,"177,526",Disney+ Hotstar,PG-13,09-05-2022,Upcoming
+204,Coco,Action,2023,6.8,82 min,Director 4,USA,english,$179M,"255,746",JioHotstar,U,11-08-2021,Released
+205,Pushpa,Scifi,2022,,130 min,Director 12,Japan,HINDI,$169M,"126,430",JioHotstar,U,26-11-2025,Upcoming
+206,Leo,Romance,2020,7.8,86 min,Director 35,Australia,Hindi,$51M,"856,533",Amazon Prime,A,02-10-2022,Upcoming
+207, Bahubali ,Romance,2021,6.6,136 min,Director 26,USA,HINDI,$221M,"912,986",JioHotstar,A,04-04-2024,Upcoming
+208,Kalki,Horror,2018,8.7,140 min,Director 27,USA,Spanish,$222M,"395,871",Netflix,A,15-01-2020,Upcoming
+209,Bahubali,Sci-Fi,2018,5.5,157 min,Director 27,USA,Spanish,$110M,"749,760",Netflix,PG-13,13-12-2022,Upcoming
+210,Coco,Drama,2023,7.6,146 min,Director 27,Japan,Hindi,$53M,"168,514",Netflix,U/A,19-07-2023,Released
+211,Avengers,Romnce,2024,5.6,108 min,Director 16,,English,$37M,"940,952",JioHotstar,A,05-11-2025,Upcoming
+212,Drishyam,Scifi,2022,6.3,107 min,Director 15,Japan,English,$311M,"921,080",Disney+ Hotstar,U,23-09-2020,Released
+213,Dangal,Drama,2021,5.3,137 min,Director 3,India,english,$76M,"401,644",Disney+ Hotstar,A,17-10-2021,Released
+214,The Batman,Scifi,2022,6.1,102 min,Director 2,,Spanish,$52M,"380,741",Netflix,U,13-07-2024,Upcoming
+215,RRR,Action,2024,7.6,164 min,Director 17,USA,HINDI,$88M,"799,901",JioHotstar,U/A,11-10-2021,Released
+216,Coco,Comedy,2023,5.1,179 min,Director 13,Canada,,$306M,"958,996",Disney+ Hotstar,U,24-12-2024,Released
+217,Titanic,Romnce,2023,7.6,151 min,Director 23,UK,english,$201M,"145,757",Amazon Prime,A,14-01-2025,Upcoming
+218,Jawan,Horror,2024,7.4,90 min,Director 22,Australia,French,$85M,"640,576",Disney+ Hotstar,PG-13,07-06-2022,Released
+219,Frozen,Acton,2021,8.6,100 min,Director 28,UK,Hindi,,"699,544",JioHotstar,U,01-02-2023,Released
+220,Frozen,Comedy,2024,8.1,139 min,Director 32,Canada,English,$201M,"206,100",Amazon Prime,U/A,15-08-2024,Upcoming
+221,Titanic,Animation,2019,8.3,171 min,Director 16, usa ,HINDI,$330M,"609,613",JioHotstar,U,23-04-2021,Released
+222,Coco,Sci-Fi,2023,8.2,111 min,Director 7,Canada,,,"511,246",Amazon Prime,U,18-11-2024,Upcoming
+223,,Animation,2018,9.7,177 min,Director 7,UK,Hindi,$103M,"431,108",JioHotstar,U,03-01-2024,Released
+224,Kalki,Acton,2018,8.2,158 min,Director 19, usa ,French,$306M,"124,191",JioHotstar,U/A,04-12-2025,Released
+225,Moana,Comedy,2022,8.3,91 min,Director 16,USA,English,$174M,"402,151",JioHotstar,A,25-04-2020,Released
+226,,Romnce,2023,6.0,129 min,Director 30, india ,english,$127M,"850,770",Netflix,U,27-01-2025,Released
+227,3 Idiots,Action,2019,6.4,112 min,Director 9,Japan,,$198M,,JioHotstar,U,06-08-2021,Upcoming
+228,Drishyam,Horror,2020,5.1,148 min,Director 2,Australia,Hindi,$202M,"436,001",Amazon Prime,A,26-02-2024,Released
+229,,Horror,2021,6.8,148 min,Director 8, usa ,Hindi,$47M,"651,250",JioHotstar,U,21-04-2021,Upcoming
+230,Avatar,Comedy,2019,8.0,101 min,Director 19, india ,Hindi,$34M,"987,214",Disney+ Hotstar,U/A,21-02-2024,Released
+231, Coco ,Comedy,2022,,126 min,Director 5,UK,english,$272M,"622,704",Disney+ Hotstar,PG-13,06-02-2022,Upcoming
+232,Coco,Animation,2023,9.2,138 min,Director 22,Australia,,$218M,"331,109",Amazon Prime,A,22-06-2022,Released
+233,,Comedy,2019,8.2,119 min,Director 17,UK,English,$69M,"158,392",Disney+ Hotstar,U,19-10-2021,Released
+234,Titanic,Drama,2020,8.5,97 min,Director 24,Japan,Spanish,$287M,"993,254",Amazon Prime,A,25-07-2020,Released
+235,Frozen,Horror,2019,7.3,80 min,Director 4,USA,HINDI,$209M,"130,483",JioHotstar,PG-13,04-02-2023,Upcoming
+236,Titanic,Drama,2019,5.3,104 min,Director 5,Japan,Spanish,$142M,"668,058",Netflix,U/A,16-12-2021,Upcoming
+237,,Thriller,2022,,146 min,Director 11,,,$71M,"371,479",JioHotstar,U/A,03-08-2025,Upcoming
+238,Jawan,Horror,2018,9.8,141 min,Director 17,UK,english,,"627,924",Netflix,PG-13,22-12-2020,Released
+239, Leo ,Horror,2019,9.3,121 min,Director 3,Australia,HINDI,$113M,"116,612",JioHotstar,U,15-04-2020,Upcoming
+240,Joker,Romance,2023,6.0,88 min,Director 26,India,HINDI,$204M,"338,067",JioHotstar,A,17-12-2023,Released
+241, Drishyam ,Animation,2019,8.8,114 min,Director 15,Australia,English,$195M,"825,023",Disney+ Hotstar,U/A,08-01-2021,Upcoming
+242,Drishyam,Thriller,2019,7.8,115 min,Director 27,UK,Hindi,$89M,"871,058",Amazon Prime,U/A,14-03-2020,Upcoming
+243,Moana,Sci-Fi,2024,8.6,171 min,Director 27,USA,English,$73M,"396,072",Disney+ Hotstar,U/A,28-03-2023,Released
+244,Kalki,Romnce,2023,7.9,137 min,Director 16, usa ,HINDI,$209M,"671,197",JioHotstar,U,19-05-2024,Upcoming
+245,Interstellar,Romnce,2019,9.7,112 min,Director 5,India,english,$128M,"918,942",Netflix,PG-13,16-06-2025,Released
+246,Joker,Sci-Fi,2021,9.8,149 min,Director 27, india ,Hindi,$139M,"825,368",JioHotstar,PG-13,25-06-2021,Released
+247, Frozen ,Acton,2019,8.0,162 min,Director 5, usa ,english,$190M,"464,353",JioHotstar,A,06-08-2025,Released
+248, Interstellar ,Romnce,2024,7.7,106 min,Director 16,Canada,Spanish,$174M,"267,841",Netflix,PG-13,28-11-2024,Released
+249,Frozen,Thriller,2023,5.1,80 min,Director 12,USA,HINDI,$108M,"371,922",Amazon Prime,U,01-02-2020,Released
+250,Frozen,Acton,2020,7.0,141 min,Director 17,Australia,English,$155M,"193,064",Netflix,A,05-12-2022,Upcoming
+251, Kalki ,Acton,2024,,99 min,Director 28, india ,Spanish,$137M,"173,821",JioHotstar,U,03-10-2021,Released
+252,Joker,Sci-Fi,2022,8.3,152 min,Director 28,UK,English,$318M,"960,649",JioHotstar,U/A,25-05-2024,Upcoming
+253,Kalki,Action,2019,6.1,117 min,Director 14, usa ,english,$114M,"418,678",Disney+ Hotstar,U/A,06-01-2021,Upcoming
+254,Dangal,Romance,2021,8.5,87 min,Director 21,USA,Spanish,,"254,179",Amazon Prime,PG-13,01-04-2022,Released
+255,Kalki,Romnce,2023,6.5,89 min,Director 7,USA,english,$267M,,Amazon Prime,PG-13,11-08-2025,Upcoming
+256,Bahubali,Horror,2022,,178 min,Director 30,USA,HINDI,$88M,,Amazon Prime,U,15-11-2024,Released
+257,KGF,Romnce,2024,7.5,98 min,Director 26,USA,HINDI,$46M,,Amazon Prime,U,23-02-2022,Released
+258,The Batman,Sci-Fi,2019,9.0,170 min,Director 22,Australia,English,$254M,"219,093",Disney+ Hotstar,PG-13,16-04-2021,Upcoming
+259,Joker,Drama,2023,9.7,93 min,Director 33,Australia,,$150M,"933,712",Amazon Prime,A,11-03-2025,Upcoming
+260, Frozen ,Action,2024,6.7,180 min,Director 17,India,English,$187M,"425,838",Disney+ Hotstar,A,10-06-2024,Upcoming
+261, Coco ,Sci-Fi,2018,7.0,161 min,Director 16,India,HINDI,$97M,"359,516",Disney+ Hotstar,PG-13,14-05-2021,Released
+262,The Batman,Action,2020,5.8,120 min,Director 9,,HINDI,$300M,"447,481",JioHotstar,U/A,24-06-2022,Released
+263,Titanic,Action,2024,,127 min,Director 5,USA,French,$121M,"755,411",Disney+ Hotstar,PG-13,13-05-2025,Upcoming
+264,Dangal,Romance,2023,7.8,93 min,Director 34,USA,French,$26M,"781,232",Amazon Prime,U/A,12-09-2022,Released
+265,,Scifi,2022,8.5,134 min,Director 6,UK,english,$283M,"465,103",Amazon Prime,U,08-06-2025,Upcoming
+266,Interstellar,Thriller,2019,9.9,145 min,Director 12, usa ,english,$25M,"246,619",JioHotstar,U/A,06-01-2025,Released
+267,Avengers,Sci-Fi,2022,,144 min,Director 14,,French,$306M,"256,646",JioHotstar,U,14-03-2024,Upcoming
+268,Drishyam,Acton,2023,5.5,80 min,Director 22,UK,HINDI,$295M,"629,841",Amazon Prime,U/A,20-03-2021,Released
+269,Joker,Romance,2024,9.5,86 min,Director 32,India,French,$55M,"672,693",JioHotstar,U/A,11-08-2021,Released
+270,The Batman,Sci-Fi,2019,9.3,125 min,Director 28,Japan,Spanish,$131M,"245,197",Disney+ Hotstar,U,17-05-2021,Upcoming
+271,Leo,Scifi,2021,6.4,146 min,Director 13, usa ,english,$276M,"175,360",JioHotstar,U,13-02-2022,Upcoming
+272,Dangal,Thriller,2023,9.2,153 min,Director 1,India,,$264M,"745,729",JioHotstar,PG-13,20-05-2021,Released
+273,3 Idiots,Thriller,2024,7.8,108 min,Director 22,UK,english,$113M,"239,919",Netflix,A,26-08-2023,Upcoming
+274,Pushpa,Horror,2022,9.6,161 min,Director 31,USA,Spanish,$332M,"904,877",Disney+ Hotstar,U,12-07-2020,Upcoming
+275,,Horror,2020,5.8,168 min,Director 25,India,English,$50M,"243,150",Disney+ Hotstar,U/A,08-01-2023,Upcoming
+276,Jawan,Comedy,2019,9.5,91 min,Director 10, india ,,$274M,"495,432",Netflix,U/A,20-03-2022,Released
+277,,Comedy,2018,,170 min,Director 11,USA,French,$112M,"466,688",Amazon Prime,A,04-07-2022,Upcoming
+278,Moana,Action,2023,5.9,103 min,Director 10,Australia,HINDI,$50M,"737,697",Netflix,PG-13,18-10-2020,Upcoming
+279,Joker,Horror,2023,9.6,86 min,Director 34,UK,French,$216M,"761,004",Netflix,A,14-12-2025,Released
+280,Avengers,Horror,2021,9.6,158 min,Director 11,Australia,French,$128M,"907,629",Netflix,A,11-11-2024,Upcoming
+281,Drishyam,Acton,2021,9.2,90 min,Director 32,India,Hindi,$62M,"401,600",JioHotstar,U,03-10-2021,Released
+282, Coco ,Thriller,2021,9.0,90 min,Director 29,Australia,English,,"406,219",Netflix,A,09-06-2021,Upcoming
+283,Avengers,Romance,2021,6.6,167 min,Director 31,USA,English,$94M,"402,054",Amazon Prime,A,21-07-2021,Upcoming
+284,,Animation,2018,9.2,84 min,Director 14, usa ,english,$61M,"451,860",Amazon Prime,U/A,21-02-2025,Released
+285, Kalki ,Sci-Fi,2021,6.1,113 min,Director 4,Canada,Hindi,$333M,"889,064",JioHotstar,PG-13,07-02-2023,Upcoming
+286,Dangal,Sci-Fi,2023,9.0,105 min,Director 17,UK,english,$303M,"271,936",Amazon Prime,PG-13,16-08-2022,Upcoming
+287,Jawan,Scifi,2020,9.3,127 min,Director 25,USA,Hindi,$164M,"494,591",Amazon Prime,A,25-01-2022,Released
+288,Joker,Romnce,2020,9.6,167 min,Director 24, usa ,HINDI,$109M,"719,194",Disney+ Hotstar,A,23-04-2025,Released
+289,,Acton,2018,7.5,95 min,Director 16,USA,HINDI,$71M,"794,594",Netflix,A,02-07-2020,Upcoming
+290,Dangal,Acton,2021,8.5,148 min,Director 12,India,english,$111M,"329,104",Amazon Prime,U,09-10-2025,Upcoming
+291,Coco,Comedy,2022,9.8,94 min,Director 18,,Hindi,$31M,"155,437",JioHotstar,U/A,12-12-2022,Released
+292,Bahubali,Acton,2019,5.7,94 min,Director 8,UK,Spanish,$314M,"608,422",JioHotstar,U,24-01-2021,Upcoming
+293,3 Idiots,Sci-Fi,2024,8.8,141 min,Director 25, india ,Spanish,$41M,"786,854",Netflix,PG-13,17-04-2020,Released
+294,,Comedy,2024,5.4,163 min,Director 6, india ,,$282M,"557,250",Amazon Prime,U/A,10-07-2022,Released
+295, Kalki ,Action,2021,9.2,162 min,Director 11,India,Spanish,$191M,,Amazon Prime,PG-13,06-04-2025,Released
+296,Moana,Sci-Fi,2021,,108 min,Director 26,USA,Hindi,$294M,"473,343",Amazon Prime,A,22-11-2022,Released
+297,Inception,Thriller,2018,5.3,149 min,Director 13,Japan,HINDI,$277M,"359,198",Netflix,PG-13,19-08-2022,Released
+298,Avengers,Drama,2018,5.6,167 min,Director 2,UK,english,$43M,"909,820",Netflix,U,26-06-2021,Released
+299,RRR,Horror,2019,6.8,171 min,Director 18,UK,French,$21M,"656,743",JioHotstar,U/A,21-03-2025,Upcoming
+300,Jawan,Romnce,2019,,85 min,Director 23,USA,,$322M,"866,804",JioHotstar,U/A,10-09-2021,Upcoming
+301,Dangal,Acton,2022,8.0,164 min,Director 33,UK,english,,"712,189",Netflix,A,09-02-2025,Upcoming
+302,Bahubali,Acton,2022,6.4,131 min,Director 3,Japan,French,$129M,"982,366",Disney+ Hotstar,PG-13,12-02-2022,Released
+303,RRR,Romnce,2020,8.4,114 min,Director 4,Australia,Spanish,$243M,"637,911",Disney+ Hotstar,U/A,11-06-2023,Released
+304,Interstellar,Romance,2021,,96 min,Director 22, india ,,$167M,"421,157",Amazon Prime,U/A,12-05-2020,Released
+305,,Drama,2018,5.9,178 min,Director 24,,English,$159M,"507,609",Disney+ Hotstar,U,13-07-2021,Upcoming
+306, Avatar ,Horror,2020,5.2,171 min,Director 13,Canada,English,$313M,"400,100",Amazon Prime,U/A,08-08-2024,Upcoming
+307,,Horror,2022,7.9,145 min,Director 30,USA,Hindi,$179M,"471,015",Amazon Prime,U,11-07-2021,Upcoming
+308,RRR,Romnce,2018,7.7,118 min,Director 18, usa ,,$259M,"155,679",JioHotstar,PG-13,08-10-2024,Released
+309,Drishyam,Thriller,2019,5.5,113 min,Director 29,USA,Spanish,$128M,"169,095",Netflix,U/A,12-01-2023,Upcoming
+310,Kalki,Horror,2022,8.5,92 min,Director 33,,French,$168M,"314,225",JioHotstar,A,28-06-2024,Upcoming
+311,KGF,Horror,2024,8.2,148 min,Director 21,UK,Spanish,$78M,"527,023",Disney+ Hotstar,U/A,13-01-2021,Released
+312,The Batman,Sci-Fi,2019,7.2,127 min,Director 4,India,French,$184M,"791,043",JioHotstar,PG-13,26-04-2024,Released
+313,Titanic,Romance,2024,5.7,158 min,Director 11,,,$301M,"833,494",Netflix,U/A,09-05-2022,Released
+314,The Batman,Scifi,2024,7.2,120 min,Director 9,Australia,French,$104M,"768,957",Netflix,U,20-10-2020,Released
+315, Pushpa ,Acton,2018,,109 min,Director 29,USA,,$252M,"983,186",Amazon Prime,A,21-06-2024,Released
+316, 3 Idiots ,Comedy,2018,5.6,100 min,Director 19,Japan,Spanish,$64M,"550,617",Disney+ Hotstar,U,26-01-2025,Upcoming
+317,RRR,Romnce,2022,7.9,98 min,Director 25,,French,$253M,"325,287",Disney+ Hotstar,U/A,05-12-2022,Upcoming
+318,Inception,Horror,2021,7.5,83 min,Director 23, india ,Hindi,$274M,"773,955",JioHotstar,U/A,17-03-2023,Released
+319,Leo,Sci-Fi,2023,6.7,92 min,Director 17,Japan,Spanish,$266M,"707,592",Amazon Prime,A,14-01-2022,Upcoming
+320,3 Idiots,Romnce,2019,5.8,166 min,Director 7, india ,,$243M,"203,159",JioHotstar,U/A,17-03-2022,Released
+321, Moana ,Drama,2023,5.9,140 min,Director 35,Canada,French,$268M,"117,952",Amazon Prime,PG-13,02-11-2024,Released
+322,The Batman,Romance,2023,6.1,153 min,Director 12,Australia,Spanish,$53M,"261,707",Disney+ Hotstar,U/A,09-09-2025,Released
+323,Inception,Action,2019,5.4,112 min,Director 6,Japan,French,$20M,"572,228",Disney+ Hotstar,U/A,26-12-2023,Released
+324, RRR ,Comedy,2021,8.8,108 min,Director 14,Australia,English,$218M,"646,401",Amazon Prime,A,14-02-2024,Upcoming
+325,Moana,Animation,2020,7.0,132 min,Director 14,India,english,$314M,"670,520",Netflix,U,22-06-2023,Released
+326,Avatar,Drama,2024,9.0,118 min,Director 28,Canada,Hindi,$21M,"122,391",JioHotstar,A,17-10-2021,Upcoming
+327,Titanic,Romance,2018,6.5,149 min,Director 11,USA,English,$54M,"406,025",Disney+ Hotstar,U/A,20-07-2025,Upcoming
+328,Jawan,Animation,2021,7.1,109 min,Director 25,Canada,Spanish,$213M,"873,569",Disney+ Hotstar,U,19-01-2025,Upcoming
+329,Pushpa,Animation,2021,6.4,99 min,Director 34,UK,French,$159M,"343,125",Netflix,PG-13,03-01-2024,Upcoming
+330,KGF,Comedy,2018,5.5,118 min,Director 33,India,,$84M,"190,016",Netflix,U/A,17-04-2025,Released
+331,Titanic,Comedy,2019,9.7,136 min,Director 17,Canada,Spanish,$44M,"199,556",JioHotstar,A,20-01-2020,Released
+332,,Sci-Fi,2022,9.2,166 min,Director 32,Japan,Hindi,$30M,"699,333",Disney+ Hotstar,A,21-11-2024,Released
+333,Jawan,Sci-Fi,2020,7.5,144 min,Director 19,Japan,Spanish,$282M,"712,913",Amazon Prime,PG-13,15-05-2024,Released
+334,3 Idiots,Acton,2018,,170 min,Director 12,Australia,Spanish,$119M,"278,730",Netflix,A,22-02-2021,Upcoming
+335, Kalki ,Sci-Fi,2021,7.1,127 min,Director 19, india ,HINDI,$283M,"499,972",Amazon Prime,A,18-08-2020,Released
+336, RRR ,Acton,2019,9.3,114 min,Director 30, usa ,Spanish,$208M,"962,188",Amazon Prime,U/A,03-03-2024,Released
+337, Leo ,Drama,2019,6.1,122 min,Director 19,Japan,English,$222M,"545,225",JioHotstar,PG-13,01-08-2025,Upcoming
+338,Avatar,Thriller,2020,7.9,139 min,Director 27,,English,$166M,"159,381",Netflix,U,25-10-2020,Upcoming
+339,The Batman,Acton,2021,7.0,104 min,Director 6,Australia,english,$119M,"680,699",Disney+ Hotstar,U,17-06-2024,Released
+340,Inception,Romnce,2020,9.6,179 min,Director 34, usa ,French,$310M,"212,705",Amazon Prime,U,08-12-2025,Released
+341,Frozen,Horror,2019,9.9,137 min,Director 31,India,HINDI,$49M,"177,068",JioHotstar,U,01-08-2025,Upcoming
+342,Kalki,Drama,2024,,132 min,Director 16,Australia,Spanish,$232M,"761,903",Netflix,A,02-10-2023,Released
+343, RRR ,Comedy,2024,,134 min,Director 32, usa ,Spanish,$319M,"423,012",JioHotstar,A,14-10-2020,Upcoming
+344, The Batman ,Comedy,2021,7.4,135 min,Director 33,India,English,$260M,"967,776",Disney+ Hotstar,U,20-07-2025,Upcoming
+345,Avatar,Sci-Fi,2020,6.9,117 min,Director 4,Australia,Spanish,$310M,"679,818",Netflix,PG-13,15-09-2025,Released
+346,Drishyam,Acton,2018,9.6,81 min,Director 10,Australia,HINDI,$50M,"350,031",Amazon Prime,A,08-12-2023,Released
+347,Kalki,Scifi,2022,8.9,92 min,Director 16, usa ,english,$197M,"559,179",Disney+ Hotstar,A,01-09-2022,Upcoming
+348, Inception ,Action,2021,8.3,175 min,Director 5,Australia,Spanish,,"410,554",Netflix,U,28-08-2024,Released
+349,Leo,Sci-Fi,2019,6.1,80 min,Director 4,Japan,English,$113M,"748,534",Disney+ Hotstar,U/A,06-06-2025,Upcoming
+350,3 Idiots,Romance,2024,7.7,97 min,Director 24,UK,Hindi,$30M,"224,206",Disney+ Hotstar,U,10-06-2020,Upcoming
+351,Joker,Animation,2018,7.0,103 min,Director 11,Canada,English,$23M,"783,410",Netflix,U/A,08-08-2025,Released
+352, Moana ,Thriller,2020,7.9,135 min,Director 23, usa ,english,$85M,"168,299",JioHotstar,A,10-12-2020,Released
+353,Moana,Romnce,2024,6.9,91 min,Director 8, usa ,English,$238M,"364,404",Netflix,U/A,17-12-2025,Released
+354,Kalki,Animation,2021,9.7,123 min,Director 25,USA,english,$63M,"775,159",Disney+ Hotstar,PG-13,17-03-2022,Upcoming
+355,Joker,Scifi,2021,8.0,102 min,Director 17,,,,"917,025",Disney+ Hotstar,PG-13,12-04-2023,Released
+356,Joker,Romnce,2023,8.1,108 min,Director 20, india ,Hindi,$315M,"802,967",JioHotstar,PG-13,12-07-2020,Released
+357, Titanic ,Animation,2024,7.0,124 min,Director 27,UK,Hindi,$322M,"536,337",Disney+ Hotstar,PG-13,11-08-2025,Upcoming
+358,Inception,Sci-Fi,2023,,100 min,Director 4,Australia,Spanish,$130M,"899,305",JioHotstar,PG-13,18-02-2020,Released
+359,Interstellar,Thriller,2019,9.0,118 min,Director 24,USA,Hindi,$239M,"144,080",JioHotstar,A,02-12-2023,Upcoming
+360,Bahubali,Drama,2021,9.0,138 min,Director 23,UK,english,$221M,"166,195",Disney+ Hotstar,A,22-05-2024,Released
+361,Jawan,Scifi,2024,5.0,168 min,Director 28,Australia,Spanish,$313M,"405,213",Disney+ Hotstar,PG-13,19-06-2025,Upcoming
+362, Titanic ,Action,2022,6.9,178 min,Director 21, usa ,Hindi,$301M,"314,501",Netflix,PG-13,25-04-2022,Upcoming
+363,Avatar,Drama,2023,8.9,159 min,Director 14,Japan,english,$114M,"302,318",JioHotstar,A,01-02-2022,Upcoming
+364, Frozen ,Romance,2018,7.9,92 min,Director 20,Japan,,$158M,"565,960",Disney+ Hotstar,A,09-11-2025,Released
+365,RRR,Sci-Fi,2024,9.4,83 min,Director 20,Japan,English,$159M,"474,119",Disney+ Hotstar,A,04-09-2021,Upcoming
+366,Pushpa,Animation,2020,7.5,172 min,Director 3,Australia,French,$154M,"586,510",Disney+ Hotstar,U/A,08-05-2024,Released
+367,RRR,Action,2019,6.2,148 min,Director 32,Australia,,$49M,"741,236",JioHotstar,PG-13,07-01-2025,Upcoming
+368,Inception,Animation,2019,9.4,160 min,Director 7,,english,$212M,"322,596",Disney+ Hotstar,PG-13,03-08-2022,Upcoming
+369,Frozen,Animation,2021,7.7,95 min,Director 30,Canada,english,$192M,"204,195",Disney+ Hotstar,A,22-02-2023,Released
+370,,Romnce,2021,7.3,114 min,Director 22,Japan,,$32M,"281,081",Amazon Prime,A,22-10-2023,Released
+371, Titanic ,Action,2022,7.6,142 min,Director 29,Japan,Spanish,$230M,"377,540",Netflix,A,05-08-2021,Released
+372,RRR,Romnce,2023,5.6,132 min,Director 24,India,French,$49M,"206,510",Netflix,PG-13,23-03-2023,Upcoming
+373,Interstellar,Drama,2022,7.1,114 min,Director 6,Canada,English,$206M,"971,523",Amazon Prime,U/A,05-01-2020,Upcoming
+374, RRR ,Thriller,2019,,141 min,Director 31,Canada,,$344M,"668,697",JioHotstar,PG-13,06-01-2022,Released
+375, Dangal ,Sci-Fi,2021,8.5,175 min,Director 22,,,$316M,"800,663",Netflix,A,19-01-2023,Upcoming
+376,,Horror,2021,5.3,110 min,Director 34,Australia,english,$238M,"404,995",Netflix,PG-13,01-06-2025,Released
+377, Coco ,Comedy,2020,,152 min,Director 1,UK,,,"991,476",Disney+ Hotstar,U,08-11-2021,Upcoming
+378,Pushpa,Animation,2021,6.1,126 min,Director 8,Australia,english,$255M,"161,434",Amazon Prime,U,24-08-2025,Upcoming
+379,Drishyam,Action,2021,7.5,171 min,Director 8,Canada,French,$313M,"192,450",Amazon Prime,A,24-02-2022,Released
+380,Jawan,Drama,2023,9.1,137 min,Director 8,Australia,english,$176M,"252,922",Disney+ Hotstar,A,19-11-2022,Upcoming
+381,3 Idiots,Sci-Fi,2022,5.9,96 min,Director 14,Australia,Hindi,$176M,"586,405",Amazon Prime,A,02-07-2025,Upcoming
+382,Interstellar,Romnce,2019,6.3,97 min,Director 9,Australia,HINDI,$282M,"311,140",Amazon Prime,A,22-09-2022,Released
+383,Moana,Comedy,2019,6.5,143 min,Director 21,Canada,Spanish,$197M,"813,807",Netflix,U,19-01-2020,Released
+384,Avengers,Romnce,2022,5.9,142 min,Director 35,Australia,French,,"362,868",Netflix,PG-13,21-06-2024,Upcoming
+385,Jawan,Scifi,2023,6.6,115 min,Director 18,USA,Hindi,$42M,"491,358",Amazon Prime,PG-13,11-05-2021,Released
+386, Kalki ,Comedy,2022,6.2,145 min,Director 33, usa ,Hindi,$234M,"579,169",Netflix,A,27-02-2020,Upcoming
+387,,Action,2024,6.5,168 min,Director 7,,HINDI,$229M,"655,674",Disney+ Hotstar,A,06-03-2023,Released
+388, Joker ,Thriller,2019,7.7,131 min,Director 24,USA,english,$253M,"196,783",Netflix,A,20-02-2021,Upcoming
+389, Dangal ,Comedy,2018,9.6,133 min,Director 17,Australia,English,$160M,"480,355",Disney+ Hotstar,U/A,27-08-2023,Released
+390,Dangal,Comedy,2023,5.3,171 min,Director 34, india ,HINDI,$303M,"471,460",Disney+ Hotstar,U/A,03-05-2025,Released
+391,Frozen,Action,2024,6.4,149 min,Director 12, india ,english,$88M,"205,696",Amazon Prime,PG-13,21-10-2025,Released
+392,,Action,2023,8.8,99 min,Director 25,,,$290M,"877,765",JioHotstar,PG-13,26-05-2020,Released
+393,Dangal,Animation,2024,,135 min,Director 9, usa ,Hindi,$290M,"766,007",JioHotstar,U/A,01-06-2023,Upcoming
+394, Bahubali ,Animation,2018,7.3,91 min,Director 26,Australia,Hindi,$249M,"555,930",JioHotstar,A,17-10-2024,Upcoming
+395,Leo,Sci-Fi,2024,7.0,145 min,Director 23,UK,english,$126M,"326,246",Amazon Prime,A,01-07-2022,Upcoming
+396,,Thriller,2020,8.9,129 min,Director 20,UK,French,$166M,"199,477",Disney+ Hotstar,U/A,21-09-2020,Upcoming
+397,Interstellar,Scifi,2022,5.0,125 min,Director 23, india ,english,$193M,"834,337",Disney+ Hotstar,U/A,06-01-2024,Released
+398,Joker,Sci-Fi,2022,6.8,132 min,Director 35,Japan,Spanish,$33M,,Disney+ Hotstar,A,03-10-2024,Upcoming
+399,Avengers,Action,2020,9.6,112 min,Director 2,Australia,English,$141M,"641,668",JioHotstar,U,20-06-2020,Upcoming
+400,Bahubali,Animation,2021,9.8,171 min,Director 35,Japan,english,$262M,"963,256",JioHotstar,U/A,03-01-2024,Released
+401,3 Idiots,Horror,2019,9.1,117 min,Director 28,Canada,English,$298M,"361,453",Amazon Prime,U,25-01-2024,Upcoming
+402,,Thriller,2020,7.9,137 min,Director 14,USA,HINDI,$75M,"201,449",Netflix,A,14-06-2023,Released
+403, Coco ,Thriller,2024,7.6,166 min,Director 7, usa ,english,$73M,,Amazon Prime,A,28-03-2020,Upcoming
+404,Leo,Drama,2022,7.4,139 min,Director 19,,English,$305M,"481,228",Amazon Prime,U/A,15-12-2023,Upcoming
+405,Moana,Drama,2019,9.1,122 min,Director 5,USA,Spanish,$112M,"745,990",JioHotstar,U,13-02-2024,Released
+406, Kalki ,Acton,2023,8.7,124 min,Director 27,Australia,Hindi,$337M,"369,206",Netflix,U/A,11-12-2024,Released
+407, Inception ,Comedy,2018,6.9,147 min,Director 27, usa ,Spanish,$28M,"853,637",JioHotstar,U/A,19-01-2021,Upcoming
+408,Dangal,Acton,2021,,123 min,Director 23,India,English,$57M,"934,804",Netflix,PG-13,28-02-2025,Upcoming
+409, Titanic ,Action,2021,9.1,160 min,Director 34,Canada,French,$81M,"722,001",JioHotstar,U/A,17-11-2025,Released
+410,Titanic,Drama,2020,6.9,87 min,Director 23, india ,HINDI,$274M,"411,532",Netflix,U/A,11-07-2021,Upcoming
+411,RRR,Thriller,2022,9.6,129 min,Director 5,USA,English,$297M,"149,884",Netflix,U,07-01-2025,Released
+412,Drishyam,Thriller,2021,6.7,162 min,Director 22, usa ,Hindi,$280M,"976,309",Amazon Prime,U/A,16-05-2024,Upcoming
+413,Avatar,Drama,2018,6.1,164 min,Director 9,India,Hindi,$23M,"474,391",Amazon Prime,PG-13,01-05-2025,Released
+414,Dangal,Horror,2020,7.5,119 min,Director 32,India,HINDI,$261M,"310,852",JioHotstar,U/A,04-09-2023,Released
+415,Avatar,Romnce,2019,8.0,128 min,Director 34,USA,HINDI,,"985,865",Disney+ Hotstar,U,25-02-2021,Upcoming
+416,Bahubali,Thriller,2020,6.3,153 min,Director 8, india ,Hindi,$230M,"915,542",Amazon Prime,U/A,05-05-2021,Released
+417,Kalki,Sci-Fi,2021,5.8,110 min,Director 12,UK,French,,"426,671",Netflix,U/A,03-10-2024,Released
+418,Avatar,Scifi,2024,8.8,110 min,Director 27,,Spanish,$222M,"673,553",Amazon Prime,U,10-04-2021,Released
+419,Avengers,Thriller,2024,8.6,89 min,Director 32, india ,French,$174M,"547,819",Disney+ Hotstar,PG-13,23-01-2023,Upcoming
+420,Bahubali,Drama,2022,6.5,142 min,Director 31,USA,English,$244M,"456,489",Disney+ Hotstar,A,13-10-2021,Upcoming
+421, Avatar ,Horror,2020,8.8,121 min,Director 27, usa ,english,$22M,"311,927",Disney+ Hotstar,U/A,13-06-2023,Released
+422,Avengers,Action,2023,9.1,110 min,Director 22,India,HINDI,$293M,"678,068",Disney+ Hotstar,A,14-11-2023,Upcoming
+423,Coco,Romance,2022,6.1,114 min,Director 12, usa ,HINDI,$79M,"580,814",Netflix,PG-13,17-12-2025,Upcoming
+424,Titanic,Horror,2021,7.3,141 min,Director 24,Japan,,$274M,"950,167",Amazon Prime,PG-13,28-10-2021,Released
+425, Leo ,Thriller,2020,8.6,110 min,Director 33,Japan,,$169M,"151,256",Amazon Prime,U/A,21-03-2024,Upcoming
+426, 3 Idiots ,Acton,2020,9.1,86 min,Director 21, usa ,English,$150M,"362,798",Netflix,U/A,08-09-2021,Upcoming
+427,Interstellar,Acton,2021,5.9,115 min,Director 26,India,,$68M,,Netflix,PG-13,06-04-2025,Released
+428,RRR,Romnce,2018,9.7,146 min,Director 23,USA,HINDI,$284M,"620,100",JioHotstar,PG-13,27-06-2020,Upcoming
+429, Titanic ,Action,2019,8.1,86 min,Director 22,Australia,English,$262M,"349,613",JioHotstar,U,07-04-2025,Released
+430,Avatar,Action,2018,,102 min,Director 17,Japan,Hindi,$77M,"444,918",Amazon Prime,U,06-10-2021,Upcoming
+431, Kalki ,Sci-Fi,2019,5.4,93 min,Director 19,Japan,HINDI,$299M,"587,986",Netflix,U/A,03-10-2023,Released
+432,Bahubali,Thriller,2022,5.9,154 min,Director 21, usa ,English,$30M,"367,321",JioHotstar,PG-13,21-02-2022,Released
+433, Pushpa ,Sci-Fi,2021,7.4,125 min,Director 22,Japan,Hindi,$210M,"172,600",Netflix,U,28-11-2022,Upcoming
+434,Drishyam,Drama,2021,8.9,167 min,Director 30,USA,English,$151M,"409,655",JioHotstar,PG-13,18-12-2023,Upcoming
+435,Avatar,Animation,2018,7.4,80 min,Director 21,Australia,Hindi,$29M,"587,366",Amazon Prime,U/A,03-07-2020,Upcoming
+436,Coco,Acton,2018,,137 min,Director 34,India,english,$196M,"191,558",Amazon Prime,U/A,23-11-2020,Upcoming
+437,Joker,Romnce,2019,7.8,125 min,Director 1,USA,English,$336M,"207,622",Disney+ Hotstar,U/A,25-06-2021,Upcoming
+438,Inception,Sci-Fi,2019,5.4,154 min,Director 35, india ,Spanish,$61M,"277,806",Amazon Prime,PG-13,18-06-2022,Upcoming
+439,RRR,Thriller,2020,6.1,100 min,Director 19, usa ,Spanish,$54M,"589,994",Netflix,A,25-11-2022,Released
+440, Titanic ,Horror,2018,9.7,134 min,Director 31,Canada,english,$57M,"231,678",Disney+ Hotstar,A,28-02-2024,Upcoming
+441,Leo,Romnce,2018,6.9,112 min,Director 33,USA,HINDI,$270M,"389,449",Netflix,U/A,20-12-2025,Upcoming
+442,KGF,Sci-Fi,2020,,127 min,Director 24,,English,$312M,"601,445",JioHotstar,U,02-06-2020,Released
+443,,Romnce,2020,8.9,87 min,Director 22,India,english,$193M,"626,207",Netflix,U,12-05-2020,Released
+444,Joker,Romance,2024,5.3,156 min,Director 16,USA,HINDI,$350M,"535,317",Disney+ Hotstar,A,18-06-2021,Released
+445,The Batman,Comedy,2021,,172 min,Director 24,,French,$27M,"750,212",Netflix,A,18-09-2025,Released
+446,3 Idiots,Drama,2020,7.7,160 min,Director 12,Australia,English,$122M,"651,060",Netflix,U,15-06-2025,Released
+447,Avengers,Thriller,2020,7.6,160 min,Director 29,,French,$303M,"638,707",JioHotstar,U/A,07-03-2024,Released
+448, Coco ,Drama,2024,5.2,163 min,Director 10,Japan,english,$257M,"528,334",JioHotstar,A,02-09-2021,Released
+449, The Batman ,Horror,2018,9.1,103 min,Director 20, india ,Hindi,$293M,"785,503",JioHotstar,A,10-04-2023,Upcoming
+450,Drishyam,Comedy,2020,5.7,103 min,Director 12,Australia,Hindi,$139M,"954,187",JioHotstar,U/A,23-11-2025,Upcoming
+451,Titanic,Thriller,2024,8.2,136 min,Director 6,Australia,French,$211M,"175,090",JioHotstar,U,28-06-2022,Upcoming
+452, Kalki ,Drama,2018,7.5,127 min,Director 30,UK,,$86M,"483,894",Disney+ Hotstar,A,20-06-2023,Released
+453,Moana,Animation,2020,6.4,134 min,Director 19,Japan,English,$127M,"259,568",Disney+ Hotstar,U,03-03-2023,Released
+454,Coco,Action,2019,5.7,145 min,Director 6,,French,$283M,"500,720",Netflix,PG-13,23-09-2024,Released
+455,Coco,Horror,2018,5.9,164 min,Director 25,India,english,$296M,,Amazon Prime,U,13-01-2021,Released
+456,Drishyam,Thriller,2022,7.0,142 min,Director 3,Canada,,$62M,"515,812",Netflix,PG-13,08-01-2025,Upcoming
+457,Interstellar,Comedy,2023,7.8,139 min,Director 3, india ,Spanish,$320M,"714,244",Disney+ Hotstar,PG-13,02-02-2021,Upcoming
+458,Kalki,Scifi,2024,9.6,117 min,Director 28,,english,$36M,"346,475",Netflix,U/A,03-01-2024,Released
+459,Titanic,Romnce,2021,5.1,126 min,Director 33,USA,english,$115M,"806,728",Netflix,PG-13,21-02-2024,Upcoming
+460,Bahubali,Acton,2022,8.4,156 min,Director 12,Australia,HINDI,$123M,"978,480",Amazon Prime,U/A,11-10-2024,Released
+461,Joker,Animation,2021,,131 min,Director 15, usa ,French,$205M,"867,505",Netflix,U/A,12-05-2024,Upcoming
+462, Interstellar ,Sci-Fi,2020,9.2,146 min,Director 10,India,HINDI,$281M,"780,313",Amazon Prime,PG-13,18-04-2024,Released
+463, Jawan ,Scifi,2018,7.2,150 min,Director 12,,Hindi,$63M,"929,154",Netflix,PG-13,02-05-2023,Released
+464,Kalki,Thriller,2020,7.6,165 min,Director 10,UK,French,$102M,,Disney+ Hotstar,U,26-03-2021,Released
+465, Inception ,Sci-Fi,2024,8.4,107 min,Director 23,Australia,English,$86M,"856,114",JioHotstar,U,06-08-2020,Released
+466, Avengers ,Sci-Fi,2020,8.5,122 min,Director 2,Australia,English,$313M,"470,089",Disney+ Hotstar,A,17-06-2025,Released
+467,Coco,Romance,2019,9.0,82 min,Director 10,,Spanish,$188M,,JioHotstar,U,17-03-2022,Upcoming
+468,Leo,Scifi,2020,5.0,114 min,Director 18,,,,"746,857",Netflix,PG-13,16-11-2022,Upcoming
+469,Titanic,Drama,2020,5.5,131 min,Director 2,USA,,$147M,,Amazon Prime,PG-13,13-06-2024,Released
+470,Kalki,Animation,2022,6.1,113 min,Director 32,UK,,$161M,"622,653",Amazon Prime,U,15-05-2023,Released
+471, Bahubali ,Romance,2021,5.2,156 min,Director 27,UK,Spanish,$242M,"561,680",Disney+ Hotstar,U,04-02-2020,Upcoming
+472,Moana,Sci-Fi,2022,8.3,104 min,Director 21,,English,$41M,"694,250",Disney+ Hotstar,U/A,05-06-2025,Upcoming
+473, Avengers ,Animation,2018,,85 min,Director 8, usa ,HINDI,$85M,"859,813",Disney+ Hotstar,U,20-09-2023,Upcoming
+474,KGF,Thriller,2024,8.2,177 min,Director 8,UK,HINDI,$321M,"970,875",Netflix,A,20-06-2025,Upcoming
+475,Titanic,Scifi,2022,6.6,96 min,Director 35, usa ,Spanish,$114M,"652,869",Netflix,U/A,05-12-2022,Released
+476,The Batman,Romance,2021,,111 min,Director 14,,English,$262M,"880,158",Netflix,A,03-03-2020,Released
+477,,Animation,2024,8.0,94 min,Director 26,USA,French,,"326,129",Netflix,U,14-11-2021,Upcoming
+478,Leo,Sci-Fi,2021,8.1,168 min,Director 12,India,Spanish,$283M,"710,504",Disney+ Hotstar,A,07-09-2021,Upcoming
+479,Avatar,Drama,2019,8.4,170 min,Director 4, usa ,english,$254M,"628,008",Netflix,PG-13,04-12-2022,Upcoming
+480,Dangal,Romance,2021,8.6,127 min,Director 35,,Spanish,$342M,"951,384",Netflix,A,23-03-2023,Upcoming
+481,Joker,Thriller,2021,8.8,102 min,Director 24,UK,English,,"281,681",JioHotstar,PG-13,05-12-2025,Upcoming
+482,RRR,Horror,2020,,106 min,Director 19,Japan,Hindi,$94M,,Netflix,U/A,02-02-2022,Upcoming
+483,3 Idiots,Sci-Fi,2023,9.8,100 min,Director 12,Canada,Hindi,,"841,083",Amazon Prime,U/A,28-03-2020,Released
+484, KGF ,Romnce,2019,8.0,118 min,Director 7,India,english,$192M,"138,101",Amazon Prime,U/A,13-05-2025,Released
+485,Jawan,Action,2022,6.3,177 min,Director 35,India,Hindi,$262M,"811,463",Netflix,U/A,27-10-2022,Released
+486,Moana,Acton,2021,7.4,84 min,Director 13,,French,$191M,"130,226",Disney+ Hotstar,U/A,22-08-2021,Released
+487,Titanic,Thriller,2021,9.7,157 min,Director 32,USA,Spanish,$35M,"514,866",Disney+ Hotstar,U/A,25-09-2024,Released
+488,3 Idiots,Sci-Fi,2018,8.8,178 min,Director 17, usa ,,$225M,"191,305",Netflix,U,21-06-2024,Released
+489,KGF,Comedy,2022,9.4,161 min,Director 35,Australia,english,$94M,"994,428",Amazon Prime,A,18-03-2023,Upcoming
+490,,Action,2018,9.6,103 min,Director 8,Japan,english,$288M,"632,113",Amazon Prime,U/A,13-01-2020,Upcoming
+491,Bahubali,Scifi,2019,,155 min,Director 2, india ,English,$283M,"358,723",Netflix,PG-13,09-12-2023,Upcoming
+492, Kalki ,Thriller,2018,5.6,93 min,Director 26,,english,$223M,"490,059",Amazon Prime,U/A,20-04-2020,Released
+493,Interstellar,Comedy,2018,9.8,92 min,Director 23,USA,english,$34M,,Disney+ Hotstar,A,05-01-2020,Released
+494,Kalki,Thriller,2019,6.7,107 min,Director 17,UK,,$245M,"578,638",Netflix,U/A,03-10-2022,Released
+495,Leo,Scifi,2023,9.4,171 min,Director 29, usa ,Hindi,,"310,848",Netflix,PG-13,21-06-2022,Upcoming
+496,The Batman,Acton,2020,7.6,98 min,Director 34,Australia,Hindi,$268M,"872,943",JioHotstar,A,23-01-2024,Released
+497,3 Idiots,Comedy,2019,9.6,171 min,Director 9, india ,Spanish,,"333,605",Amazon Prime,U/A,21-06-2020,Released
+498,Leo,Horror,2021,6.6,123 min,Director 12,Canada,,$205M,"963,916",Netflix,PG-13,08-01-2025,Upcoming
+499,Jawan,Thriller,2022,5.5,176 min,Director 23,,english,$41M,"379,488",Disney+ Hotstar,U/A,05-05-2022,Upcoming
+500, Drishyam ,Sci-Fi,2018,9.2,93 min,Director 13,Canada,,$267M,"285,124",JioHotstar,U/A,14-12-2024,Released
+1,Dangal,Action,2018,5.5,154 min,Director 4,,Hindi,,"171,246",Netflix,PG-13,02-10-2020,Released
+2,Avengers,Thriller,2018,5.2,97 min,Director 19, india ,Hindi,$312M,"935,698",Amazon Prime,U,19-10-2025,Released
+3,Bahubali,Scifi,2018,7.4,148 min,Director 28,Australia,French,$252M,"354,813",Amazon Prime,U/A,03-10-2022,Upcoming
+4,Dangal,Comedy,2018,5.8,123 min,Director 10, usa ,French,,"882,571",Disney+ Hotstar,A,23-06-2024,Upcoming
+5, Avengers ,Comedy,2020,8.3,87 min,Director 20, usa ,Spanish,$197M,,JioHotstar,A,06-10-2020,Upcoming
+6,Inception,Sci-Fi,2021,9.3,90 min,Director 11, usa ,French,$90M,"984,563",Disney+ Hotstar,PG-13,12-11-2023,Released
+7, 3 Idiots ,Romnce,2019,,155 min,Director 12,Japan,Spanish,,"478,624",Disney+ Hotstar,U/A,23-09-2024,Released
+8,Joker,Romnce,2024,7.0,130 min,Director 7, usa ,HINDI,$117M,,Amazon Prime,PG-13,06-02-2022,Released
+9,,Drama,2022,6.8,83 min,Director 5,Canada,english,$344M,"455,616",Disney+ Hotstar,PG-13,04-02-2023,Upcoming
+10, Leo ,Comedy,2023,6.3,168 min,Director 11,,English,$290M,"806,556",Netflix,A,21-02-2025,Upcoming
