@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power BI Project | Global COVID-19 Dashboard</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --bg-alt:#12181f;
+    --card:#161d27;
+    --card-border:#232c38;
+    --text:#e6edf3;
+    --text-dim:#9aa7b5;
+    --accent:#7c5cff;
+    --accent2:#22d3ee;
+    --accent3:#f472b6;
+    --hint:#1d3b2f;
+    --hint-border:#2f7d5b;
+    --warn:#3b2a1d;
+    --warn-border:#c2793a;
+    --code:#0a0f14;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.65;
+  }
+  a{color:var(--accent2);}
+  .header{
+    background:linear-gradient(120deg,#241c4e 0%,#3a1c5e 35%,#1c3a5e 70%,#0d1117 100%);
+    padding:56px 40px 64px;
+    text-align:center;
+    border-bottom:1px solid var(--card-border);
+  }
+  .header h1{
+    font-size:2.4rem;
+    margin:0 0 10px;
+    background:linear-gradient(90deg,#a78bfa,#22d3ee,#f472b6);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    font-weight:800;
+  }
+  .header p{color:var(--text-dim);font-size:1.05rem;max-width:720px;margin:0 auto;}
+  .badge-row{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .badge{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:0.8rem;
+    color:var(--text-dim);
+  }
+  .layout{display:flex;max-width:1400px;margin:0 auto;align-items:flex-start;}
+  .sidebar{
+    width:280px;
+    flex-shrink:0;
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 18px;
+    border-right:1px solid var(--card-border);
+    background:var(--bg-alt);
+  }
+  .sidebar h3{
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    color:var(--text-dim);
+    margin:18px 0 8px 8px;
+  }
+  .sidebar a{
+    display:block;
+    padding:8px 10px;
+    border-radius:8px;
+    font-size:0.88rem;
+    color:var(--text);
+    text-decoration:none;
+    margin-bottom:2px;
+  }
+  .sidebar a:hover{background:rgba(124,92,255,0.15);color:var(--accent2);}
+  .content{flex:1;padding:40px 48px 100px;min-width:0;}
+  section{margin-bottom:64px;scroll-margin-top:20px;}
+  .section-num{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:38px;height:38px;
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    font-weight:700;
+    margin-right:12px;
+    font-size:0.95rem;
+  }
+  h2{
+    display:flex;align-items:center;
+    font-size:1.6rem;
+    border-bottom:1px solid var(--card-border);
+    padding-bottom:14px;
+    margin-bottom:24px;
+  }
+  h3{color:var(--accent2);font-size:1.15rem;margin-top:32px;}
+  h4{color:#c9b8ff;font-size:1rem;margin-bottom:6px;}
+  p{color:#d3dbe3;}
+  .card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:var(--radius);
+    padding:22px 26px;
+    margin:18px 0;
+  }
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr;}.layout{flex-direction:column;}.sidebar{position:relative;height:auto;width:100%;}}
+
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:0.92rem;}
+  th,td{padding:10px 14px;border:1px solid var(--card-border);text-align:left;}
+  th{background:#1c2530;color:var(--accent2);}
+  tr:nth-child(even){background:rgba(255,255,255,0.02);}
+
+  .nav-flow{
+    background:var(--code);
+    border:1px solid var(--card-border);
+    border-radius:12px;
+    padding:16px 20px;
+    font-family:'Consolas','Courier New',monospace;
+    font-size:0.92rem;
+    color:#8be9fd;
+    margin:14px 0;
+    white-space:pre-wrap;
+  }
+  .nav-flow .arrow{color:var(--accent3);font-weight:bold;}
+
+  .step-block{
+    border-left:3px solid var(--accent);
+    padding:14px 20px;
+    margin:16px 0;
+    background:rgba(124,92,255,0.05);
+    border-radius:0 10px 10px 0;
+  }
+  .step-block .what{color:#fff;font-weight:600;}
+  .step-block .why{color:var(--text-dim);font-style:italic;}
+  .step-block .result{color:#8be9fd;}
+
+  .hint{
+    background:var(--hint);
+    border:1px solid var(--hint-border);
+    border-left:4px solid var(--hint-border);
+    border-radius:10px;
+    padding:14px 20px;
+    margin:14px 0;
+  }
+  .hint strong{color:#6ee7b7;}
+  .warn{
+    background:var(--warn);
+    border:1px solid var(--warn-border);
+    border-left:4px solid var(--warn-border);
+    border-radius:10px;
+    padding:14px 20px;
+    margin:14px 0;
+  }
+  .warn strong{color:#fbbf24;}
+
+  code, .inline-code{
+    background:#1c2530;
+    padding:2px 7px;
+    border-radius:5px;
+    font-family:'Consolas',monospace;
+    color:#f472b6;
+    font-size:0.9em;
+  }
+  pre{
+    background:var(--code);
+    border:1px solid var(--card-border);
+    border-radius:10px;
+    padding:16px 20px;
+    overflow-x:auto;
+    font-family:'Consolas','Courier New',monospace;
+    font-size:0.88rem;
+    color:#a5f3fc;
+  }
+  .checklist{list-style:none;padding:0;}
+  .checklist li{
+    padding:10px 14px;
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:8px;
+    margin-bottom:8px;
+  }
+  .checklist li::before{content:"✔ ";color:#4ade80;font-weight:bold;}
+  .page-tag{
+    display:inline-block;
+    background:linear-gradient(135deg,var(--accent3),var(--accent));
+    padding:4px 14px;
+    border-radius:999px;
+    font-size:0.8rem;
+    font-weight:700;
+    margin-bottom:10px;
+  }
+  .visual-tag{
+    display:inline-block;
+    background:#1c2530;
+    border:1px solid var(--card-border);
+    color:var(--accent2);
+    padding:3px 10px;
+    border-radius:6px;
+    font-size:0.82rem;
+    margin-right:6px;
+  }
+  hr.sep{border:none;border-top:1px dashed var(--card-border);margin:34px 0;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Power BI Project</h1>
+  <p>Global COVID-19 Dashboard &mdash; Confirmed Cases, Deaths &amp; Recovery Trends</p>
+  <div class="badge-row">
+    <span class="badge">Dataset: Global COVID-19 (Country / Date / Confirmed / Deaths / Recovered)</span>
+    <span class="badge">3 Dashboard Pages</span>
+    <span class="badge">Beginner Friendly</span>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <h3>Table of Contents</h3>
+    <a href="#intro">1. Project Introduction</a>
+    <a href="#dataset">2. Dataset Overview</a>
+    <a href="#import">3. Import Dataset</a>
+    <a href="#inspect">4. Data Inspection</a>
+    <a href="#powerquery">5. Power Query</a>
+    <a href="#datatype">6. Data Type Conversion</a>
+    <a href="#modeling">7. Data Modeling</a>
+    <a href="#calendar">8. Calendar Table</a>
+    <a href="#measures">9. Create Measures</a>
+    <a href="#dashboard">10. Dashboard Building</a>
+    <a href="#page1">&nbsp;&nbsp;Page 1: Global Overview</a>
+    <a href="#page2">&nbsp;&nbsp;Page 2: Country Comparison</a>
+    <a href="#page3">&nbsp;&nbsp;Page 3: Trend Analysis</a>
+    <a href="#formatting">11. Formatting</a>
+    <a href="#review">12. Final Dashboard Review</a>
+  </div>
+
+  <div class="content">
+
+    <!-- 1. INTRO -->
+    <section id="intro">
+      <h2><span class="section-num">1</span> Project Introduction</h2>
+      <div class="card">
+        <h4>Business Problem</h4>
+        <p>During a global health event, decision-makers need a fast, visual way to answer: how many cases exist, where are they concentrated, and is the situation improving or worsening over time?</p>
+        <h4>Project Goal</h4>
+        <p>Build a 3-page interactive Power BI dashboard tracking confirmed cases, deaths, and recoveries across countries and over time.</p>
+        <h4>What Students Will Build</h4>
+        <p>A dashboard with global KPI cards, a country comparison view with a map, and a trend page showing how the numbers changed day by day.</p>
+        <h4>Learning Outcomes</h4>
+        <ul>
+          <li>Work with a real date column and build a proper Calendar table</li>
+          <li>Practice basic Time Intelligence DAX</li>
+          <li>Build map visuals for geographic data</li>
+          <li>Design 3 clean, interactive dashboard pages</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 2. DATASET -->
+    <section id="dataset">
+      <h2><span class="section-num">2</span> Dataset Overview</h2>
+      <p>We are using a simplified <b>Global COVID-19 dataset</b>. Each row represents one country's cumulative numbers on a given date &mdash; so the same country appears many times, once per date.</p>
+      <table>
+        <tr><th>Column</th><th>Why It Matters</th></tr>
+        <tr><td><code>Country</code></td><td>Used to group and compare across nations</td></tr>
+        <tr><td><code>Date</code></td><td>Real date column &mdash; this is what makes time-trend analysis possible</td></tr>
+        <tr><td><code>Confirmed</code></td><td>Cumulative confirmed case count</td></tr>
+        <tr><td><code>Deaths</code></td><td>Cumulative death count &mdash; used for mortality rate</td></tr>
+        <tr><td><code>Recovered</code></td><td>Cumulative recovered count &mdash; used for recovery rate</td></tr>
+      </table>
+      <div class="hint"><strong>💡 Hint</strong><br>Because this dataset has a genuine <code>Date</code> column, this is the perfect project to teach a proper <b>Calendar Table</b> and simple Time Intelligence DAX &mdash; something the HR project didn't need.</div>
+    </section>
+
+    <!-- 3. IMPORT -->
+    <section id="import">
+      <h2><span class="section-num">3</span> Import Dataset</h2>
+      <div class="step-block">
+        <div class="what">What to do:</div> Import the COVID-19 CSV file into Power BI.
+        <div class="why">Why: Power BI needs the raw data loaded before anything else can happen.</div>
+        <div class="result">Expected Result: Table appears in the Fields pane on the right.</div>
+      </div>
+      <div class="nav-flow">Home Tab <span class="arrow">→</span> Get Data <span class="arrow">→</span> Text/CSV <span class="arrow">→</span> Browse &amp; Select File <span class="arrow">→</span> Preview Window <span class="arrow">→</span> Transform Data</div>
+      <div class="hint"><strong>💡 Hint</strong><br>Always click <b>Transform Data</b> instead of <b>Load</b> so you can clean and fix the Date column before it enters the model.</div>
+    </section>
+
+    <!-- 4. INSPECTION -->
+    <section id="inspect">
+      <h2><span class="section-num">4</span> Data Inspection</h2>
+      <div class="grid2">
+        <div class="card">
+          <h4>Check In Data View</h4>
+          <ul>
+            <li>Column Names &mdash; clean and readable?</li>
+            <li>Row Count &mdash; many rows per country (one per date)</li>
+            <li>Data Type of "Date" column &mdash; often imports as Text</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Expected Observations</h4>
+          <ul>
+            <li><code>Confirmed</code>, <code>Deaths</code> usually numeric already</li>
+            <li><code>Recovered</code> often has nulls, especially for recent dates</li>
+            <li>Some country names may have extra spaces or inconsistent spelling</li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-flow">Report View <span class="arrow">→</span> Left Panel <span class="arrow">→</span> Data View (table icon) <span class="arrow">→</span> Scroll Through Columns</div>
+      <div class="warn"><strong>⚠ Blank Values</strong><br>If <code>Recovered</code> has many blanks, decide as a class: replace with 0 (assume not yet recorded) rather than leaving it null, so SUM() doesn't silently skip rows.</div>
+    </section>
+
+    <!-- 5. POWER QUERY -->
+    <section id="powerquery">
+      <h2><span class="section-num">5</span> Power Query (Data Cleaning)</h2>
+
+      <h3>Step 1: Remove Duplicates</h3>
+      <div class="nav-flow">Home <span class="arrow">→</span> Transform Data <span class="arrow">→</span> Select "Country" + "Date" Columns (Ctrl+Click both) <span class="arrow">→</span> Right-Click <span class="arrow">→</span> Remove Duplicates</div>
+      <p>Why: no country should have two rows for the same date.</p>
+
+      <h3>Step 2: Handle Null Values</h3>
+      <div class="nav-flow">Select "Recovered" Column <span class="arrow">→</span> Right-Click <span class="arrow">→</span> Replace Values <span class="arrow">→</span> null <span class="arrow">→</span> 0</div>
+      <p>Why: nulls break SUM() and AVERAGE() silently &mdash; replacing with 0 keeps totals accurate.</p>
+
+      <h3>Step 3: Trim &amp; Clean Country Names</h3>
+      <div class="nav-flow">Select "Country" Column <span class="arrow">→</span> Transform Tab <span class="arrow">→</span> Format <span class="arrow">→</span> Trim <span class="arrow">→</span> Format <span class="arrow">→</span> Clean</div>
+      <p>Why: hidden spaces make "India" and "India " look like two different countries in slicers and maps.</p>
+
+      <h3>Step 4: Rename Columns</h3>
+      <div class="nav-flow">Double-Click Column Header <span class="arrow">→</span> Type New Name <span class="arrow">→</span> Enter</div>
+      <p>Example: keep names simple and consistent: Country, Date, Confirmed, Deaths, Recovered.</p>
+
+      <h3>Step 5: Close &amp; Apply</h3>
+      <div class="nav-flow">Home Tab <span class="arrow">→</span> Close &amp; Apply</div>
+
+      <div class="hint"><strong>💡 Hint</strong><br>Clean the <code>Country</code> column before building the map visual &mdash; misspelled or inconsistent country names will not plot correctly on a map.</div>
+    </section>
+
+    <!-- 6. DATA TYPE -->
+    <section id="datatype">
+      <h2><span class="section-num">6</span> Data Type Conversion</h2>
+      <p><b>This must happen before any DAX</b> &mdash; especially the Date column, since Time Intelligence functions require a true Date type.</p>
+      <div class="nav-flow">Select "Date" Column <span class="arrow">→</span> Column Tools Tab <span class="arrow">→</span> Data Type <span class="arrow">→</span> Date</div>
+      <div class="nav-flow">Select "Confirmed", "Deaths", "Recovered" <span class="arrow">→</span> Data Type <span class="arrow">→</span> Whole Number</div>
+
+      <div class="hint"><strong>💡 Hint</strong><br>If <code>Date</code> stays as Text, your Calendar Table relationship will fail and Time Intelligence DAX (like month-over-month growth) will not work at all.</div>
+      <div class="warn"><strong>⚠ Wrong Data Type</strong><br>If the Date column shows as a number of days instead of an actual date after conversion, check your regional date format under File → Options → Regional Settings, and re-import if needed.</div>
+    </section>
+
+    <!-- 7. MODELING -->
+    <section id="modeling">
+      <h2><span class="section-num">7</span> Data Modeling</h2>
+      <p>This dataset has one main table (COVID Data), and we will add a second table: a <b>Calendar Table</b>. This is a classic Star Schema pattern.</p>
+      <div class="card">
+        <h4>Explain to Students</h4>
+        <ul>
+          <li><b>Fact Table</b>: our COVID Data table (holds the numbers: Confirmed, Deaths, Recovered)</li>
+          <li><b>Dimension Table</b>: the Calendar table (holds Date-related descriptive fields: Year, Month, Quarter)</li>
+          <li><b>Relationship</b>: One-to-Many from Calendar[Date] to COVID Data[Date]</li>
+        </ul>
+      </div>
+      <div class="nav-flow">Model View <span class="arrow">→</span> Drag "Date" from Calendar Table <span class="arrow">→</span> Drop on "Date" in COVID Data Table <span class="arrow">→</span> Confirm Cardinality: One-to-Many <span class="arrow">→</span> Cross Filter Direction: Single <span class="arrow">→</span> OK</div>
+      <div class="warn"><strong>⚠ Missing Relationship</strong><br>If you filter by Year on a slicer and nothing changes, the relationship between Calendar and COVID Data likely isn't active &mdash; check Model View for a solid connecting line.</div>
+    </section>
+
+    <!-- 8. CALENDAR TABLE -->
+    <section id="calendar">
+      <h2><span class="section-num">8</span> Calendar Table</h2>
+      <div class="nav-flow">Modeling Tab <span class="arrow">→</span> New Table <span class="arrow">→</span> Paste DAX Below</div>
+      <pre>Calendar = 
+ADDCOLUMNS(
+    CALENDAR(MIN('COVID Data'[Date]), MAX('COVID Data'[Date])),
+    "Year", YEAR([Date]),
+    "Month Number", MONTH([Date]),
+    "Month Name", FORMAT([Date], "MMM"),
+    "Quarter", "Q" & FORMAT([Date], "Q")
+)</pre>
+      <p><b>Explanation:</b> <code>CALENDAR()</code> generates one row per date between the earliest and latest date in the COVID Data table. <code>ADDCOLUMNS</code> then adds readable Year, Month Name, and Quarter fields for slicers and axis labels.</p>
+      <div class="hint"><strong>💡 Hint</strong><br>Always build the Calendar table from <code>MIN()</code>/<code>MAX()</code> of your actual data's date range &mdash; never hardcode start/end dates, so it stays accurate if the dataset updates.</div>
+    </section>
+
+    <!-- 9. MEASURES -->
+    <section id="measures">
+      <h2><span class="section-num">9</span> Create Measures</h2>
+      <p>Why Measures over Calculated Columns: measures recalculate live as users apply slicers and filters, keeping every number on the dashboard accurate and interactive.</p>
+      <div class="nav-flow">Modeling Tab <span class="arrow">→</span> New Measure <span class="arrow">→</span> Write DAX <span class="arrow">→</span> Press Enter</div>
+
+      <h3>1. Total Confirmed</h3>
+      <pre>Total Confirmed = SUM('COVID Data'[Confirmed])</pre>
+
+      <h3>2. Total Deaths</h3>
+      <pre>Total Deaths = SUM('COVID Data'[Deaths])</pre>
+
+      <h3>3. Total Recovered</h3>
+      <pre>Total Recovered = SUM('COVID Data'[Recovered])</pre>
+
+      <h3>4. Mortality Rate %</h3>
+      <pre>Mortality Rate % = DIVIDE([Total Deaths], [Total Confirmed], 0)</pre>
+      <p>Purpose: the key risk indicator &mdash; what share of confirmed cases resulted in death.</p>
+
+      <h3>5. Recovery Rate %</h3>
+      <pre>Recovery Rate % = DIVIDE([Total Recovered], [Total Confirmed], 0)</pre>
+
+      <h3>6. Active Cases</h3>
+      <pre>Active Cases = [Total Confirmed] - [Total Deaths] - [Total Recovered]</pre>
+      <p>Purpose: cases still ongoing &mdash; neither recovered nor resulting in death.</p>
+
+      <div class="hint"><strong>💡 Hint</strong><br>Rename measures with business-friendly names and keep percentage measures formatted as % in the Format pane (Measure Tools → Format → Percentage) so they display correctly on cards.</div>
+    </section>
+
+    <!-- 10. DASHBOARD BUILDING -->
+    <section id="dashboard">
+      <h2><span class="section-num">10</span> Dashboard Building</h2>
+      <p>We will build <b>3 pages</b>. Follow this visual-by-visual approach for every chart: drag field → format pane → polish.</p>
+
+      <!-- PAGE 1 -->
+      <div id="page1"></div>
+      <h3>Page 1 — Global Overview</h3>
+      <span class="page-tag">Executive Dashboard</span>
+
+      <div class="step-block">
+        <span class="visual-tag">Card</span> Total Confirmed
+        <div class="nav-flow">Visualizations Pane <span class="arrow">→</span> Card <span class="arrow">→</span> Drag "Total Confirmed" <span class="arrow">→</span> Format Pane <span class="arrow">→</span> Category Label OFF <span class="arrow">→</span> Increase Font Size <span class="arrow">→</span> Change Background <span class="arrow">→</span> Apply Shadow</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Card</span> Total Deaths, Total Recovered, Mortality Rate %
+        <div class="nav-flow">Repeat Card steps for each measure <span class="arrow">→</span> Arrange as a KPI row at the top of the page</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Line Chart</span> Confirmed Cases Over Time
+        <div class="nav-flow">Visualizations Pane <span class="arrow">→</span> Line Chart <span class="arrow">→</span> X-Axis: Calendar[Date] <span class="arrow">→</span> Y-Axis: Total Confirmed</div>
+        <div class="why">Why: a line chart is the clearest way to show growth over time.</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Map</span> Confirmed Cases by Country
+        <div class="nav-flow">Visualizations Pane <span class="arrow">→</span> Map (or Filled Map) <span class="arrow">→</span> Location: Country <span class="arrow">→</span> Size/Color Saturation: Total Confirmed</div>
+        <div class="why">Why: geographic spread is instantly understood visually, better than a table of country names.</div>
+      </div>
+
+      <hr class="sep">
+
+      <!-- PAGE 2 -->
+      <div id="page2"></div>
+      <h3>Page 2 — Country Comparison</h3>
+      <span class="page-tag">Comparison Dashboard</span>
+
+      <div class="step-block">
+        <span class="visual-tag">Bar Chart</span> Top 10 Countries by Confirmed Cases
+        <div class="nav-flow">Clustered Bar Chart <span class="arrow">→</span> Axis: Country <span class="arrow">→</span> Values: Total Confirmed <span class="arrow">→</span> Format Pane → Filters → Top N → 10</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Bar Chart</span> Top 10 Countries by Deaths
+        <div class="nav-flow">Clustered Bar Chart <span class="arrow">→</span> Axis: Country <span class="arrow">→</span> Values: Total Deaths <span class="arrow">→</span> Top N → 10</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Scatter Plot</span> Confirmed vs Deaths by Country
+        <div class="nav-flow">Scatter Chart <span class="arrow">→</span> X-Axis: Total Confirmed <span class="arrow">→</span> Y-Axis: Total Deaths <span class="arrow">→</span> Legend: Country</div>
+        <div class="why">Why: reveals which countries have disproportionately high deaths relative to case count.</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Matrix</span> Country Summary Table
+        <div class="nav-flow">Matrix Visual <span class="arrow">→</span> Rows: Country <span class="arrow">→</span> Values: Total Confirmed, Total Deaths, Total Recovered, Mortality Rate %</div>
+      </div>
+
+      <hr class="sep">
+
+      <!-- PAGE 3 -->
+      <div id="page3"></div>
+      <h3>Page 3 — Trend Analysis</h3>
+      <span class="page-tag">Time Trend Dashboard</span>
+
+      <div class="step-block">
+        <span class="visual-tag">Line Chart</span> Confirmed, Deaths &amp; Recovered Over Time
+        <div class="nav-flow">Line Chart <span class="arrow">→</span> X-Axis: Calendar[Date] <span class="arrow">→</span> Y-Axis: Total Confirmed, Total Deaths, Total Recovered (all 3 as separate lines)</div>
+        <div class="why">Why: comparing all 3 trend lines together shows the overall trajectory of the situation.</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Area Chart</span> Active Cases Over Time
+        <div class="nav-flow">Area Chart <span class="arrow">→</span> X-Axis: Calendar[Date] <span class="arrow">→</span> Y-Axis: Active Cases</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Column Chart</span> Cases by Month
+        <div class="nav-flow">Clustered Column Chart <span class="arrow">→</span> Axis: Calendar[Month Name] <span class="arrow">→</span> Values: Total Confirmed</div>
+      </div>
+      <div class="step-block">
+        <span class="visual-tag">Slicer</span> Year / Quarter Filter
+        <div class="nav-flow">Visualizations Pane <span class="arrow">→</span> Slicer <span class="arrow">→</span> Field: Calendar[Year] <span class="arrow">→</span> Place at top of page</div>
+        <div class="why">Why: lets viewers narrow the trend view to a specific year without editing the report.</div>
+      </div>
+    </section>
+
+    <!-- 11. FORMATTING -->
+    <section id="formatting">
+      <h2><span class="section-num">11</span> Formatting</h2>
+      <div class="grid3">
+        <div class="card">
+          <h4>Visual Polish</h4>
+          <ul><li>Apply a dark theme</li><li>Consistent title font size</li><li>Rounded corners on all cards</li><li>Add subtle shadow</li></ul>
+        </div>
+        <div class="card">
+          <h4>Navigation</h4>
+          <ul><li>Add Page Navigation Buttons</li><li>Sync Year slicer across pages</li><li>Add Tooltips for extra detail</li></ul>
+        </div>
+        <div class="card">
+          <h4>Interactivity</h4>
+          <ul><li>Add Bookmarks for "Reset View"</li><li>Enable drill-down on the Matrix visual</li><li>Add icons next to KPI cards</li></ul>
+        </div>
+      </div>
+      <div class="nav-flow">Select Visual <span class="arrow">→</span> Format Pane <span class="arrow">→</span> Effects <span class="arrow">→</span> Shadow <span class="arrow">→</span> ON</div>
+      <div class="nav-flow">View Tab <span class="arrow">→</span> Themes <span class="arrow">→</span> Browse for Themes / Customize Current Theme</div>
+      <div class="nav-flow">Insert Tab <span class="arrow">→</span> Buttons <span class="arrow">→</span> Page Navigator</div>
+      <div class="nav-flow">Select Slicer <span class="arrow">→</span> Format Tab <span class="arrow">→</span> Sync Slicers <span class="arrow">→</span> Check All Pages</div>
+      <div class="hint"><strong>💡 Hint</strong><br>Use one consistent color for Confirmed, one for Deaths (red), and one for Recovered (green) across ALL charts &mdash; this consistency makes the whole dashboard easy to read at a glance.</div>
+      <div class="warn"><strong>⚠ Circular Dependency</strong><br>If Power BI warns about a circular relationship, check that you didn't accidentally create two relationships between the same two tables &mdash; remove the duplicate one in Model View.</div>
+    </section>
+
+    <!-- 12. REVIEW -->
+    <section id="review">
+      <h2><span class="section-num">12</span> Final Dashboard Review</h2>
+      <ul class="checklist">
+        <li>Data Cleaned (duplicates removed, nulls handled, country names trimmed)</li>
+        <li>Correct Data Types (Date = Date type, numbers = Whole Number)</li>
+        <li>Calendar Table Created and Related Correctly</li>
+        <li>All 6 Measures Returning Correct Values</li>
+        <li>Map Visual Plotting All Countries Correctly</li>
+        <li>Year Slicer Synced Across All 3 Pages</li>
+        <li>Page Navigation Buttons Working</li>
+        <li>Dashboard Fully Interactive on Click/Hover</li>
+      </ul>
+    </section>
+
+  </div>
+</div>
+
+</body>
+</html>
