@@ -1,0 +1,2095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Visualization — From Raw Data to Insight</title>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root{
+  --bg:#FAF8F3;
+  --bg-alt:#F1ECDF;
+  --surface:#FFFFFF;
+  --surface-2:#FBF9F4;
+  --ink:#1B1F2A;
+  --ink-soft:#5B6272;
+  --ink-faint:#8B8F9E;
+  --grid-line:rgba(76,95,213,0.09);
+  --border:#E5DFCF;
+  --primary:#4C5FD5;
+  --primary-dark:#38449E;
+  --primary-tint:#EDEFFC;
+  --teal:#1F8F89;
+  --teal-tint:#E4F5F3;
+  --amber:#B9791A;
+  --amber-tint:#FBF0DC;
+  --coral:#C6452F;
+  --coral-tint:#FBE9E4;
+  --shadow:0 1px 2px rgba(27,31,42,0.04), 0 8px 24px -12px rgba(27,31,42,0.12);
+  --shadow-lg:0 4px 8px rgba(27,31,42,0.05), 0 24px 48px -16px rgba(27,31,42,0.18);
+  --radius:14px;
+  --radius-sm:8px;
+  --font-display:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+  --font-body:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:'SF Mono','Consolas','Menlo',monospace;
+  --maxw:900px;
+  color-scheme:light;
+}
+html[data-theme="dark"]{
+  --bg:#0F1119;
+  --bg-alt:#151826;
+  --surface:#1A1E2E;
+  --surface-2:#1F2436;
+  --ink:#ECEEF7;
+  --ink-soft:#A3A9BD;
+  --ink-faint:#6C7288;
+  --grid-line:rgba(124,139,255,0.06);
+  --border:#2A2F45;
+  --primary:#8B97FF;
+  --primary-dark:#B5BDFF;
+  --primary-tint:#242A4A;
+  --teal:#4FD1C8;
+  --teal-tint:#17332F;
+  --amber:#F0B94D;
+  --amber-tint:#332A15;
+  --coral:#FF8A78;
+  --coral-tint:#38201C;
+  --shadow:0 1px 2px rgba(0,0,0,0.2), 0 8px 24px -12px rgba(0,0,0,0.5);
+  --shadow-lg:0 4px 8px rgba(0,0,0,0.3), 0 24px 48px -16px rgba(0,0,0,0.6);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background-color:var(--bg);
+  background-image:radial-gradient(circle,var(--grid-line) 1px,transparent 1px);
+  background-size:26px 26px;
+  color:var(--ink);
+  font-family:var(--font-body);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  transition:background-color .35s ease,color .35s ease;
+}
+img,svg{display:block;max-width:100%;}
+a{color:var(--primary);}
+::selection{background:var(--primary);color:#fff;}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px;}
+
+/* ============================================================
+   TOP CHROME: progress bar, theme toggle, back-to-top
+   ============================================================ */
+#progress-bar{
+  position:fixed;top:0;left:0;height:3px;width:0%;
+  background:linear-gradient(90deg,var(--primary),var(--teal));
+  z-index:9999;transition:width .1s linear;
+}
+#theme-toggle{
+  position:fixed;top:18px;right:18px;z-index:999;
+  width:44px;height:44px;border-radius:50%;
+  border:1px solid var(--border);background:var(--surface);
+  box-shadow:var(--shadow);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--ink);
+  transition:transform .2s ease,background .3s ease;
+}
+#theme-toggle:hover{transform:scale(1.08) rotate(-8deg);}
+#back-to-top{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  width:48px;height:48px;border-radius:50%;
+  border:none;background:var(--primary);color:#fff;
+  box-shadow:var(--shadow-lg);cursor:pointer;font-size:18px;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .3s ease,transform .3s ease,background .3s ease;
+}
+#back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+#back-to-top:hover{background:var(--primary-dark);}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+header.hero{
+  padding:88px 0 56px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--teal);font-weight:600;margin-bottom:18px;
+}
+h1.title{
+  font-family:var(--font-display);
+  font-size:clamp(36px,6vw,64px);
+  line-height:1.06;
+  margin:0 0 18px;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+h1.title em{color:var(--primary);font-style:italic;}
+.hero-sub{
+  max-width:560px;margin:0 auto 40px;
+  color:var(--ink-soft);font-size:17px;
+}
+.hero-cta{
+  display:inline-flex;gap:12px;align-items:center;
+  background:var(--primary);color:#fff;border:none;
+  padding:13px 26px;border-radius:100px;font-size:15px;font-weight:600;
+  cursor:pointer;box-shadow:var(--shadow);
+  font-family:var(--font-body);
+  transition:transform .2s ease,box-shadow .2s ease;
+  text-decoration:none;
+}
+.hero-cta:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+
+/* hero signature animation stage */
+#hero-stage{
+  width:100%;max-width:560px;height:220px;margin:44px auto 0;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+#hero-stage .stage-layer{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .6s ease;padding:20px;
+}
+#hero-stage .stage-layer.active{opacity:1;}
+.stage-caption{
+  position:absolute;bottom:10px;left:0;right:0;text-align:center;
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-faint);
+  letter-spacing:.08em;text-transform:uppercase;
+}
+
+/* ============================================================
+   TABLE OF CONTENTS
+   ============================================================ */
+nav.toc{margin:0 0 64px;}
+nav.toc h2{
+  font-family:var(--font-mono);font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-faint);margin:0 0 16px;
+  text-align:center;
+}
+.toc-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));
+  gap:10px;
+}
+.toc-grid a{
+  display:flex;align-items:center;gap:10px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:11px 14px;
+  text-decoration:none;color:var(--ink);font-size:13.5px;
+  transition:border-color .2s ease,transform .15s ease,background .2s ease;
+}
+.toc-grid a:hover{border-color:var(--primary);transform:translateX(3px);background:var(--primary-tint);}
+.toc-num{
+  font-family:var(--font-mono);color:var(--primary);font-weight:700;font-size:12px;
+  flex-shrink:0;width:20px;
+}
+
+/* ============================================================
+   LESSON CARD STRUCTURE
+   ============================================================ */
+main{padding-bottom:80px;}
+section.lesson{
+  scroll-margin-top:26px;
+  margin-bottom:38px;
+  opacity:0;transform:translateY(24px);
+  transition:opacity .7s ease,transform .7s ease;
+}
+section.lesson.in-view{opacity:1;transform:translateY(0);}
+
+.lesson-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:38px 40px 42px;
+  position:relative;
+}
+.lesson-head{
+  display:flex;gap:18px;align-items:flex-start;margin-bottom:22px;
+  padding-bottom:22px;border-bottom:1px dashed var(--border);
+}
+.lesson-tick{
+  font-family:var(--font-mono);font-size:13px;color:var(--teal);
+  font-weight:700;white-space:nowrap;padding-top:6px;
+}
+.lesson-head h2{
+  font-family:var(--font-display);font-size:clamp(24px,3.4vw,32px);
+  margin:0;line-height:1.2;font-weight:600;
+}
+.lesson-kicker{
+  display:block;font-family:var(--font-mono);font-size:11.5px;
+  color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:6px;
+}
+
+.lesson-card h3{
+  font-family:var(--font-body);font-weight:700;font-size:15.5px;
+  color:var(--primary-dark);margin:30px 0 10px;
+  display:flex;align-items:center;gap:8px;
+}
+html[data-theme="dark"] .lesson-card h3{color:var(--primary);}
+.lesson-card p{color:var(--ink);font-size:15.5px;margin:0 0 12px;}
+.lesson-card p.muted{color:var(--ink-soft);}
+.lesson-card ul, .lesson-card ol{margin:8px 0 12px;padding-left:22px;font-size:15.5px;}
+.lesson-card li{margin-bottom:6px;}
+
+/* ============================================================
+   INFO BOXES
+   ============================================================ */
+.box{
+  border-radius:var(--radius-sm);padding:16px 18px;margin:18px 0;
+  border-left:4px solid var(--border);font-size:14.5px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.box .box-icon{font-size:17px;flex-shrink:0;line-height:1.3;}
+.box .box-label{font-weight:700;display:block;margin-bottom:3px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;}
+.box.tip{background:var(--teal-tint);border-color:var(--teal);}
+.box.tip .box-label{color:var(--teal);}
+.box.important{background:var(--primary-tint);border-color:var(--primary);}
+.box.important .box-label{color:var(--primary-dark);}
+html[data-theme="dark"] .box.important .box-label{color:var(--primary);}
+.box.mistake{background:var(--coral-tint);border-color:var(--coral);}
+.box.mistake .box-label{color:var(--coral);}
+.box.remember{background:var(--amber-tint);border-color:var(--amber);}
+.box.remember .box-label{color:var(--amber);}
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.table-wrap{overflow-x:auto;margin:16px 0;border-radius:var(--radius-sm);border:1px solid var(--border);}
+table.data{width:100%;border-collapse:collapse;font-size:14.5px;font-family:var(--font-mono);}
+table.data th{
+  background:var(--bg-alt);color:var(--ink);text-align:left;
+  padding:10px 14px;font-weight:700;border-bottom:1px solid var(--border);
+  font-family:var(--font-body);font-size:13px;text-transform:uppercase;letter-spacing:.04em;
+}
+table.data td{padding:9px 14px;border-bottom:1px solid var(--border);}
+table.data tr:last-child td{border-bottom:none;}
+table.data tbody tr:nth-child(even){background:var(--surface-2);}
+table.data tr.highlight{background:var(--primary-tint) !important;}
+table.data tr.total-row{font-weight:700;background:var(--bg-alt);}
+table.data td.num, table.data th.num{text-align:right;}
+
+/* flow arrow between transformation steps */
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:20px 0;}
+.flow-step{
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:10px 16px;font-family:var(--font-mono);
+  font-size:13px;font-weight:600;
+}
+.flow-arrow{color:var(--primary);font-size:18px;}
+
+/* ============================================================
+   TERM TOOLTIP
+   ============================================================ */
+.term{
+  position:relative;border-bottom:1.5px dotted var(--teal);
+  cursor:help;color:var(--teal);font-weight:600;
+}
+.term:hover::after, .term:focus::after{
+  content:attr(data-tip);
+  position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);
+  padding:9px 12px;border-radius:8px;font-size:12.5px;line-height:1.4;
+  width:220px;font-family:var(--font-body);font-weight:400;
+  box-shadow:var(--shadow-lg);z-index:50;
+}
+html[data-theme="dark"] .term:hover::after, html[data-theme="dark"] .term:focus::after{
+  background:var(--surface);color:var(--ink);border:1px solid var(--border);
+}
+.term:hover::before, .term:focus::before{
+  content:"";position:absolute;left:50%;bottom:100%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:var(--ink);z-index:50;
+}
+
+/* ============================================================
+   CHART CONTAINERS
+   ============================================================ */
+.chart-box{
+  background:var(--surface-2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:18px 18px 8px;margin:18px 0;
+}
+.chart-box svg{width:100%;height:auto;overflow:visible;}
+.chart-caption{
+  text-align:center;font-family:var(--font-mono);font-size:12px;
+  color:var(--ink-faint);padding:8px 0 2px;
+}
+.bar-rect{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0);transition:transform .8s cubic-bezier(.2,.7,.2,1);}
+.bar-rect.play{transform:scaleY(1);}
+.bar-rect:hover{filter:brightness(1.08);}
+.pie-wedge{transform-box:fill-box;transform-origin:center;transform:scale(0);opacity:0;transition:transform .55s cubic-bezier(.34,1.56,.64,1),opacity .4s ease;}
+.pie-wedge.play{transform:scale(1);opacity:1;}
+.pie-wedge:hover{filter:brightness(1.1);}
+.dot-pt{transform-box:fill-box;transform-origin:center;opacity:0;transform:scale(0);transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;}
+.dot-pt.play{opacity:1;transform:scale(1);}
+.line-path{transition:stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1);}
+.axis-label,.bar-value,.wedge-label{font-family:var(--font-mono);fill:var(--ink-soft);font-size:11px;}
+.axis-line{stroke:var(--border);stroke-width:1;}
+
+/* slider control */
+.control-row{display:flex;align-items:center;gap:14px;margin:14px 0 6px;flex-wrap:wrap;}
+.control-row label{font-family:var(--font-mono);font-size:12.5px;color:var(--ink-soft);}
+input[type="range"]{
+  flex:1;min-width:140px;accent-color:var(--primary);height:4px;cursor:pointer;
+}
+.bin-readout{
+  font-family:var(--font-mono);font-weight:700;color:var(--primary);
+  background:var(--primary-tint);padding:3px 10px;border-radius:20px;font-size:13px;
+}
+
+/* ============================================================
+   COMPARISON / CASE STUDY / PRACTICE COMPONENTS
+   ============================================================ */
+.case-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:18px 0;}
+.case-card{
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 18px;background:var(--surface-2);
+}
+.case-card .case-q{font-weight:700;font-size:15px;margin-bottom:6px;}
+.case-card .case-answer{
+  margin-top:10px;padding-top:10px;border-top:1px dashed var(--border);
+  font-size:14px;color:var(--ink-soft);display:none;
+}
+.case-card .case-answer.shown{display:block;}
+.chip-btn{
+  font-family:var(--font-mono);font-size:12px;border:1px solid var(--primary);
+  color:var(--primary);background:transparent;padding:6px 14px;border-radius:20px;
+  cursor:pointer;transition:background .2s ease,color .2s ease;
+}
+.chip-btn:hover{background:var(--primary);color:#fff;}
+
+.practice-item{
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:18px 20px;margin-bottom:16px;background:var(--surface-2);
+}
+.practice-item .pq-num{font-family:var(--font-mono);color:var(--teal);font-size:12.5px;font-weight:700;}
+.practice-item .pq-text{font-weight:600;font-size:15px;margin:6px 0 12px;}
+.choice-row{display:flex;flex-wrap:wrap;gap:8px;}
+.choice-btn{
+  font-family:var(--font-body);font-size:13.5px;padding:8px 14px;border-radius:8px;
+  border:1px solid var(--border);background:var(--surface);cursor:pointer;
+  transition:border-color .2s ease,background .2s ease;
+}
+.choice-btn:hover{border-color:var(--primary);}
+.choice-btn.correct{background:var(--teal-tint);border-color:var(--teal);color:var(--teal);font-weight:700;}
+.choice-btn.wrong{background:var(--coral-tint);border-color:var(--coral);color:var(--coral);}
+.pq-explain{
+  margin-top:12px;padding-top:12px;border-top:1px dashed var(--border);
+  font-size:14px;color:var(--ink-soft);display:none;
+}
+.pq-explain.shown{display:block;}
+
+/* comparison table wrapper reuses table.data */
+
+/* decision guide */
+.flowchart{margin:18px 0;}
+.fc-branch{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;
+  padding:10px 0;border-bottom:1px dashed var(--border);
+}
+.fc-branch:last-child{border-bottom:none;}
+.fc-left{font-size:14px;color:var(--ink-soft);}
+.fc-arrow{color:var(--primary);font-family:var(--font-mono);font-size:13px;text-align:center;}
+.fc-right{
+  font-weight:700;font-size:14px;background:var(--primary-tint);color:var(--primary-dark);
+  padding:7px 14px;border-radius:20px;text-align:center;justify-self:start;
+}
+html[data-theme="dark"] .fc-right{color:var(--primary);}
+
+/* roadmap (final summary) */
+.roadmap{display:flex;flex-direction:column;align-items:center;gap:4px;margin:20px 0;}
+.rm-node{
+  font-family:var(--font-mono);font-size:13px;font-weight:700;
+  background:var(--surface);border:1px solid var(--border);border-radius:20px;
+  padding:8px 18px;box-shadow:var(--shadow);
+}
+.rm-node.main{background:var(--primary);color:#fff;border-color:var(--primary);}
+.rm-arrow{color:var(--ink-faint);font-size:15px;}
+.rm-branches{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:6px 0;}
+.rm-branches .rm-node{background:var(--teal-tint);border-color:var(--teal);color:var(--teal);}
+
+/* key takeaway footer per lesson */
+.takeaway{
+  margin-top:26px;padding:16px 18px;border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,var(--primary-tint),var(--teal-tint));
+  border:1px solid var(--border);font-size:14.5px;font-weight:600;
+}
+.takeaway span.tk-label{
+  display:block;font-family:var(--font-mono);font-weight:700;font-size:11.5px;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--primary-dark);margin-bottom:4px;
+}
+html[data-theme="dark"] .takeaway span.tk-label{color:var(--primary);}
+
+footer.site-footer{
+  text-align:center;padding:50px 0 90px;color:var(--ink-faint);
+  font-family:var(--font-mono);font-size:12.5px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:640px){
+  .lesson-card{padding:26px 20px 30px;}
+  .lesson-head{flex-direction:column;gap:4px;}
+  h1.title{font-size:32px;}
+  .fc-branch{grid-template-columns:1fr;text-align:left;gap:4px;}
+  .fc-right{justify-self:start;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:0.01ms !important;transition-duration:0.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button id="theme-toggle" aria-label="Toggle dark mode" onclick="toggleTheme()">🌙</button>
+<button id="back-to-top" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Data Science &amp; Analytics · Module 01</div>
+  <h1 class="title">Data <em>Visualization</em><br>from scratch</h1>
+  <p class="hero-sub">Eighteen bite-sized lessons that turn a messy list of raw values into the charts you see in every dashboard — built with nothing but your intuition, one idea at a time.</p>
+  <a href="#toc" class="hero-cta">Start the course ↓</a>
+
+  <div id="hero-stage">
+    <div class="stage-layer" id="stage-raw"></div>
+    <div class="stage-layer" id="stage-table"></div>
+    <div class="stage-layer" id="stage-chart"></div>
+    <div class="stage-caption" id="stage-caption">raw data</div>
+  </div>
+</header>
+
+</div><!-- /wrap (hero) -->
+
+<div class="wrap" id="toc">
+<nav class="toc" aria-label="Table of contents">
+  <h2>Course Map — 18 Lessons</h2>
+  <div class="toc-grid">
+    <a href="#intro"><span class="toc-num">01</span> Introduction to Data Viz</a>
+    <a href="#one-way-table"><span class="toc-num">02</span> The One-Way Table</a>
+    <a href="#variable-types"><span class="toc-num">03</span> Types of Variables</a>
+    <a href="#frequency-table"><span class="toc-num">04</span> Frequency Table</a>
+    <a href="#bar-graph"><span class="toc-num">05</span> Bar Graph</a>
+    <a href="#pie-chart"><span class="toc-num">06</span> Pie Chart</a>
+    <a href="#line-graph"><span class="toc-num">07</span> Line Graph</a>
+    <a href="#ogive"><span class="toc-num">08</span> Ogives</a>
+    <a href="#two-way-table"><span class="toc-num">09</span> Two-Way Table</a>
+    <a href="#relative-frequency"><span class="toc-num">10</span> Relative Frequency</a>
+    <a href="#joint-distribution"><span class="toc-num">11</span> Joint Distribution</a>
+    <a href="#dot-plot"><span class="toc-num">12</span> Dot Plot</a>
+    <a href="#histogram"><span class="toc-num">13</span> Histogram</a>
+    <a href="#comparison"><span class="toc-num">14</span> Comparing Charts</a>
+    <a href="#decision-guide"><span class="toc-num">15</span> Choosing a Chart</a>
+    <a href="#case-studies"><span class="toc-num">16</span> Mini Case Studies</a>
+    <a href="#practice"><span class="toc-num">17</span> Practice Section</a>
+    <a href="#summary"><span class="toc-num">18</span> Final Summary</a>
+  </div>
+</nav>
+</div>
+
+<main class="wrap">
+
+<!-- ============================================================
+     LESSON 01 — INTRODUCTION TO DATA VISUALIZATION
+     ============================================================ -->
+<section class="lesson" id="intro">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">01 —</div>
+      <div>
+        <span class="lesson-kicker">Foundations</span>
+        <h2>Introduction to Data Visualization</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Imagine someone hands you a spreadsheet with 10,000 rows of sales numbers and asks, "So, how's the business doing?" You could scroll through every row — or you could look at one chart and answer in three seconds. That's the entire reason visualization exists: <strong>numbers are precise, but pictures are fast.</strong></p>
+
+    <h3>🧠 What problem does it solve?</h3>
+    <p>Our brains did not evolve to read tables. They evolved to spot patterns — a predator moving in tall grass, a fruit tree standing out from green leaves. A <span class="term" data-tip="The visual system processes shape, color, and position in parallel, almost instantly — long before conscious reading kicks in.">chart borrows this ancient pattern-detecting wiring</span> and points it at business, science, or sports data instead of a jungle.</p>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div><span class="box-label">Intuition</span>Reading a table is like listening to someone spell out a word letter by letter. Looking at a chart is like reading the whole word at once.</div>
+    </div>
+
+    <h3>📖 Definition</h3>
+    <p><strong>Data Visualization</strong> is the practice of representing data using visual elements — bars, lines, dots, slices, colors, and position — so that patterns, trends, and comparisons become obvious at a glance, instead of buried inside rows of numbers.</p>
+
+    <h3>🔬 A small example</h3>
+    <p>Here are the marks of 5 students: <code>62, 58, 91, 40, 75</code>. Now look at the same data as bars:</p>
+    <div class="chart-box">
+      <svg id="intro-demo-chart" viewBox="0 0 560 200"></svg>
+      <div class="chart-caption">5 students · marks out of 100</div>
+    </div>
+    <p>You didn't calculate anything — you just <em>saw</em> that one student is far ahead and one is struggling. That instant read is the whole point of visualization.</p>
+
+    <h3>🌍 Where is Data Visualization used?</h3>
+    <ul>
+      <li><strong>Business</strong> — revenue dashboards, customer churn, sales funnels</li>
+      <li><strong>Healthcare</strong> — patient vitals over time, disease spread maps</li>
+      <li><strong>Sports</strong> — player heatmaps, win-probability charts</li>
+      <li><strong>Finance</strong> — stock price candles, portfolio allocation</li>
+      <li><strong>Marketing</strong> — campaign performance, audience segments</li>
+      <li><strong>AI / Machine Learning</strong> — loss curves, confusion matrices, feature importance</li>
+      <li><strong>Research</strong> — experiment results, survey summaries</li>
+    </ul>
+
+    <div class="box important">
+      <div class="box-icon">📌</div>
+      <div><span class="box-label">Important</span>Every single chart you will ever build — no matter how advanced — starts from the same three steps: <strong>collect raw data → organize it into a table → turn the table into a picture.</strong> This course teaches those three steps, over and over, with a different picture each time.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Visualization isn't decoration on top of data — it's a shortcut that lets your brain do statistics without doing math.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 02 — THE ONE-WAY TABLE
+     ============================================================ -->
+<section class="lesson" id="one-way-table">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">02 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Data</span>
+        <h2>The One-Way Table</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Every visualization begins with organizing the data. Before you can draw a single bar or slice of a pie, your data has to be arranged in a way a chart can actually read. The very first, simplest form of organization is called a <span class="term" data-tip="A table listing every value of a single variable, one row per observation, with no counting or summarizing done yet.">One-Way Table</span>.</p>
+
+    <h3>🧠 What problem does it solve?</h3>
+    <p>Raw data as it's collected is just a messy, unordered list — like a stack of survey forms thrown in a box. A One-Way Table takes that mess and lines it up neatly under a single column header, so you can actually look at it.</p>
+
+    <h3>📖 Definition</h3>
+    <p>A <strong>One-Way Table</strong> stores the values of exactly <strong>one variable</strong> — nothing is counted, grouped, or calculated yet. It's simply raw data written down in an orderly column.</p>
+
+    <h3>🔬 Example dataset</h3>
+    <p>Suppose we ask 24 students their favourite fruit. The raw answers, in the order collected, look like this:</p>
+    <div class="box remember">
+      <div class="box-icon">📋</div>
+      <div><span class="box-label">Raw Data</span>Apple, Banana, Mango, Apple, Grape, Orange, Banana, Apple, Mango, Banana, Apple, Orange, Grape, Banana, Apple, Mango, Orange, Apple, Banana, Grape, Apple, Mango, Banana, Apple</div>
+    </div>
+
+    <h3>🪜 Step-by-step creation</h3>
+    <p>We take that same list and simply pour it into a single labelled column. No sorting, no counting — just organizing:</p>
+    <div class="flow">
+      <div class="flow-step">Raw Data (messy list)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">One-Way Table (one column)</div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>#</th><th>Favourite Fruit</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Apple</td></tr>
+          <tr><td>2</td><td>Banana</td></tr>
+          <tr><td>3</td><td>Mango</td></tr>
+          <tr><td>4</td><td>Apple</td></tr>
+          <tr><td>5</td><td>Grape</td></tr>
+          <tr><td>6</td><td>Orange</td></tr>
+          <tr><td>&hellip;</td><td>&hellip; (18 more rows)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>Notice this table doesn't tell you anything <em>yet</em> — it doesn't say Apple is the most popular. It has simply made the data readable. That's its only job: organize first, analyze later.</p>
+
+    <h3>🌍 Real-world use case</h3>
+    <p>Every form you've ever filled — a survey, a sign-up sheet, a feedback form — becomes a One-Way Table the moment someone types your single answer into a spreadsheet column.</p>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistake</span>Beginners often try to jump straight from raw data to a chart. Skipping the table step makes it easy to miscount or misread values — always organize first.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A One-Way Table simply stores values from a single variable — it's the very first step of turning chaos into structure.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 03 — TYPES OF VARIABLES
+     ============================================================ -->
+<section class="lesson" id="variable-types">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">03 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Data</span>
+        <h2>Types of Variables inside a One-Way Table</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Not all columns of data are the same kind of thing. "Favourite Fruit" and "Age" both fit neatly into a One-Way Table, but you can't average someone's fruit, and you shouldn't count "22 years old" as a category the way you'd count "Apple." Knowing <em>what kind</em> of variable you're holding is what tells you, later, which chart is even allowed.</p>
+
+    <div class="box important">
+      <div class="box-icon">📌</div>
+      <div><span class="box-label">Important</span>This single decision — categorical or numerical — is the most important fork in the entire course. Every chart type you'll learn is built for one side of this fork, not both.</div>
+    </div>
+
+    <h3>🗂️ Qualitative (Categorical) Variables</h3>
+    <p>These describe a <em>quality</em> or a <em>label</em> — something you'd put into named boxes, not numbers on a ruler.</p>
+    <ul>
+      <li><strong>Nominal</strong> — categories with no natural order. Example: Gender, Product Category, Movie Genre, Colour.</li>
+      <li><strong>Ordinal</strong> — categories that <em>do</em> have a natural order, but the gaps between them aren't measured. Example: Education Level (High School &lt; Bachelor's &lt; Master's), Customer Rating (Poor &lt; Average &lt; Good &lt; Excellent).</li>
+    </ul>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Nominal Example</th><th>Ordinal Example</th></tr></thead>
+        <tbody>
+          <tr><td>Department: HR, Sales, Tech</td><td>Education: School, UG, PG</td></tr>
+          <tr><td>Favourite Colour: Red, Blue</td><td>Movie Rating: 1★–5★</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔢 Quantitative (Numerical) Variables</h3>
+    <p>These describe a measurable <em>amount</em> — something you could plot on a number line.</p>
+    <ul>
+      <li><strong>Discrete</strong> — countable, whole-number values. Example: Number of Siblings, Number of Products Sold.</li>
+      <li><strong>Continuous</strong> — can take any value in a range, including decimals. Example: Height, Weight, Temperature, Salary.</li>
+    </ul>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Discrete Example</th><th>Continuous Example</th></tr></thead>
+        <tbody>
+          <tr><td>Age (in completed years): 21</td><td>Height: 172.4 cm</td></tr>
+          <tr><td>Marks (whole numbers): 87</td><td>Income: ₹54,320.75</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔎 Why this matters for later</h3>
+    <p>Choosing the variable type up front tells you which visualizations are even valid:</p>
+    <div class="flow">
+      <div class="flow-step">Categorical → Bar Graph, Pie Chart</div>
+      <div class="flow-arrow">•</div>
+      <div class="flow-step">Continuous → Histogram, Line Graph</div>
+    </div>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistake</span>Treating Ordinal data as if the gaps are equal — e.g. assuming the jump from "Poor" to "Average" is exactly the same size as "Good" to "Excellent." Order is known; the exact distance usually isn't.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Ask "is this a label or a measurement?" first — it silently decides every chart choice you'll make for the rest of this course.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 04 — FREQUENCY TABLE
+     ============================================================ -->
+<section class="lesson" id="frequency-table">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">04 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Data</span>
+        <h2>Frequency Table</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>A One-Way Table only stores values — it doesn't tell you how <em>often</em> each one shows up. But almost every chart (bars, pie slices) needs a count, not a raw list. So before we can visualize anything, we take one more organizing step: counting.</p>
+
+    <h3>📖 Definition</h3>
+    <p><span class="term" data-tip="How many times a specific value appears in the dataset.">Frequency</span> simply means "how many times a value appears." A <strong>Frequency Table</strong> lists every unique category alongside its count.</p>
+
+    <div class="flow">
+      <div class="flow-step">Raw Data</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">One-Way Table</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Frequency Table</div>
+    </div>
+
+    <h3>🪜 Step-by-step counting</h3>
+    <p>Going back to our 24 students and their favourite fruit, we simply tally every occurrence of each fruit:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Fruit</th><th>Tally</th><th class="num">Frequency</th></tr></thead>
+        <tbody id="freq-tally-body">
+        </tbody>
+        <tbody>
+          <tr class="total-row"><td colspan="2">Total</td><td class="num">24</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>Now the table finally <em>says something</em>: Apple was chosen 8 times — more than any other fruit — while Grape and Orange are the least popular. This is the exact table we will turn into a Bar Graph and a Pie Chart in the next two lessons.</p>
+
+    <div class="box remember">
+      <div class="box-icon">🔁</div>
+      <div><span class="box-label">Remember</span>We'll reuse this <em>exact</em> Frequency Table for both the Bar Graph and the Pie Chart lessons — so you can see clearly that different charts can come from the same underlying data.</div>
+    </div>
+
+    <h3>🌍 Real-world use case</h3>
+    <p>A frequency table is what powers "most popular" lists everywhere — top-selling products, most-streamed songs, most common survey answers.</p>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A Frequency Table converts a raw list into counts — and counts are the raw material every chart is built from.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 05 — BAR GRAPH
+     ============================================================ -->
+<section class="lesson" id="bar-graph">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">05 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type</span>
+        <h2>Bar Graph</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>We just built a Frequency Table for favourite fruits. It's accurate, but reading five rows of numbers still takes a moment of thought. A <strong>Bar Graph</strong> removes that moment — the tallest bar <em>is</em> the winner, visibly, instantly.</p>
+
+    <h3>📖 What is a Bar Graph?</h3>
+    <p>A Bar Graph represents each category as a rectangular bar, where the <strong>height (or length) of the bar is proportional to its frequency</strong>. Bigger number, taller bar — that's the entire rule.</p>
+
+    <h3>🎯 When should we use it?</h3>
+    <p>Use a Bar Graph whenever you're comparing <strong>categorical data</strong> — separate, unrelated groups like fruits, departments, or product types. It answers one question extremely well: <em>"Which group has more?"</em></p>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div><span class="box-label">Why the gaps between bars?</span>Categories are separate, unconnected groups — "Apple" doesn't flow into "Banana" the way January flows into February. The visible gap is a visual reminder that these are distinct, unrelated boxes, not a continuous range.</div>
+    </div>
+
+    <h3>🪜 From Frequency Table to Bar Graph</h3>
+    <div class="flow">
+      <div class="flow-step">Frequency Table</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Bar Graph</div>
+    </div>
+    <p>Every bar below comes directly from the Frequency Table you saw in Lesson 4 — hover a bar to see its exact count.</p>
+
+    <div class="chart-box">
+      <svg id="bar-graph-chart" viewBox="0 0 560 260"></svg>
+      <div class="chart-caption">Favourite Fruit — Frequency (n = 24 students)</div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>Apple's bar is clearly the tallest — it's the most popular fruit, chosen by 8 of 24 students. Grape and Orange are visibly the shortest, tied at the bottom. You reached that conclusion without doing a single calculation.</p>
+
+    <h3>🌍 Real-world use case</h3>
+    <p>Sales-by-region charts, votes-per-candidate results, and app-downloads-by-country charts are all Bar Graphs wearing different labels.</p>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistakes</span>
+        <ul style="margin:6px 0 0;">
+          <li>Using a Bar Graph for <strong>continuous</strong> data (like exact heights of 200 people) — that job belongs to a Histogram (Lesson 13).</li>
+          <li>Confusing Bar Graphs with Histograms just because both use rectangles — Bar Graphs have gaps and represent categories; Histograms touch and represent number ranges.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A Bar Graph turns "which category wins" into something you see, not something you calculate.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 06 — PIE CHART
+     ============================================================ -->
+<section class="lesson" id="pie-chart">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">06 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type</span>
+        <h2>Pie Chart</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>A Bar Graph tells you Apple has 8 votes and Banana has 6. But it doesn't answer a very natural follow-up question: <em>"Apple is what share of the whole class?"</em> For that, we need to think in terms of the <strong>whole pie</strong>, not separate bars.</p>
+
+    <h3>📖 What is a Pie Chart?</h3>
+    <p>A Pie Chart represents the <strong>whole dataset as a circle ("the pie")</strong>, sliced into wedges — one wedge per category — where each wedge's angle is proportional to that category's share of the total.</p>
+
+    <h3>🧮 Why percentages are needed</h3>
+    <p>A circle has 360°, and we want each fruit's slice to represent its <em>proportion</em> of all 24 students — so frequency alone isn't enough. We first convert frequency into a percentage:</p>
+    <div class="box important">
+      <div class="box-icon">🧮</div>
+      <div><span class="box-label">Formula</span>Percentage = (Frequency ÷ Total) × 100</div>
+    </div>
+
+    <h3>🪜 Calculating every percentage</h3>
+    <div class="flow">
+      <div class="flow-step">Frequency</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Percentage</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Pie Chart</div>
+    </div>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Fruit</th><th class="num">Frequency</th><th class="num">Calculation</th><th class="num">Percentage</th></tr></thead>
+        <tbody>
+          <tr><td>Apple</td><td class="num">8</td><td class="num">8 ÷ 24 × 100</td><td class="num">33.3%</td></tr>
+          <tr><td>Banana</td><td class="num">6</td><td class="num">6 ÷ 24 × 100</td><td class="num">25.0%</td></tr>
+          <tr><td>Mango</td><td class="num">4</td><td class="num">4 ÷ 24 × 100</td><td class="num">16.7%</td></tr>
+          <tr><td>Orange</td><td class="num">3</td><td class="num">3 ÷ 24 × 100</td><td class="num">12.5%</td></tr>
+          <tr><td>Grape</td><td class="num">3</td><td class="num">3 ÷ 24 × 100</td><td class="num">12.5%</td></tr>
+          <tr class="total-row"><td>Total</td><td class="num">24</td><td class="num">—</td><td class="num">100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-box">
+      <svg id="pie-chart-chart" viewBox="0 0 400 300"></svg>
+      <div class="chart-caption">Favourite Fruit — Share of Total (hover a slice)</div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>The pie makes the "share of the whole" instantly visible — Apple takes up about a third of the entire circle, while Grape and Orange are thin slivers. This is a comparison a Bar Graph can't make as naturally, because bars don't visually sum to "one whole."</p>
+
+    <h3>🚫 When NOT to use Pie Charts</h3>
+    <ul>
+      <li>When there are <strong>too many categories</strong> (more than 5–6) — slices become too thin to compare.</li>
+      <li>When two slices are <strong>very close in size</strong> — the human eye is bad at comparing angles precisely.</li>
+      <li>When you need to compare <strong>exact values</strong>, not just proportions.</li>
+    </ul>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistake</span>Forgetting that all percentages must add up to 100%. If your slices don't sum to 100%, you've made an arithmetic error somewhere in the Frequency → Percentage step.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A Pie Chart isn't about "how many" — it's about "what fraction of the whole." Same Frequency Table, different question.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 07 — LINE GRAPH
+     ============================================================ -->
+<section class="lesson" id="line-graph">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">07 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type</span>
+        <h2>Line Graph</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Bar Graphs and Pie Charts both freeze data at one moment — "as of now, Apple wins." But some data isn't frozen; it moves through <strong>time</strong>. Unlike a Bar Graph, a Line Graph is used when data changes continuously over time, and we care about the <em>journey</em>, not just a single snapshot.</p>
+
+    <h3>📖 What is a Line Graph?</h3>
+    <p>A Line Graph plots values as points across a sequence — almost always time — and connects consecutive points with a line, so you can trace the trend as your eye moves left to right.</p>
+
+    <h3>🔬 Example dataset</h3>
+    <p>Common Line Graph subjects: Monthly Sales, Daily Temperature, Stock Prices, Population Growth, Website Visitors. Let's use a small business's monthly revenue (in ₹ Lakhs):</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Jan</th><th>Feb</th><th>Mar</th><th>Apr</th><th>May</th><th>Jun</th><th>Jul</th><th>Aug</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dec</th></tr></thead>
+        <tbody><tr><td>42</td><td>45</td><td>40</td><td>50</td><td>55</td><td>60</td><td>58</td><td>62</td><td>68</td><td>75</td><td>90</td><td>110</td></tr></tbody>
+      </table>
+    </div>
+
+    <h3>🪜 Step-by-step creation</h3>
+    <p><strong>Time always goes on the X-axis</strong>, and the measured value always goes on the Y-axis. Each month becomes one point; we connect the points in order.</p>
+    <div class="chart-box">
+      <svg id="line-graph-chart" viewBox="0 0 560 260"></svg>
+      <div class="chart-caption">Monthly Revenue, ₹ Lakhs (hover a point)</div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>The line drifts gently upward through the middle of the year, then climbs sharply in November — most Indian retail businesses see exactly this pattern around the festive season. A table of 12 numbers hides that story; the line tells it immediately.</p>
+
+    <h3>🌍 Real-world use case</h3>
+    <p>Stock market charts, COVID case curves, app user-growth charts, and weather trend graphs are all Line Graphs.</p>
+
+    <h3>❓ Why not use a Bar Graph here?</h3>
+    <p>You technically could draw 12 bars for 12 months — but a line does something bars can't: it shows the <em>rate and direction of change</em> between points. Joining the dots is meaningful here because consecutive months are related to each other; unlike fruit categories, "October" flows directly into "November."</p>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistake</span>Using a Line Graph for unrelated categories (e.g. connecting "Apple" to "Banana" with a line) implies an order or flow that doesn't exist. Lines are for sequences — usually time.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Bar Graphs compare separate groups; Line Graphs trace one thing changing over time.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 08 — OGIVES
+     ============================================================ -->
+<section class="lesson" id="ogive">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">08 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type</span>
+        <h2>Ogives (Cumulative Frequency Curve)</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Ogives are a natural extension of Line Graphs — same idea (connected points), but instead of tracking a value over time, we track a <strong>running total</strong> as data accumulates.</p>
+
+    <h3>📖 What is Cumulative Frequency?</h3>
+    <p><span class="term" data-tip="A running total that adds each new frequency to the sum of all frequencies before it.">Cumulative Frequency</span> at any point is "how many observations fall at or below this value, so far." Instead of asking "how many students scored 60–70?" it asks "how many students scored below 70, in total?"</p>
+
+    <h3>🪜 Step-by-step calculation</h3>
+    <p>Take 30 students' exam marks, grouped into class intervals of 10. We add each frequency to the running total of everything before it:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Marks</th><th class="num">Frequency</th><th class="num">Cumulative Frequency</th></tr></thead>
+        <tbody>
+          <tr><td>Below 50</td><td class="num">5</td><td class="num">5</td></tr>
+          <tr><td>Below 60</td><td class="num">8</td><td class="num">13</td></tr>
+          <tr><td>Below 70</td><td class="num">10</td><td class="num">23</td></tr>
+          <tr><td>Below 80</td><td class="num">5</td><td class="num">28</td></tr>
+          <tr><td>Below 90</td><td class="num">2</td><td class="num">30</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Notice the cumulative column can only ever go <strong>up or stay flat</strong> — it never decreases, because we're always adding more students to the running total.</p>
+
+    <h3>📈 The "Less Than" Ogive</h3>
+    <div class="chart-box">
+      <svg id="ogive-chart" viewBox="0 0 560 260"></svg>
+      <div class="chart-caption">Cumulative number of students scoring below each mark</div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>The curve rises steeply where many students are clustered (60–70 range) and rises gently where few students are (80–90 range). A steep section means "lots of students in this range"; a flat section means "very few."</p>
+
+    <h3>🌍 Applications</h3>
+    <ul>
+      <li><strong>Finding the Median</strong> — trace across from the halfway point (n/2) on the Y-axis to find the middle value.</li>
+      <li><strong>Quartiles &amp; Percentiles</strong> — same trick at 25%, 75%, or any percentile mark.</li>
+      <li><strong>Performance Analysis</strong> — "what percentage of students scored below 60?"</li>
+      <li><strong>Examination Statistics</strong> — setting pass/fail cut-offs based on how many students fall below a score.</li>
+    </ul>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      An Ogive answers "how many so far?" — it's the running total of a Frequency Table, drawn as a rising curve.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 09 — TWO-WAY TABLE
+     ============================================================ -->
+<section class="lesson" id="two-way-table">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">09 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Two Variables</span>
+        <h2>Two-Way Table</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>So far we've only ever looked at <strong>one</strong> variable at a time — favourite fruit, or marks. But real questions are often about <strong>two</strong> variables together: "Do men and women prefer different programming languages?" One variable needed a One-Way Table; two variables need a <strong>Two-Way Table</strong>.</p>
+
+    <h3>📖 Definition</h3>
+    <p>A Two-Way Table (also called a <span class="term" data-tip="A table that cross-tabulates two categorical variables, showing counts for every combination.">contingency table</span>) arranges one variable along the <strong>rows</strong> and another along the <strong>columns</strong>, with each cell showing the count for that specific combination.</p>
+
+    <h3>🔬 Example: Gender vs Preferred Programming Language</h3>
+    <p>We surveyed 100 students — 50 men, 50 women — about their favourite programming language:</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th></th><th class="num">Python</th><th class="num">JavaScript</th><th class="num">Java</th><th class="num">Row Total</th></tr></thead>
+        <tbody>
+          <tr><td>Male</td><td class="num">25</td><td class="num">15</td><td class="num">10</td><td class="num">50</td></tr>
+          <tr><td>Female</td><td class="num">20</td><td class="num">18</td><td class="num">12</td><td class="num">50</td></tr>
+          <tr class="total-row"><td>Column Total</td><td class="num">45</td><td class="num">33</td><td class="num">22</td><td class="num">100</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🪜 Reading the table</h3>
+    <ul>
+      <li><strong>Rows</strong> — one category of the first variable (Male, Female)</li>
+      <li><strong>Columns</strong> — one category of the second variable (Python, JavaScript, Java)</li>
+      <li><strong>Intersection (a single cell)</strong> — the count for that exact combination. E.g. 25 men prefer Python.</li>
+      <li><strong>Margins / Totals</strong> — the row and column sums, telling you the One-Way Table for each variable individually.</li>
+    </ul>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div><span class="box-label">Tip</span>The bottom-right corner (100) is the grand total — it should always equal both the sum of row totals and the sum of column totals. It's a great way to check your table for errors.</div>
+    </div>
+
+    <h3>🌍 Applications</h3>
+    <ul>
+      <li><strong>Survey Analysis</strong> — cross-tabulating any two questions</li>
+      <li><strong>Business</strong> — Region vs Product Category sales</li>
+      <li><strong>Healthcare</strong> — Treatment vs Outcome (Improved / Same / Worse)</li>
+      <li><strong>Education</strong> — Department vs Pass/Fail rate</li>
+      <li><strong>Market Research</strong> — Age Group vs Brand Preference</li>
+    </ul>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      One variable gives a One-Way Table; two variables give a Two-Way Table — rows for one, columns for the other, and every cell tells a combined story.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 10 — RELATIVE FREQUENCY TABLE
+     ============================================================ -->
+<section class="lesson" id="relative-frequency">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">10 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Data</span>
+        <h2>Relative Frequency Table</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p><strong>Frequency tells you a count.</strong> But a raw count is hard to compare across groups of different sizes — "8 people chose Apple" means something different in a class of 24 versus a class of 2,400. <strong>Relative Frequency tells you a proportion</strong> instead, which is always comparable.</p>
+
+    <h3>📖 Definition &amp; Formula</h3>
+    <div class="box important">
+      <div class="box-icon">🧮</div>
+      <div><span class="box-label">Formula</span>Relative Frequency = Frequency ÷ Total</div>
+    </div>
+    <p>This is the same idea behind the percentages we calculated for the Pie Chart in Lesson 6 — except here we usually leave it as a decimal fraction rather than multiplying by 100.</p>
+
+    <h3>🪜 From Frequency Table to Relative Frequency Table</h3>
+    <div class="flow">
+      <div class="flow-step">Frequency Table</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Relative Frequency Table</div>
+    </div>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>Fruit</th><th class="num">Frequency</th><th class="num">Relative Frequency</th><th class="num">As %</th></tr></thead>
+        <tbody>
+          <tr><td>Apple</td><td class="num">8</td><td class="num">0.333</td><td class="num">33.3%</td></tr>
+          <tr><td>Banana</td><td class="num">6</td><td class="num">0.250</td><td class="num">25.0%</td></tr>
+          <tr><td>Mango</td><td class="num">4</td><td class="num">0.167</td><td class="num">16.7%</td></tr>
+          <tr><td>Orange</td><td class="num">3</td><td class="num">0.125</td><td class="num">12.5%</td></tr>
+          <tr><td>Grape</td><td class="num">3</td><td class="num">0.125</td><td class="num">12.5%</td></tr>
+          <tr class="total-row"><td>Total</td><td class="num">24</td><td class="num">1.000</td><td class="num">100%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>All relative frequencies must always add up to exactly <strong>1.000</strong> (or 100%) — just like the pie slices did. It's simply the same proportion, expressed as a decimal instead of an angle.</p>
+
+    <h3>🌍 Why businesses often prefer proportions</h3>
+    <p>Imagine comparing "Apple sold 8 units in Store A" to "Apple sold 40 units in Store B." Raw counts make Store B look better — but if Store A only had 24 total customers while Store B had 400, Store A's <em>relative</em> performance (33%) is actually far stronger than Store B's (10%). Businesses compare markets of very different sizes constantly, so proportions — not raw counts — are usually the fairer comparison.</p>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Frequency answers "how many"; Relative Frequency answers "what share" — and shares are what let you compare fairly across different-sized groups.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 11 — JOINT DISTRIBUTION
+     ============================================================ -->
+<section class="lesson" id="joint-distribution">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">11 —</div>
+      <div>
+        <span class="lesson-kicker">Organizing Two Variables</span>
+        <h2>Joint Distribution</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>We just built a Two-Way Table of raw counts (Gender × Language). Joint Distribution asks the same question Relative Frequency asked for one variable — but now for <strong>two variables happening together</strong>: "out of everyone surveyed, what <em>proportion</em> were, say, a woman who prefers JavaScript?"</p>
+
+    <h3>📖 Definition (beginner-friendly, no heavy maths)</h3>
+    <p>A <strong>Joint Distribution</strong> takes every cell of a Two-Way Table and divides it by the grand total, turning each combination-count into a combination-<em>proportion</em>. Think of it as "the probability of two things being true at the same time" — for example, being female <em>and</em> preferring JavaScript, both together.</p>
+
+    <h3>🪜 Converting the Two-Way Table</h3>
+    <p>Recall our 100-student survey. Divide every cell by the grand total, 100:</p>
+    <div class="table-wrap">
+      <table class="data" id="joint-dist-table">
+        <thead><tr><th></th><th class="num">Python</th><th class="num">JavaScript</th><th class="num">Java</th><th class="num">Row Total</th></tr></thead>
+        <tbody>
+          <tr><td>Male</td><td class="num" id="jd-mp">0.25</td><td class="num" id="jd-mj">0.15</td><td class="num" id="jd-mv">0.10</td><td class="num">0.50</td></tr>
+          <tr><td>Female</td><td class="num" id="jd-fp">0.20</td><td class="num" id="jd-fj">0.18</td><td class="num" id="jd-fv">0.12</td><td class="num">0.50</td></tr>
+          <tr class="total-row"><td>Column Total</td><td class="num">0.45</td><td class="num">0.33</td><td class="num">0.22</td><td class="num">1.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Click any cell above to highlight it and see its plain-English meaning.</p>
+    <div id="joint-explain" class="box important" style="display:none;">
+      <div class="box-icon">🔎</div>
+      <div id="joint-explain-text"></div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>Read cell by cell: 0.25 means <em>25% of the entire surveyed group</em> were men who prefer Python — not 25% of men, but 25% of everyone. That distinction matters: the row and column totals (0.50, 0.45, etc.) are called the <strong>marginal distributions</strong> — the same Relative Frequency idea, just for one variable at a time, sitting in the margins of the joint table.</p>
+
+    <h3>🌍 Practical examples</h3>
+    <ul>
+      <li>What proportion of all customers are both "returning" and "high-spending"?</li>
+      <li>What proportion of patients are both "over 60" and "diagnosed early"?</li>
+      <li>What proportion of applicants are both "female" and "shortlisted"?</li>
+    </ul>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A Joint Distribution is a Two-Way Table converted to proportions of the grand total — it captures two things being true together, not separately.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 12 — DOT PLOT
+     ============================================================ -->
+<section class="lesson" id="dot-plot">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">12 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type</span>
+        <h2>Dot Plot</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>A Bar Graph and a Histogram both <em>summarize</em> data into groups — you lose sight of each individual value. Sometimes, especially with a <strong>small sample size</strong>, you don't want to lose anything: every single observation matters, and you want to see every one of them, not just a summary bar.</p>
+
+    <h3>📖 What is a Dot Plot?</h3>
+    <p>A Dot Plot places one dot on a number line for every single observation. When two observations share the same value, their dots stack directly on top of each other — so the height of a stack shows you frequency, while every dot still represents one real, individual data point.</p>
+
+    <h3>🔬 Example dataset</h3>
+    <p>Marks of 12 students in a short quiz: <code>58, 60, 61, 62, 63, 63, 64, 65, 65, 66, 68, 70</code></p>
+
+    <div class="chart-box">
+      <svg id="dot-plot-chart" viewBox="0 0 560 200"></svg>
+      <div class="chart-caption">Quiz marks — each dot is one student</div>
+    </div>
+
+    <h3>🔎 Interpretation</h3>
+    <p>You can see there's a small cluster around 63–65 — several students scored almost identically — while 58 and 70 sit alone at the edges. A Bar Graph grouped into ranges would have hidden this fine detail; the Dot Plot preserves it.</p>
+
+    <h3>⚖️ Dot Plot vs Bar Graph</h3>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th></th><th>Dot Plot</th><th>Bar Graph</th></tr></thead>
+        <tbody>
+          <tr><td>Shows</td><td>Every individual value</td><td>Grouped totals per category</td></tr>
+          <tr><td>Best for</td><td>Small datasets</td><td>Any size, categorical data</td></tr>
+          <tr><td>Detail level</td><td>High — nothing is hidden</td><td>Lower — values are summarized</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>👍 Advantages</h3>
+    <ul>
+      <li>No information is lost — every observation is visible.</li>
+      <li>Extremely simple to build and read for small datasets.</li>
+      <li>Easy to spot clusters, gaps, and outliers at once.</li>
+    </ul>
+
+    <h3>👎 Limitations</h3>
+    <ul>
+      <li>Becomes cluttered and unreadable with large datasets (hundreds or thousands of points).</li>
+      <li>Not practical once values span a very wide range with little repetition.</li>
+    </ul>
+
+    <div class="box mistake">
+      <div class="box-icon">⚠️</div>
+      <div><span class="box-label">Common Mistake</span>Trying to Dot Plot a dataset of 5,000 values — the dots overlap into an unreadable smear. Switch to a Histogram once your sample gets large (that's exactly why Lesson 13 exists).</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Use a Dot Plot when the dataset is small enough that every single point deserves to be seen.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 13 — HISTOGRAM
+     ============================================================ -->
+<section class="lesson" id="histogram">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">13 —</div>
+      <div>
+        <span class="lesson-kicker">Chart Type · Core Concept</span>
+        <h2>Histogram</h2>
+      </div>
+    </div>
+
+    <h3>🤔 Why do we need this?</h3>
+    <p>Our Dot Plot dataset had 12 students. What if we had 300? Dots would overlap into a solid smear, and a Bar Graph doesn't apply either — because marks are <strong>continuous numerical data</strong>, not separate categories like fruit. We need a chart built specifically for large amounts of continuous, measured data. That chart is the <strong>Histogram</strong> — arguably the single most-used chart in all of statistics and data science.</p>
+
+    <h3>📖 What is a Histogram?</h3>
+    <p>A Histogram groups continuous numerical data into consecutive ranges called <span class="term" data-tip="A range of values that observations are grouped into, e.g. 40–50 marks, 50–60 marks, and so on.">bins</span>, then draws a bar for each bin whose height shows how many observations fall inside it.</p>
+
+    <h3>⚖️ Histogram vs Bar Graph — the difference that trips everyone up</h3>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th></th><th>Bar Graph</th><th>Histogram</th></tr></thead>
+        <tbody>
+          <tr><td>Data type</td><td>Categorical (Apple, Banana)</td><td>Continuous (Marks, Height, Salary)</td></tr>
+          <tr><td>X-axis</td><td>Distinct labels</td><td>Numeric ranges (bins)</td></tr>
+          <tr><td>Bars touch?</td><td>No — gaps between bars</td><td><strong>Yes</strong> — bars touch, because the number line is continuous</td></tr>
+          <tr><td>Order can be shuffled?</td><td>Yes, categories can be reordered</td><td>No — the number line order is fixed</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box remember">
+      <div class="box-icon">🔑</div>
+      <div><span class="box-label">Remember</span>If the bars touch, it's a Histogram. If there are gaps, it's a Bar Graph. That single visual cue tells you which one you're looking at.</div>
+    </div>
+
+    <h3>🧱 What are Bins, and why do we need them?</h3>
+    <p>With continuous data, almost no two values are exactly identical (one student scores 63, another 63.5) — so counting "frequency of each exact value" would give you a frequency of 1 almost everywhere, which is useless. <strong>Bins solve this by grouping nearby values into ranges</strong> — e.g. "60 to 70" — so we can count how many observations fall in each range instead.</p>
+
+    <h3>🔬 Example dataset — 30 students' exam marks</h3>
+    <p><code>40,45,46,48,49,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,75,78,80,82</code></p>
+
+    <h3>🪜 Step-by-step creation</h3>
+    <ol>
+      <li>Find the range of the data (lowest to highest value): 40 to 82.</li>
+      <li>Decide on a bin width — how wide each range should be (e.g. 10 marks per bin).</li>
+      <li>Count how many observations fall into each bin — this becomes a <strong>Frequency Distribution</strong>.</li>
+      <li>Draw one bar per bin, touching its neighbours, with height equal to the bin's frequency.</li>
+    </ol>
+
+    <div class="control-row">
+      <label for="bin-slider">Number of bins:</label>
+      <input type="range" id="bin-slider" min="2" max="15" value="5" step="1">
+      <span class="bin-readout" id="bin-readout">5 bins</span>
+    </div>
+    <div class="chart-box">
+      <svg id="histogram-chart" viewBox="0 0 560 260"></svg>
+      <div class="chart-caption" id="histogram-caption">Bin width ≈ 8.4 marks per bin</div>
+    </div>
+
+    <h3>🔎 Drag the slider — what do you notice?</h3>
+    <div class="box tip">
+      <div class="box-icon">👈</div>
+      <div><span class="box-label">Under-binning</span>Too few bins (drag left) — bars become too wide, and real structure in the data gets smoothed away. You lose detail.</div>
+    </div>
+    <div class="box mistake">
+      <div class="box-icon">👉</div>
+      <div><span class="box-label">Over-binning</span>Too many bins (drag right) — bars become too thin and noisy, each one influenced by just a couple of points. Real patterns get buried under random jitter.</div>
+    </div>
+    <p>Choosing an appropriate bin size is a genuine skill — you want enough bins to reveal the true shape of the data, but not so many that you're just visualizing noise.</p>
+
+    <h3>🌍 Real-world applications</h3>
+    <ul>
+      <li><strong>Machine Learning</strong> — visualizing feature distributions before training a model</li>
+      <li><strong>Statistics</strong> — checking whether data looks "normal" (bell-shaped)</li>
+      <li><strong>Finance</strong> — distribution of daily stock returns</li>
+      <li><strong>Medical Research</strong> — distribution of patient ages, blood pressure readings</li>
+      <li><strong>Quality Control / Manufacturing</strong> — distribution of a part's measured dimensions around a target</li>
+      <li><strong>Data Science</strong> — almost always the very first chart drawn on any new numeric column</li>
+    </ul>
+
+    <div class="box important">
+      <div class="box-icon">📌</div>
+      <div><span class="box-label">Why Histograms are everywhere</span>Nearly every statistical technique — averages, standard deviation, outlier detection, normal distributions — assumes you understand the <em>shape</em> of your data first. The Histogram is how you see that shape before doing anything else.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      A Histogram is a Bar Graph's cousin for continuous data — bins replace categories, touching bars replace gaps, and bin size is a real design decision you control.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 14 — COMPARISON SECTION
+     ============================================================ -->
+<section class="lesson" id="comparison">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">14 —</div>
+      <div>
+        <span class="lesson-kicker">Review</span>
+        <h2>Comparing All the Charts</h2>
+      </div>
+    </div>
+    <p>You've now met five core chart types. Here's every one of them, side by side, so you can compare their strengths at a glance.</p>
+    <div class="table-wrap">
+      <table class="data">
+        <thead>
+          <tr><th>Chart</th><th>When to Use</th><th>Data Type</th><th>Advantage</th><th>Limitation</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Bar Graph</strong></td>
+            <td>Comparing separate categories</td>
+            <td>Categorical</td>
+            <td>Instant "which is bigger" comparison</td>
+            <td>Can't show proportions of a whole or trends over time</td>
+            <td>Favourite fruit survey</td>
+          </tr>
+          <tr>
+            <td><strong>Pie Chart</strong></td>
+            <td>Showing share of a whole</td>
+            <td>Categorical (few groups)</td>
+            <td>Intuitive part-to-whole view</td>
+            <td>Hard to read with many/close slices</td>
+            <td>Market share by brand</td>
+          </tr>
+          <tr>
+            <td><strong>Line Graph</strong></td>
+            <td>Tracking change over time</td>
+            <td>Continuous, sequential</td>
+            <td>Shows trend &amp; direction of change</td>
+            <td>Misleading if points aren't truly sequential</td>
+            <td>Monthly revenue</td>
+          </tr>
+          <tr>
+            <td><strong>Histogram</strong></td>
+            <td>Seeing the shape/spread of numeric data</td>
+            <td>Continuous</td>
+            <td>Reveals distribution shape</td>
+            <td>Shape changes with bin choice</td>
+            <td>Exam marks of 300 students</td>
+          </tr>
+          <tr>
+            <td><strong>Dot Plot</strong></td>
+            <td>Showing every value in a small dataset</td>
+            <td>Small numeric datasets</td>
+            <td>No detail lost</td>
+            <td>Unreadable at large scale</td>
+            <td>Quiz marks of 12 students</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      No chart is "best" in general — each one is best for a specific data type and a specific question.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 15 — CHOOSING THE RIGHT VISUALIZATION
+     ============================================================ -->
+<section class="lesson" id="decision-guide">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">15 —</div>
+      <div>
+        <span class="lesson-kicker">Decision Guide</span>
+        <h2>Choosing the Right Visualization</h2>
+      </div>
+    </div>
+    <p>When you're staring at a fresh dataset and wondering which chart to reach for, ask yourself what <em>kind</em> of question you're answering. This flowchart is the fast answer:</p>
+
+    <div class="flowchart">
+      <div class="fc-branch">
+        <div class="fc-left">Comparing separate categories (fruit, department, brand)</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Bar Graph</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">Seeing the shape of continuous numeric data (marks, height, salary)</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Histogram</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">Tracking change across time (sales, prices, visitors)</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Line Graph</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">Showing proportions of one whole (market share, budget split)</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Pie Chart</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">A small numerical dataset where every point matters</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Dot Plot</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">Finding the median / percentile of accumulated data</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Ogive</div>
+      </div>
+      <div class="fc-branch">
+        <div class="fc-left">Relationship between two categorical variables</div>
+        <div class="fc-arrow">↓</div>
+        <div class="fc-right">Two-Way Table</div>
+      </div>
+    </div>
+
+    <div class="box tip">
+      <div class="box-icon">💡</div>
+      <div><span class="box-label">Fast rule of thumb</span>Categorical → Bar or Pie. Continuous → Histogram or Line. Small &amp; precise → Dot Plot. Running total → Ogive. Two variables → Two-Way Table.</div>
+    </div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Start from the question, not the chart — the right visualization falls out naturally once you know what you're really asking.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 16 — REAL-WORLD MINI CASE STUDIES
+     ============================================================ -->
+<section class="lesson" id="case-studies">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">16 —</div>
+      <div>
+        <span class="lesson-kicker">Applied</span>
+        <h2>Real-World Mini Case Studies</h2>
+      </div>
+    </div>
+    <p>For each scenario below, think about which chart you'd reach for — then click "Reveal" to check your reasoning.</p>
+
+    <div class="case-grid" id="case-study-grid"></div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      Notice how the same decision rules from Lesson 15 apply every time — the scenario changes, the logic doesn't.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 17 — INTERACTIVE PRACTICE SECTION
+     ============================================================ -->
+<section class="lesson" id="practice">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">17 —</div>
+      <div>
+        <span class="lesson-kicker">Test Yourself</span>
+        <h2>Interactive Practice Section</h2>
+      </div>
+    </div>
+    <p>Ten quick questions. Pick your answer for each — you'll see immediately whether you're right, plus a short explanation either way.</p>
+
+    <div id="practice-grid"></div>
+
+    <div class="takeaway">
+      <span class="tk-label">Key Takeaway</span>
+      If most of these felt easy, you've internalized the core skill of this course: matching data type and question to chart type.
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     LESSON 18 — FINAL SUMMARY
+     ============================================================ -->
+<section class="lesson" id="summary">
+  <div class="lesson-card">
+    <div class="lesson-head">
+      <div class="lesson-tick">18 —</div>
+      <div>
+        <span class="lesson-kicker">Wrap-Up</span>
+        <h2>Final Summary</h2>
+      </div>
+    </div>
+    <p>Every lesson in this course has secretly been the same story, told with a different picture each time. Here's the full roadmap from start to finish:</p>
+
+    <div class="roadmap">
+      <div class="rm-node main">Raw Data</div>
+      <div class="rm-arrow">↓</div>
+      <div class="rm-node">One-Way Table</div>
+      <div class="rm-arrow">↓</div>
+      <div class="rm-node">Frequency Table</div>
+      <div class="rm-arrow">↓</div>
+      <div class="rm-node">Relative Frequency</div>
+      <div class="rm-arrow">↓</div>
+      <div class="rm-node main">Visualization</div>
+      <div class="rm-branches">
+        <div class="rm-node">Bar Graph</div>
+        <div class="rm-node">Pie Chart</div>
+        <div class="rm-node">Histogram</div>
+        <div class="rm-node">Line Graph</div>
+        <div class="rm-node">Dot Plot</div>
+        <div class="rm-node">Ogive</div>
+      </div>
+      <div class="rm-arrow">↓ (with a second variable)</div>
+      <div class="rm-node">Two-Way Table → Joint Distribution</div>
+    </div>
+
+    <h3>🔑 Key Takeaways</h3>
+    <ul>
+      <li>Every visualization begins with organizing raw data — first into a table, then into a frequency count.</li>
+      <li>Your variable type (categorical vs continuous) decides which charts are even valid — check this before choosing a chart.</li>
+      <li>Bar Graphs and Pie Charts both come from a Frequency Table, but answer different questions: "which is bigger" vs "what share of the whole."</li>
+      <li>Line Graphs and Ogives are both about sequences — one tracks a changing value, the other tracks a running total.</li>
+      <li>Histograms are the continuous-data cousin of Bar Graphs — touching bars, adjustable bins, and the single most-used chart in data science.</li>
+      <li>Two-Way Tables and Joint Distributions extend everything you learned about one variable to two variables at once.</li>
+      <li>There's no single "best" chart — the right one always depends on your data type and the question you're asking.</li>
+    </ul>
+
+    <div class="box remember">
+      <div class="box-icon">🎓</div>
+      <div><span class="box-label">You've completed the course</span>Organized data leads naturally to the correct visualization — that one sentence is the whole subject of Data Visualization, and you now know exactly how to get there, every time.</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  Data Visualization — Sheryians AI School · Built for learners taking their first steps into Data Science
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   THEME TOGGLE
+   ============================================================ */
+function toggleTheme(){
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-toggle').textContent = isDark ? '🌙' : '☀️';
+}
+window.toggleTheme = toggleTheme;
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  document.documentElement.setAttribute('data-theme','dark');
+  document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('theme-toggle').textContent = '☀️';
+  });
+}
+
+/* ============================================================
+   PROGRESS BAR + BACK TO TOP
+   ============================================================ */
+function onScroll(){
+  const h = document.documentElement;
+  const scrollTop = h.scrollTop || document.body.scrollTop;
+  const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+  const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+  document.getElementById('progress-bar').style.width = pct + '%';
+  const btn = document.getElementById('back-to-top');
+  if (scrollTop > 600) btn.classList.add('show'); else btn.classList.remove('show');
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+
+/* ============================================================
+   SCROLL REVEAL FOR LESSON CARDS
+   ============================================================ */
+const lessonObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if (entry.isIntersecting){
+      entry.target.classList.add('in-view');
+      lessonObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.12});
+document.querySelectorAll('section.lesson').forEach(function(s){ lessonObserver.observe(s); });
+
+/* ============================================================
+   SVG CHART ENGINE
+   ============================================================ */
+const NS = 'http://www.w3.org/2000/svg';
+const PALETTE = ['#5B6EE1','#1FA39C','#E0A73B','#E15C45','#9B7FE0','#4C90D5'];
+
+function el(tag, attrs){
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs){ e.setAttribute(k, attrs[k]); }
+  return e;
+}
+function text(x,y,str,attrs){
+  const t = el('text', Object.assign({x:x,y:y},attrs||{}));
+  t.textContent = str;
+  return t;
+}
+function viewBoxOf(svg){
+  return svg.getAttribute('viewBox').split(' ').map(Number);
+}
+
+/* ---- Bar Chart ---- */
+function buildBarChart(svgId, items, opts){
+  opts = opts || {};
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const [,,vw,vh] = viewBoxOf(svg);
+  const mL = 42, mR = 16, mT = 20, mB = 40;
+  const cw = vw - mL - mR, ch = vh - mT - mB;
+  const maxVal = Math.max.apply(null, items.map(function(d){return d.value;})) * 1.2;
+  const n = items.length;
+  const slot = cw / n;
+  const barW = slot * 0.55;
+  const baseline = mT + ch;
+
+  svg.appendChild(el('line', {x1:mL, y1:baseline, x2:mL+cw, y2:baseline, class:'axis-line'}));
+
+  items.forEach(function(d,i){
+    const x = mL + i*slot + (slot-barW)/2;
+    const h = (d.value / maxVal) * ch;
+    const y = baseline - h;
+    const color = opts.colors ? opts.colors[i % opts.colors.length] : PALETTE[i % PALETTE.length];
+    const rect = el('rect', {x:x, y:y, width:barW, height:h, rx:4, fill:color, class:'bar-rect'});
+    rect.style.transitionDelay = (i*0.08)+'s';
+    const title = el('title', {}); title.textContent = d.label + ': ' + d.value;
+    rect.appendChild(title);
+    svg.appendChild(rect);
+    svg.appendChild(text(x+barW/2, y-8, String(d.value), {class:'bar-value', 'text-anchor':'middle'}));
+    svg.appendChild(text(x+barW/2, baseline+18, d.label, {class:'axis-label', 'text-anchor':'middle'}));
+  });
+  return svg;
+}
+
+/* ---- Pie Chart ---- */
+function buildPieChart(svgId, items, opts){
+  opts = opts || {};
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const [,,vw,vh] = viewBoxOf(svg);
+  const cx = vw*0.38, cy = vh/2, r = Math.min(vw*0.34, vh*0.42);
+  const total = items.reduce(function(s,d){return s+d.value;},0);
+  let angleStart = -Math.PI/2;
+
+  items.forEach(function(d,i){
+    const frac = d.value/total;
+    const angleEnd = angleStart + frac*Math.PI*2;
+    const x1 = cx + r*Math.cos(angleStart), y1 = cy + r*Math.sin(angleStart);
+    const x2 = cx + r*Math.cos(angleEnd), y2 = cy + r*Math.sin(angleEnd);
+    const large = (angleEnd-angleStart) > Math.PI ? 1 : 0;
+    const d1 = 'M '+cx+','+cy+' L '+x1+','+y1+' A '+r+','+r+' 0 '+large+' 1 '+x2+','+y2+' Z';
+    const color = opts.colors ? opts.colors[i % opts.colors.length] : PALETTE[i % PALETTE.length];
+    const g = el('g', {class:'pie-wedge'});
+    g.style.transitionDelay = (i*0.09)+'s';
+    const path = el('path', {d:d1, fill:color});
+    const title = el('title', {}); title.textContent = d.label+': '+(frac*100).toFixed(1)+'%';
+    path.appendChild(title);
+    g.appendChild(path);
+    const midAngle = (angleStart+angleEnd)/2;
+    const lx = cx + r*0.65*Math.cos(midAngle), ly = cy + r*0.65*Math.sin(midAngle);
+    if (frac > 0.06){
+      g.appendChild(text(lx, ly, (frac*100).toFixed(1)+'%', {class:'wedge-label', 'text-anchor':'middle', fill:'#fff', style:'font-weight:700;'}));
+    }
+    svg.appendChild(g);
+    angleStart = angleEnd;
+  });
+
+  const legendX = vw*0.72;
+  items.forEach(function(d,i){
+    const ly = cy - (items.length*20)/2 + i*20;
+    const color = opts.colors ? opts.colors[i % opts.colors.length] : PALETTE[i % PALETTE.length];
+    svg.appendChild(el('rect', {x:legendX, y:ly-9, width:11, height:11, rx:3, fill:color}));
+    svg.appendChild(text(legendX+17, ly, d.label, {class:'axis-label', 'dominant-baseline':'middle'}));
+  });
+  return svg;
+}
+
+/* ---- Line Chart (also used for Ogive) ---- */
+function buildLineChart(svgId, points, opts){
+  opts = opts || {};
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const [,,vw,vh] = viewBoxOf(svg);
+  const mL = 42, mR = 20, mT = 24, mB = 40;
+  const cw = vw-mL-mR, ch = vh-mT-mB;
+  const maxVal = Math.max.apply(null, points.map(function(p){return p.value;})) * 1.15;
+  const n = points.length;
+  const baseline = mT+ch;
+  const stepX = n>1 ? cw/(n-1) : 0;
+  const color = opts.color || PALETTE[0];
+
+  svg.appendChild(el('line', {x1:mL, y1:baseline, x2:mL+cw, y2:baseline, class:'axis-line'}));
+  svg.appendChild(el('line', {x1:mL, y1:mT, x2:mL, y2:baseline, class:'axis-line'}));
+
+  const coords = points.map(function(p,i){
+    const x = mL + i*stepX;
+    const y = baseline - (p.value/maxVal)*ch;
+    return {x:x,y:y,p:p};
+  });
+  const d = coords.map(function(c,i){ return (i===0?'M':'L')+c.x+','+c.y; }).join(' ');
+  const path = el('path', {d:d, fill:'none', stroke:color, 'stroke-width':3, 'stroke-linecap':'round', 'stroke-linejoin':'round', class:'line-path'});
+  svg.appendChild(path);
+
+  coords.forEach(function(c,i){
+    const dot = el('circle', {cx:c.x, cy:c.y, r:5, fill:color, class:'dot-pt'});
+    dot.style.transitionDelay = (0.9 + i*0.05)+'s';
+    const title = el('title', {}); title.textContent = c.p.label+': '+c.p.value;
+    dot.appendChild(title);
+    svg.appendChild(dot);
+    svg.appendChild(text(c.x, baseline+18, c.p.label, {class:'axis-label', 'text-anchor':'middle'}));
+  });
+
+  requestAnimationFrame(function(){
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+  });
+  return svg;
+}
+
+/* ---- Dot Plot ---- */
+function buildDotPlot(svgId, values){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const [,,vw,vh] = viewBoxOf(svg);
+  const mL = 30, mR = 30, mT = 20, mB = 46;
+  const cw = vw-mL-mR;
+  const min = Math.min.apply(null,values)-1, max = Math.max.apply(null,values)+1;
+  const baseline = vh-mB;
+  const r = 9;
+
+  svg.appendChild(el('line', {x1:mL, y1:baseline, x2:mL+cw, y2:baseline, class:'axis-line'}));
+
+  const counts = {};
+  values.forEach(function(v){ counts[v] = (counts[v]||0)+1; });
+  const stackSoFar = {};
+  values.forEach(function(v,i){
+    const x = mL + ((v-min)/(max-min))*cw;
+    stackSoFar[v] = (stackSoFar[v]||0)+1;
+    const y = baseline - r - (stackSoFar[v]-1)*(r*2+3);
+    const dot = el('circle', {cx:x, cy:y, r:r, fill:PALETTE[1], class:'dot-pt'});
+    dot.style.transitionDelay = (i*0.05)+'s';
+    const title = el('title', {}); title.textContent = 'Mark: '+v;
+    dot.appendChild(title);
+    svg.appendChild(dot);
+  });
+  const uniqueVals = Object.keys(counts).map(Number).sort(function(a,b){return a-b;});
+  uniqueVals.forEach(function(v){
+    const x = mL + ((v-min)/(max-min))*cw;
+    svg.appendChild(text(x, baseline+20, String(v), {class:'axis-label', 'text-anchor':'middle'}));
+  });
+  return svg;
+}
+
+/* ---- Histogram (rebuildable for the bin slider) ---- */
+function buildHistogram(svgId, values, binCount){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = '';
+  const [,,vw,vh] = viewBoxOf(svg);
+  const mL = 42, mR = 16, mT = 20, mB = 40;
+  const cw = vw-mL-mR, ch = vh-mT-mB;
+  const min = Math.min.apply(null,values), max = Math.max.apply(null,values);
+  const binWidth = (max-min)/binCount;
+  const bins = new Array(binCount).fill(0);
+  values.forEach(function(v){
+    let idx = Math.floor((v-min)/binWidth);
+    if (idx >= binCount) idx = binCount-1;
+    if (idx < 0) idx = 0;
+    bins[idx]++;
+  });
+  const maxCount = Math.max.apply(null,bins) * 1.2;
+  const baseline = mT+ch;
+  const slot = cw/binCount;
+
+  svg.appendChild(el('line', {x1:mL, y1:baseline, x2:mL+cw, y2:baseline, class:'axis-line'}));
+
+  bins.forEach(function(count,i){
+    const x = mL + i*slot;
+    const h = maxCount>0 ? (count/maxCount)*ch : 0;
+    const y = baseline-h;
+    const rect = el('rect', {x:x, y:y, width:slot-1.5, height:h, fill:PALETTE[0], class:'bar-rect'});
+    rect.style.transitionDelay = (i*0.045)+'s';
+    const binStart = (min+i*binWidth).toFixed(1), binEnd = (min+(i+1)*binWidth).toFixed(1);
+    const title = el('title', {}); title.textContent = binStart+'–'+binEnd+': '+count+' students';
+    rect.appendChild(title);
+    svg.appendChild(rect);
+    if (count>0) svg.appendChild(text(x+slot/2, y-6, String(count), {class:'bar-value', 'text-anchor':'middle'}));
+    if (binCount <= 10 || i%2===0){
+      svg.appendChild(text(x, baseline+18, Math.round(min+i*binWidth), {class:'axis-label', 'text-anchor':'middle'}));
+    }
+  });
+  svg.appendChild(text(mL+cw, baseline+18, Math.round(max), {class:'axis-label', 'text-anchor':'middle'}));
+
+  document.getElementById('histogram-caption').textContent = 'Bin width ≈ ' + binWidth.toFixed(1) + ' marks per bin';
+  requestAnimationFrame(function(){ playChart(svg); });
+  return svg;
+}
+
+/* ---- Trigger the "grow / draw" animation ---- */
+function playChart(svg){
+  svg.querySelectorAll('.bar-rect, .pie-wedge, .dot-pt').forEach(function(elm){
+    elm.classList.add('play');
+  });
+  svg.querySelectorAll('.line-path').forEach(function(p){
+    p.style.strokeDashoffset = '0';
+  });
+}
+
+/* Observe chart svgs and play once visible */
+const chartIds = ['intro-demo-chart','bar-graph-chart','pie-chart-chart','line-graph-chart','ogive-chart','dot-plot-chart','histogram-chart'];
+const chartObserver = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if (entry.isIntersecting){
+      playChart(entry.target);
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, {threshold:0.35});
+
+/* ============================================================
+   DATASETS
+   ============================================================ */
+const FRUIT_DATA = [
+  {label:'Apple', value:8}, {label:'Banana', value:6}, {label:'Mango', value:4},
+  {label:'Orange', value:3}, {label:'Grape', value:3}
+];
+const INTRO_DEMO = [
+  {label:'S1', value:62}, {label:'S2', value:58}, {label:'S3', value:91},
+  {label:'S4', value:40}, {label:'S5', value:75}
+];
+const MONTHLY_SALES = [
+  {label:'Jan',value:42},{label:'Feb',value:45},{label:'Mar',value:40},{label:'Apr',value:50},
+  {label:'May',value:55},{label:'Jun',value:60},{label:'Jul',value:58},{label:'Aug',value:62},
+  {label:'Sep',value:68},{label:'Oct',value:75},{label:'Nov',value:90},{label:'Dec',value:110}
+];
+const OGIVE_DATA = [
+  {label:'<50', value:5}, {label:'<60', value:13}, {label:'<70', value:23},
+  {label:'<80', value:28}, {label:'<90', value:30}
+];
+const DOT_PLOT_MARKS = [58,60,61,62,63,63,64,65,65,66,68,70];
+const EXAM_MARKS_30 = [40,45,46,48,49,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,75,78,80,82];
+
+/* ============================================================
+   INIT — build everything once DOM is ready
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function(){
+
+  /* Fruit tally table (Lesson 4) */
+  const tallyBody = document.getElementById('freq-tally-body');
+  if (tallyBody){
+    FRUIT_DATA.forEach(function(d){
+      const tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+d.label+'</td><td>'+'●'.repeat(d.value)+'</td><td class="num">'+d.value+'</td>';
+      tallyBody.appendChild(tr);
+    });
+  }
+
+  /* Charts */
+  buildBarChart('intro-demo-chart', INTRO_DEMO, {colors:[PALETTE[0]]});
+  buildBarChart('bar-graph-chart', FRUIT_DATA);
+  buildPieChart('pie-chart-chart', FRUIT_DATA);
+  buildLineChart('line-graph-chart', MONTHLY_SALES, {color:PALETTE[1]});
+  buildLineChart('ogive-chart', OGIVE_DATA, {color:PALETTE[3]});
+  buildDotPlot('dot-plot-chart', DOT_PLOT_MARKS);
+  buildHistogram('histogram-chart', EXAM_MARKS_30, 5);
+
+  chartIds.filter(function(id){return id!=='histogram-chart';}).forEach(function(id){
+    const svg = document.getElementById(id);
+    if (svg) chartObserver.observe(svg);
+  });
+  /* histogram plays immediately on first build via buildHistogram's own rAF call */
+  playChart(document.getElementById('histogram-chart'));
+
+  /* Bin slider */
+  const slider = document.getElementById('bin-slider');
+  const readout = document.getElementById('bin-readout');
+  if (slider){
+    slider.addEventListener('input', function(){
+      readout.textContent = slider.value + ' bins';
+      buildHistogram('histogram-chart', EXAM_MARKS_30, parseInt(slider.value,10));
+    });
+  }
+
+  /* Joint distribution click-to-explain (Lesson 11) */
+  const jointExplanations = {
+    'jd-mp':'25% of all 100 students surveyed are men who prefer Python — the single largest combination in the whole survey.',
+    'jd-mj':'15% of all students are men who prefer JavaScript.',
+    'jd-mv':'10% of all students are men who prefer Java — the smallest combination among men.',
+    'jd-fp':'20% of all students are women who prefer Python.',
+    'jd-fj':'18% of all students are women who prefer JavaScript — the largest combination among women.',
+    'jd-fv':'12% of all students are women who prefer Java.'
+  };
+  Object.keys(jointExplanations).forEach(function(id){
+    const cell = document.getElementById(id);
+    if (!cell) return;
+    cell.style.cursor = 'pointer';
+    cell.addEventListener('click', function(){
+      document.querySelectorAll('#joint-dist-table td.num').forEach(function(c){ c.classList.remove('highlight'); });
+      cell.classList.add('highlight');
+      const box = document.getElementById('joint-explain');
+      document.getElementById('joint-explain-text').textContent = jointExplanations[id];
+      box.style.display = 'flex';
+    });
+  });
+
+  /* ============================================================
+     CASE STUDIES (Lesson 16)
+     ============================================================ */
+  const CASE_STUDIES = [
+    {q:'A company wants to see how its monthly revenue has changed over the last 2 years.', a:'Line Graph', why:'Revenue over time is a continuous sequence — a Line Graph shows the trend and direction of change clearly.'},
+    {q:'An analyst has the ages of 500 customers and wants to see the overall shape of the age distribution.', a:'Histogram', why:'Age is continuous numerical data on a large sample — bins reveal the shape (e.g. concentrated in 25–35) that raw numbers would hide.'},
+    {q:'A survey asked 200 developers their favourite programming language, and the team wants to show each language\u2019s share of total responses.', a:'Pie Chart', why:'The question is specifically about "share of the whole" — the classic use case for a Pie Chart.'},
+    {q:'A media company wants to track its website\u2019s daily visitor count across an entire year.', a:'Line Graph', why:'Daily visitors over a year is a long time series — a Line Graph makes seasonal spikes and dips easy to spot.'},
+    {q:'A retailer wants to compare total sales across 5 different product categories this quarter.', a:'Bar Graph', why:'These are separate, unrelated categories — a Bar Graph makes "which category sold the most" instantly visible.'},
+    {q:'A school wants to understand the spread of marks scored by 300 students in a final exam.', a:'Histogram', why:'Marks are continuous data across a large group — a Histogram reveals whether performance clusters around a particular range.'},
+    {q:'An investor wants to see how a stock\u2019s closing price moved every day for the past month.', a:'Line Graph', why:'Daily stock prices are sequential over time, and the direction of movement matters — a Line Graph is built exactly for this.'},
+    {q:'An HR manager wants to compare the number of employees in each of 6 departments.', a:'Bar Graph', why:'Departments are separate categories being compared by count — a straightforward Bar Graph use case.'}
+  ];
+  const caseGrid = document.getElementById('case-study-grid');
+  if (caseGrid){
+    CASE_STUDIES.forEach(function(c,i){
+      const card = document.createElement('div');
+      card.className = 'case-card';
+      card.innerHTML =
+        '<div class="case-q">'+(i+1)+'. '+c.q+'</div>'+
+        '<button class="chip-btn" type="button">Reveal Answer</button>'+
+        '<div class="case-answer"><strong>'+c.a+'</strong> — '+c.why+'</div>';
+      const btn = card.querySelector('.chip-btn');
+      const ans = card.querySelector('.case-answer');
+      btn.addEventListener('click', function(){
+        ans.classList.toggle('shown');
+        btn.textContent = ans.classList.contains('shown') ? 'Hide Answer' : 'Reveal Answer';
+      });
+      caseGrid.appendChild(card);
+    });
+  }
+
+  /* ============================================================
+     PRACTICE QUESTIONS (Lesson 17)
+     ============================================================ */
+  const PRACTICE = [
+    {q:'A teacher has exam marks for 400 students and wants to see the overall shape of performance.', choices:['Bar Graph','Histogram','Pie Chart','Line Graph'], correct:'Histogram', why:'400 continuous marks need bins to reveal the distribution shape — that\u2019s a Histogram\u2019s job.'},
+    {q:'A store wants to compare total sales across 6 product categories.', choices:['Bar Graph','Line Graph','Dot Plot','Ogive'], correct:'Bar Graph', why:'Separate categories being compared by total — the classic Bar Graph scenario.'},
+    {q:'A company wants to show what percentage of its total budget goes to each of 5 departments.', choices:['Pie Chart','Histogram','Line Graph','Dot Plot'], correct:'Pie Chart', why:'"Percentage of total" is a part-to-whole question — exactly what a Pie Chart is built for.'},
+    {q:'An analyst wants to track a stock\u2019s closing price every day for the last 90 days.', choices:['Line Graph','Bar Graph','Pie Chart','Two-Way Table'], correct:'Line Graph', why:'A long, ordered time sequence — a Line Graph shows the trend clearly.'},
+    {q:'A coach has the sprint times of just 8 athletes and wants to see every individual result.', choices:['Dot Plot','Histogram','Pie Chart','Line Graph'], correct:'Dot Plot', why:'Very small sample, every value matters — a Dot Plot keeps every observation visible.'},
+    {q:'A university wants to know how many students fall into each combination of Gender and Faculty.', choices:['Two-Way Table','Bar Graph','Pie Chart','Ogive'], correct:'Two-Way Table', why:'Two categorical variables cross-tabulated together need a Two-Way Table.'},
+    {q:'An exam board wants to find the median score using running totals, without recalculating from scratch.', choices:['Ogive','Bar Graph','Pie Chart','Dot Plot'], correct:'Ogive', why:'Finding a median from accumulated totals is the signature use of a cumulative frequency curve — the Ogive.'},
+    {q:'A retailer wants to compare monthly footfall trend across the last 12 months.', choices:['Line Graph','Bar Graph','Pie Chart','Dot Plot'], correct:'Line Graph', why:'A monthly trend across a year is a time series — Line Graph territory.'},
+    {q:'An HR team wants to see how many of 1,000 employees fall into each 10-year age range.', choices:['Histogram','Bar Graph','Pie Chart','Dot Plot'], correct:'Histogram', why:'Continuous age data grouped into ranges across a large group is exactly what a Histogram is for.'},
+    {q:'A blogger wants to show what share of total traffic came from Instagram vs Google vs Direct.', choices:['Pie Chart','Line Graph','Histogram','Two-Way Table'], correct:'Pie Chart', why:'"Share of total traffic" is a proportion-of-whole question — a Pie Chart, once again.'}
+  ];
+  const practiceGrid = document.getElementById('practice-grid');
+  if (practiceGrid){
+    PRACTICE.forEach(function(p,i){
+      const item = document.createElement('div');
+      item.className = 'practice-item';
+      const choicesHtml = p.choices.map(function(c){
+        return '<button class="choice-btn" data-choice="'+c+'" type="button">'+c+'</button>';
+      }).join('');
+      item.innerHTML =
+        '<div class="pq-num">Question '+(i+1)+' of '+PRACTICE.length+'</div>'+
+        '<div class="pq-text">'+p.q+'</div>'+
+        '<div class="choice-row">'+choicesHtml+'</div>'+
+        '<div class="pq-explain"></div>';
+      const explainBox = item.querySelector('.pq-explain');
+      item.querySelectorAll('.choice-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          if (item.dataset.answered) return;
+          item.dataset.answered = '1';
+          const chosen = btn.getAttribute('data-choice');
+          item.querySelectorAll('.choice-btn').forEach(function(b){
+            const c = b.getAttribute('data-choice');
+            if (c === p.correct) b.classList.add('correct');
+            else if (c === chosen) b.classList.add('wrong');
+          });
+          const verdict = chosen === p.correct ? 'Correct! ' : 'Not quite — the best answer is ' + p.correct + '. ';
+          explainBox.textContent = verdict + p.why;
+          explainBox.classList.add('shown');
+        });
+      });
+      practiceGrid.appendChild(item);
+    });
+  }
+
+  /* ============================================================
+     HERO SIGNATURE ANIMATION
+     ============================================================ */
+  const stageRaw = document.getElementById('stage-raw');
+  const stageTable = document.getElementById('stage-table');
+  const stageChart = document.getElementById('stage-chart');
+  const stageCaption = document.getElementById('stage-caption');
+
+  stageRaw.innerHTML = '<div style="font-family:var(--font-mono);font-size:13px;line-height:2.1;color:var(--ink-soft);text-align:center;max-width:380px;">'+
+    '<span style="color:'+PALETTE[0]+';font-weight:700;">Apple</span> · Banana · '+
+    '<span style="color:'+PALETTE[0]+';font-weight:700;">Apple</span> · Mango · Banana · '+
+    '<span style="color:'+PALETTE[0]+';font-weight:700;">Apple</span> · Orange · Grape · Banana · '+
+    '<span style="color:'+PALETTE[0]+';font-weight:700;">Apple</span> · Mango &hellip;</div>';
+
+  stageTable.innerHTML = '<table style="border-collapse:collapse;font-family:var(--font-mono);font-size:13px;">'+
+    '<tr><th style="padding:6px 18px;border-bottom:1px solid var(--border);text-align:left;color:var(--ink-soft);">Fruit</th><th style="padding:6px 18px;border-bottom:1px solid var(--border);text-align:right;color:var(--ink-soft);">Freq</th></tr>'+
+    '<tr><td style="padding:6px 18px;">Apple</td><td style="padding:6px 18px;text-align:right;">8</td></tr>'+
+    '<tr><td style="padding:6px 18px;">Banana</td><td style="padding:6px 18px;text-align:right;">6</td></tr>'+
+    '<tr><td style="padding:6px 18px;">Mango</td><td style="padding:6px 18px;text-align:right;">4</td></tr>'+
+    '</table>';
+
+  const chartSvg = document.createElementNS(NS,'svg');
+  chartSvg.setAttribute('viewBox','0 0 200 120');
+  chartSvg.setAttribute('style','width:200px;height:120px;');
+  [{h:70,c:PALETTE[0]},{h:52,c:PALETTE[1]},{h:34,c:PALETTE[2]}].forEach(function(b,i){
+    const rect = document.createElementNS(NS,'rect');
+    rect.setAttribute('x', 30+i*55); rect.setAttribute('y', 110-b.h);
+    rect.setAttribute('width',34); rect.setAttribute('height',b.h);
+    rect.setAttribute('rx',4); rect.setAttribute('fill',b.c);
+    chartSvg.appendChild(rect);
+  });
+  stageChart.appendChild(chartSvg);
+
+  const stages = [
+    {el:stageRaw, caption:'raw data'},
+    {el:stageTable, caption:'frequency table'},
+    {el:stageChart, caption:'visualization'}
+  ];
+  let stageIdx = 0;
+  stages[0].el.classList.add('active');
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion){
+    setInterval(function(){
+      stages[stageIdx].el.classList.remove('active');
+      stageIdx = (stageIdx+1) % stages.length;
+      stages[stageIdx].el.classList.add('active');
+      stageCaption.textContent = stages[stageIdx].caption;
+    }, 2600);
+  } else {
+    stageCaption.textContent = stages[0].caption;
+  }
+
+});
+})();
+</script>
+
+</body>
+</html>
